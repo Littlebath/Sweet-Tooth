@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player_Map : MonoBehaviour
 {
-    private PlayerController pc;
+    [SerializeField] private PlayerController pc;
     private PlayerInput pi;
     private GameObject map;
 
@@ -12,8 +12,7 @@ public class Player_Map : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        pi = FindObjectOfType<PlayerInput>();
-        pc = FindObjectOfType<PlayerController>();
+
     }
 
     // Update is called once per frame
@@ -23,6 +22,17 @@ public class Player_Map : MonoBehaviour
         {
             map = GameObject.FindGameObjectWithTag("Map").transform.GetChild(0).gameObject;
         }
+
+        if (pi == null)
+        {
+            pi = FindObjectOfType<PlayerInput>();
+        }
+
+        if (pc == null)
+        {
+            pc = FindObjectOfType<PlayerController>();
+        }
+
         MapControl();
     }
 
