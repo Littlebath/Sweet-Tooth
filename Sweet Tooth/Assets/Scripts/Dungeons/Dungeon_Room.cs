@@ -6,10 +6,7 @@ using UnityEngine.UI;
 public class Dungeon_Room : MonoBehaviour
 {
     private GameObject virtualCamera;
-    [SerializeField] private GameObject blackCover;
-    [SerializeField] private GameObject inLightMap;
 
-    private Color mapColor;
 
     // Start is called before the first frame update
     void Start()
@@ -29,9 +26,6 @@ public class Dungeon_Room : MonoBehaviour
         {
             FindObjectOfType<CameraController>().Update_Cameras();
             virtualCamera.SetActive(true);
-            blackCover.SetActive(false);
-            mapColor = Color.white;
-            inLightMap.GetComponent<Image>().color = mapColor;
         }
     }
 
@@ -41,8 +35,6 @@ public class Dungeon_Room : MonoBehaviour
         {
             //FindObjectOfType<CameraController>().Update_Cameras();
             virtualCamera.SetActive(false);
-            mapColor = Color.grey;
-            inLightMap.GetComponent<Image>().color = mapColor;
         }
     }
 }
