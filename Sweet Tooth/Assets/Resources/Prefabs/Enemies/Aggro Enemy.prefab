@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5805217727483643877}
   - component: {fileID: 5805217727483643876}
   - component: {fileID: 1337904350236416065}
+  - component: {fileID: 1847579117579374108}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Enemy
@@ -177,6 +178,23 @@ MonoBehaviour:
   attackRadius: 0.7
   homePosition: {fileID: 0}
   timeBtwChangeDirection: 0
+--- !u!114 &1847579117579374108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5805217727483643881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aff58c80354de30438131a32e092f66f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  percentageOfSpawningItem: 10
+  itemsToSpawn:
+  - {fileID: 6389354763630157469, guid: 04c8312e208c34e3884c7bec958c4221, type: 3}
+  - {fileID: 6458927120918848107, guid: 563fe4cc53de4c5478b7a3e32f68d3a6, type: 3}
+  - {fileID: 6686337591148734998, guid: 889730ba1bcaab6409fcac9ba4a200da, type: 3}
 --- !u!1 &5805217727974781042
 GameObject:
   m_ObjectHideFlags: 0

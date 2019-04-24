@@ -137,7 +137,7 @@ public class Manager_Dialogue : MonoBehaviour
 
     }
 
-    void EndDialogue ()
+    public void EndDialogue ()
     {
         //Debug.Log("End of conversation");
         pc.enabled = true;

@@ -529,6 +529,11 @@ public class PlayerController : MonoBehaviour
         FindObjectOfType<UI_HeartDisplay>().Update_Hearts();
         FindObjectOfType<CameraController>().Screen_Kick();
 
+        if (FindObjectOfType<Manager_Dialogue>().isTalking)
+        {
+            FindObjectOfType<Manager_Dialogue>().EndDialogue();
+        }
+
         if (designerValues.armor <= 0)
         {
             designerValues.health -= damage;
