@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
     public float thrust;
     public float knockTime;
 
-    [SerializeField] private GameObject shield;
+    public GameObject shield;
 
     [HideInInspector] public Animator anim;
 

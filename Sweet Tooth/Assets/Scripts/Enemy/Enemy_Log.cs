@@ -48,6 +48,12 @@ public class Enemy_Log : Enemy
                 gameObject.GetComponent<Rigidbody2D>().MovePosition(tempPos);                                                                                                                                                                                                                                                                                    
                 Change_State(EnemyState.walk);
                 anim.SetBool("isAwake", true);
+
+                if (shield != null)
+                {
+                    shield.SetActive(true);
+                }
+                
             }
         }
 
@@ -55,6 +61,11 @@ public class Enemy_Log : Enemy
         {
             //Debug.Log("Go to sleep");
             anim.SetBool("isAwake", false);
+
+            if (shield != null)
+            {
+                shield.SetActive(false);
+            }
         }
     }
 
