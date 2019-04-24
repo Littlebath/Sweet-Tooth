@@ -18,8 +18,7 @@ public class ShieldEnemy_Shield : MonoBehaviour
     void Update()
     {
         transform.position = shieldTransform.position;
-        Vector3 tempPos = gameObject.transform.parent.GetChild(0).GetComponent<Enemy_Log>().SuperPos;
-        StartCoroutine(ChangeAnim(tempPos - transform.position));
+        StartCoroutine(ChangeAnim(gameObject.transform.parent.GetChild(0).GetComponent<Enemy_Log>().SuperPos));
     }
 
     public void Damage_Shield (float damage)

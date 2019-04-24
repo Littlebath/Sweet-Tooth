@@ -25,6 +25,8 @@ public class Enemy : MonoBehaviour
     public float thrust;
     public float knockTime;
 
+    [SerializeField] private GameObject shield;
+
     [HideInInspector] public Animator anim;
 
     // Start is called before the first frame update
@@ -50,6 +52,11 @@ public class Enemy : MonoBehaviour
             gameObject.SetActive(false);
             GameObject effect = Instantiate(enemyDeathEffect, transform.position, Quaternion.identity);
             Destroy(effect, 1f);
+
+            if (shield != null)
+            {
+                Destroy(shield);
+            }
         }
 
         if (gameObject.GetComponent<Enemy_Dormant>() != null)
@@ -76,6 +83,36 @@ public class Enemy : MonoBehaviour
             }
         }
     }
+
+    public void Knock_Back_Me(GameObject me)
+    {
+        Rigidbody2D enemy = me.GetComponent<Rigidbody2D>();
+
+        if (enemy != null)
+        {
+            if (enemy.GetComponent<Enemy>().health > 0)
+            {
+                enemy.GetComponent<Enemy>().currentState = EnemyState.stagger;
+                enemy.isKinematic = false;
+                Vector2 difference = transform.position - GameObject.FindGameObjectWithTag("Player").transform.position;
+                difference = difference.normalized * thrust;
+                enemy.AddForce(difference, ForceMode2D.Impulse);
+                StartCoroutine(KnockMe(enemy));
+            }
+        }
+    }
+
+    private IEnumerator KnockMe(Rigidbody2D enemy)
+    {
+        if (enemy != null)
+        {
+            yield return new WaitForSeconds(knockTime);
+            enemy.velocity = Vector2.zero;
+            enemy.isKinematic = true;
+            enemy.GetComponent<Enemy>().currentState = EnemyState.idle;
+        }
+    }
+
 
     private IEnumerator KnockCo(Rigidbody2D enemy)
     {

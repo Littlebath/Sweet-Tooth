@@ -313,6 +313,7 @@ public class PlayerController : MonoBehaviour
                                 if (shields[i].CompareTag("Shield"))
                                 {
                                     shields[i].GetComponent<ShieldEnemy_Shield>().Damage_Shield(designerValues.meleeDamage);
+                                    shields[i].transform.parent.GetChild(0).GetComponent<Enemy>().Knock_Back_Me(shields[i].transform.parent.GetChild(0).gameObject);
                                 }
                             }
 
