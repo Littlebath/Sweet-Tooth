@@ -304,6 +304,19 @@ public class PlayerController : MonoBehaviour
                             {
                                 StartCoroutine(cinnamonBurns[i].GetComponent<Environment_Cinnamon>().Set_Alight());
                             }
+
+                            //Shields
+                            Collider2D[] shields = Physics2D.OverlapCircleAll(attackPos.position, designerValues.meleeRange);
+
+                            for (int i = 0; i < shields.Length; i++)
+                            {
+                                if (shields[i].CompareTag("Shield"))
+                                {
+                                    shields[i].GetComponent<ShieldEnemy_Shield>().Damage_Shield(designerValues.meleeDamage);
+                                }
+                            }
+
+                        
                         }
                     }
                 }

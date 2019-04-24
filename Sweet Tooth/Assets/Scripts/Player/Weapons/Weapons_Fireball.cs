@@ -94,6 +94,7 @@ public class Weapons_Fireball : MonoBehaviour
         if (collision.gameObject.CompareTag("Shield"))
         {
             Destroy(gameObject);
+            collision.gameObject.GetComponent<ShieldEnemy_Shield>().Damage_Shield(designerValues.fireballDamage);
         }
 
         if (collision.gameObject.CompareTag("Enemy"))

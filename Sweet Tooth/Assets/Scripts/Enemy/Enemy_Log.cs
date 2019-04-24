@@ -10,8 +10,10 @@ public class Enemy_Log : Enemy
     public float attackRadius;
     public Transform homePosition;
 
-    [SerializeField] private float timeBtwChangeDirection;
-    float timeBtwChangeDirectionCounter;
+    public float timeBtwChangeDirection;
+    [HideInInspector] public float timeBtwChangeDirectionCounter;
+
+    [HideInInspector] public Vector3 SuperPos;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +43,7 @@ public class Enemy_Log : Enemy
             if (currentState == EnemyState.idle || currentState == EnemyState.walk && currentState != EnemyState.stagger)
             {
                 Vector3 tempPos = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
+                SuperPos = tempPos;
                 StartCoroutine(ChangeAnim(tempPos - transform.position));
                 gameObject.GetComponent<Rigidbody2D>().MovePosition(tempPos);                                                                                                                                                                                                                                                                                    
                 Change_State(EnemyState.walk);
