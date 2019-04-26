@@ -16,9 +16,9 @@ public class Dungeon_Room : MonoBehaviour
     {
         virtualCamera = gameObject.transform.GetChild(0).gameObject;
 
-        //playerInZone = Color.green; 
-        //mapMarker = gameObject.transform.GetChild(1).gameObject;
-        //mapMarker.SetActive(false);
+        playerInZone = Color.green; 
+        mapMarker = gameObject.transform.GetChild(1).gameObject;
+        mapMarker.SetActive(false);
     }
 
     // Update is called once per frame
@@ -34,8 +34,8 @@ public class Dungeon_Room : MonoBehaviour
             FindObjectOfType<CameraController>().Update_Cameras();
             virtualCamera.SetActive(true);
 
-            //mapMarker.SetActive(true);
-            //mapMarker.GetComponent<SpriteRenderer>().color = playerInZone;
+            mapMarker.SetActive(true);
+            mapMarker.GetComponent<SpriteRenderer>().color = playerInZone;
         }
     }
 
@@ -43,9 +43,9 @@ public class Dungeon_Room : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            //FindObjectOfType<CameraController>().Update_Cameras();
-            //virtualCamera.SetActive(false);
-            //mapMarker.GetComponent<SpriteRenderer>().color = Color.white;
+            FindObjectOfType<CameraController>().Update_Cameras();
+            virtualCamera.SetActive(false);
+            mapMarker.GetComponent<SpriteRenderer>().color = Color.white;
         }
     }
 }
