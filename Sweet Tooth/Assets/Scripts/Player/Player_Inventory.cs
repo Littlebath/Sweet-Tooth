@@ -39,7 +39,7 @@ public class Player_Inventory : Inventory
         if (inventorySystem == null)
         {
             inventorySystem = FindObjectOfType<Inventory_System>().gameObject.transform.GetChild(0).gameObject;
-            Debug.Log("Locate");
+            //Debug.Log("Locate");
         }
 
         if (inventorySystem.activeSelf)
@@ -71,7 +71,7 @@ public class Player_Inventory : Inventory
 
     IEnumerator Open_Inventory()
     {
-        Debug.Log("Open Inventory");
+        //Debug.Log("Open Inventory");
         selector = inventorySystem.transform.GetChild(3).gameObject;
         inventorySystem.SetActive(true);
         StartCoroutine(FindObjectOfType<Inventory_System>().Update_Inventory());
@@ -82,7 +82,7 @@ public class Player_Inventory : Inventory
 
     IEnumerator Close_Inventory()
     {
-        Debug.Log("Close Inventory");
+        //Debug.Log("Close Inventory");
         inventorySystem.SetActive(false);
         StartCoroutine(Allow_Player_Movement());
         //Time.timeScale = 1;
@@ -142,7 +142,7 @@ public class Player_Inventory : Inventory
                 if (selection <= numerOfItems.Length - 3)
                 {
                     selection += 3;
-                    Debug.Log("Down");
+                    //Debug.Log("Down");
                 }
             }
         }

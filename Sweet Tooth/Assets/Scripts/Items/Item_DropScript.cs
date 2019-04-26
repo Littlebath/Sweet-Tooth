@@ -22,7 +22,7 @@ public class Item_DropScript : MonoBehaviour
         
     }
 
-    private void Spawn_Item ()
+    public void Spawn_Item ()
     {
         if (itemSpawner <= percentageOfSpawningItem)
         {
@@ -35,10 +35,5 @@ public class Item_DropScript : MonoBehaviour
         {
             Debug.Log("Don't drop item");
         }
-    }
-
-    private void OnDestroy()
-    {
-        Spawn_Item();
     }
 }

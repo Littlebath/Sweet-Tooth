@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player_LayerSorter : MonoBehaviour
 {
@@ -12,6 +13,12 @@ public class Player_LayerSorter : MonoBehaviour
     void Start()
     {
         originalSortingLayer = transform.parent.GetChild(0).GetComponent<SpriteRenderer>().sortingLayerName;
+
+        if (SceneManager.GetActiveScene().name == "Area 2")
+        {
+            transform.parent.GetChild(0).GetComponent<SpriteRenderer>().sortingLayerName = "Ground";
+            transform.parent.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = 1;
+        }
     }
 
     // Update is called once per frame
@@ -45,8 +52,18 @@ public class Player_LayerSorter : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("NPC") || collision.gameObject.CompareTag("Checkpoint") || collision.gameObject.CompareTag("EnemyLayer") || collision.gameObject.CompareTag("Obstacle") || collision.gameObject.CompareTag("breakable"))
         {
-            transform.parent.GetChild(0).GetComponent<SpriteRenderer>().sortingLayerName = originalSortingLayer;
-            transform.parent.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = 200;
+            if (SceneManager.GetActiveScene().name != "Area 2")
+            {
+                transform.parent.GetChild(0).GetComponent<SpriteRenderer>().sortingLayerName = originalSortingLayer;
+                transform.parent.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = 200;
+            }
+
+            else
+            {
+                transform.parent.GetChild(0).GetComponent<SpriteRenderer>().sortingLayerName = "Ground";
+                transform.parent.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = 1;
+            }
+
         }
     }
 }

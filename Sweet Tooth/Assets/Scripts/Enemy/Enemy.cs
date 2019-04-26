@@ -53,6 +53,11 @@ public class Enemy : MonoBehaviour
             GameObject effect = Instantiate(enemyDeathEffect, transform.position, Quaternion.identity);
             Destroy(effect, 1f);
 
+            if (gameObject.GetComponent<Item_DropScript>() != null)
+            {
+                gameObject.GetComponent<Item_DropScript>().Spawn_Item();
+            }
+
             if (shield != null)
             {
                 Destroy(shield);
