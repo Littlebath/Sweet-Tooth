@@ -56,11 +56,11 @@ public class PlayerController : MonoBehaviour
     {
         DestroyDuplicates();
 
-        anim = gameObject.GetComponentInChildren<Animator>();
+        anim = GetComponent<Animator>();
         pi = FindObjectOfType<PlayerInput>();
 
-        attackPos = gameObject.transform.GetChild(0).GetChild(2).transform;
-        spawnPoint = gameObject.transform.GetChild(0).GetChild(1).transform.gameObject;
+        attackPos = gameObject.transform.GetChild(7).transform;
+        spawnPoint = gameObject.transform.GetChild(6).transform.gameObject;
 
         designerValues.boomerang = Resources.Load("Prefabs/Player/Weapons/Boomerang") as GameObject;
 

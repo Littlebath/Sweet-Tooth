@@ -45,7 +45,7 @@ public class Environment_FireballDash : MonoBehaviour
         StartCoroutine(Snuff_Flames());
 
         playerRb2d = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
-        playerAnim = GameObject.FindGameObjectWithTag("Player").transform.GetChild(0).GetComponent<Animator>();
+        playerAnim = GameObject.FindGameObjectWithTag("Player").transform.GetComponent<Animator>();
     }
 
     // Update is called once per frame

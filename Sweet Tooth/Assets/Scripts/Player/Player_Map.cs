@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player_Map : MonoBehaviour
 {
-    [SerializeField] private PlayerController pc;
+    private PlayerController pc;
     private PlayerInput pi;
     private GameObject map;
 

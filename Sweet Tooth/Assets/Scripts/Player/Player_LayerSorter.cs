@@ -12,12 +12,12 @@ public class Player_LayerSorter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        originalSortingLayer = transform.parent.GetChild(0).GetComponent<SpriteRenderer>().sortingLayerName;
+        originalSortingLayer = transform.parent.GetComponent<SpriteRenderer>().sortingLayerName;
 
         if (SceneManager.GetActiveScene().name == "Area 2")
         {
-            transform.parent.GetChild(0).GetComponent<SpriteRenderer>().sortingLayerName = "Ground";
-            transform.parent.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = 1;
+            transform.parent.GetComponent<SpriteRenderer>().sortingLayerName = "Ground";
+            transform.parent.GetComponent<SpriteRenderer>().sortingOrder = 1;
         }
     }
 
@@ -26,8 +26,8 @@ public class Player_LayerSorter : MonoBehaviour
     {
         if (currentCollider == null)
         {
-            transform.parent.GetChild(0).GetComponent<SpriteRenderer>().sortingLayerName = originalSortingLayer;
-            transform.parent.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = 200;
+            transform.parent.GetComponent<SpriteRenderer>().sortingLayerName = originalSortingLayer;
+            transform.parent.GetComponent<SpriteRenderer>().sortingOrder = 200;
         }
     }
 
@@ -35,14 +35,14 @@ public class Player_LayerSorter : MonoBehaviour
     {
         if (collision.gameObject.CompareTag ("NPC") || collision.gameObject.CompareTag("Checkpoint") || collision.gameObject.CompareTag("EnemyLayer") || collision.gameObject.CompareTag("breakable"))
         {
-            transform.parent.GetChild(0).GetComponent<SpriteRenderer>().sortingLayerName = collision.transform.parent.GetComponent<SpriteRenderer>().sortingLayerName;
-            transform.parent.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = collision.transform.parent.GetComponent<SpriteRenderer>().sortingOrder - 1;
+            transform.parent.GetComponent<SpriteRenderer>().sortingLayerName = collision.transform.parent.GetComponent<SpriteRenderer>().sortingLayerName;
+            transform.parent.GetComponent<SpriteRenderer>().sortingOrder = collision.transform.parent.GetComponent<SpriteRenderer>().sortingOrder - 1;
         }
 
         if (collision.gameObject.CompareTag("Obstacle"))
         {
-            transform.parent.GetChild(0).GetComponent<SpriteRenderer>().sortingLayerName = "PlayerBehind";
-            transform.parent.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = -200;
+            transform.parent.GetComponent<SpriteRenderer>().sortingLayerName = "PlayerBehind";
+            transform.parent.GetComponent<SpriteRenderer>().sortingOrder = -200;
         }
 
         currentCollider = collision;
@@ -54,14 +54,14 @@ public class Player_LayerSorter : MonoBehaviour
         {
             if (SceneManager.GetActiveScene().name != "Area 2")
             {
-                transform.parent.GetChild(0).GetComponent<SpriteRenderer>().sortingLayerName = originalSortingLayer;
-                transform.parent.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = 200;
+                transform.parent.GetComponent<SpriteRenderer>().sortingLayerName = originalSortingLayer;
+                transform.parent.GetComponent<SpriteRenderer>().sortingOrder = 200;
             }
 
             else
             {
-                transform.parent.GetChild(0).GetComponent<SpriteRenderer>().sortingLayerName = "Ground";
-                transform.parent.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = 1;
+                transform.parent.GetComponent<SpriteRenderer>().sortingLayerName = "Ground";
+                transform.parent.GetComponent<SpriteRenderer>().sortingOrder = 1;
             }
 
         }

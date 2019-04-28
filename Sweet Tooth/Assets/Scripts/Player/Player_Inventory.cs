@@ -96,7 +96,7 @@ public class Player_Inventory : Inventory
         pc.enabled = false;
         pi.horizontalInput = 0f;
         pi.verticalInput = 0f;
-        gameObject.transform.GetChild(0).GetComponent<Animator>().SetBool("isMoving", false);
+        gameObject.transform.GetComponent<Animator>().SetBool("isMoving", false);
         yield return null;
     }
 
