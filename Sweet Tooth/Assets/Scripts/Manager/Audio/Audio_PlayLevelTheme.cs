@@ -19,7 +19,8 @@ public class Audio_PlayLevelTheme : MonoBehaviour
 
     IEnumerator PlaySongAtStart ()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.5f);
         FindObjectOfType<Manager_AudioManager>().Play(levelSong);
+        Debug.Log(levelSong);
     }
 }
