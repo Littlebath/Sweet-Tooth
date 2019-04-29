@@ -36,30 +36,48 @@ public class Enemy_Log : Enemy
 
     }
 
-    void Check_Distance ()
+    void Check_Distance()
     {
-        if (Vector3.Distance (target.position, transform.position) <= chaseRadius && Vector3.Distance(target.position, transform.position) > attackRadius)
+        if (Vector3.Distance(target.position, transform.position) <= chaseRadius && Vector3.Distance(target.position, transform.position) > attackRadius)
         {
-            if (currentState == EnemyState.idle || currentState == EnemyState.walk && currentState != EnemyState.stagger)
-            {
-                Vector3 tempPos = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
-                SuperPos = tempPos - transform.position;
-                StartCoroutine(ChangeAnim(SuperPos));
-                gameObject.GetComponent<Rigidbody2D>().MovePosition(tempPos);                                                                                                                                                                                                                                                                                    
-                Change_State(EnemyState.walk);
-                anim.SetBool("isAwake", true);
+            Vector2 direction = target.transform.position - transform.position;
+            float distance = Vector2.Distance(transform.position, target.transform.position);
 
-                if (shield != null)
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distance);
+            Debug.DrawRay(transform.position, direction, Color.red);
+            //Debug.Log(hit.collider.name);
+
+            if (hit == true)
+            {
+                if (hit.collider.name == target.gameObject.name)
                 {
-                    shield.SetActive(true);
+                    if (currentState == EnemyState.idle || currentState == EnemyState.walk && currentState != EnemyState.stagger)
+                    {
+                        Vector3 tempPos = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
+                        SuperPos = tempPos - transform.position;
+                        StartCoroutine(ChangeAnim(SuperPos));
+                        gameObject.GetComponent<Rigidbody2D>().MovePosition(tempPos);
+                        Change_State(EnemyState.walk);
+                        anim.SetBool("isAwake", true);
+
+                        if (shield != null)
+                        {
+                            shield.SetActive(true);
+                        }
+                    }
                 }
-                
+
+                else
+                {
+                    Debug.Log("Player missing");
+                }
             }
+
         }
 
         else if (Vector3.Distance(target.position, transform.position) > chaseRadius)
         {
-            //Debug.Log("Go to sleep");
+            Debug.Log("Go to sleep");
             anim.SetBool("isAwake", false);
 
             if (shield != null)

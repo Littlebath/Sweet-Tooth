@@ -13,6 +13,8 @@ public class Player_Inventory : Inventory
 
     private int selection;
 
+    [SerializeField] Transform spawnPoint;
+
     private PlayerInput pi;
     private PlayerController pc;
 
@@ -161,23 +163,35 @@ public class Player_Inventory : Inventory
             if (slots[selection] != null)
             {
                 //Drop Item here!!
-                GameObject item = Resources.Load<GameObject>("Prefabs/Designer/Level/PickUps/Items/" + slots[selection].GetComponent<Item>().gameObject.name);
-                Instantiate(item, pc.spawnPoint.transform.position, Quaternion.identity);
-                item.name = slots[selection].GetComponent<Item>().gameObject.name;
+                Collider2D areaDrop = Physics2D.OverlapCircle(spawnPoint.position, 0.5f);
 
-                if (numerOfItems[selection] > 1)
+                if (areaDrop == null)
                 {
-                    numerOfItems[selection]--;
+                    GameObject item = Resources.Load<GameObject>("Prefabs/Designer/Level/PickUps/Items/" + slots[selection].GetComponent<Item>().gameObject.name);
+                    Instantiate(item, pc.spawnPoint.transform.position, Quaternion.identity);
+                    item.name = slots[selection].GetComponent<Item>().gameObject.name;
+
+                    if (numerOfItems[selection] > 1)
+                    {
+                        numerOfItems[selection]--;
+                    }
+
+                    else
+                    {
+                        numerOfItems[selection]--;
+                        slots[selection] = null;
+                        Destroy(inventorySystem.transform.GetChild(2).GetChild(selection).GetChild(1).gameObject);
+                    }
+
+                    StartCoroutine(FindObjectOfType<Inventory_System>().Update_Inventory());
                 }
 
                 else
                 {
-                    numerOfItems[selection]--;
-                    slots[selection] = null;
-                    Destroy(inventorySystem.transform.GetChild(2).GetChild(selection).GetChild(1).gameObject);
+                    Debug.Log("Blocked by object");
+                    Debug.Log(areaDrop);
                 }
 
-                StartCoroutine(FindObjectOfType<Inventory_System>().Update_Inventory());
             }
         }
     }

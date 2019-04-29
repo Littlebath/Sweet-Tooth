@@ -79,11 +79,12 @@ public class Enemy : MonoBehaviour
             if (enemy.GetComponent<PlayerController>().designerValues.health > 0)
             {
                 //Debug.Log("Hit");
-                enemy.isKinematic = true;
-                Vector2 difference = enemy.transform.position - transform.position;
+                //enemy.isKinematic = true;
+                Vector3 difference = enemy.transform.position - transform.position;
                 //Debug.Log(difference);
                 difference = difference.normalized * thrust;
                 enemy.velocity = difference;
+                PlayerController.isPlayerHurt = true;
                 StartCoroutine(KnockCo(enemy));
             }
         }
@@ -125,9 +126,8 @@ public class Enemy : MonoBehaviour
         {
             yield return new WaitForSeconds(knockTime);
             enemy.velocity = Vector2.zero;
-            enemy.isKinematic = false;
+            PlayerController.isPlayerHurt = false;
         }
-
     }
 }
 

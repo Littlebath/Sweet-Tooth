@@ -67,7 +67,7 @@ public class Player_Map : MonoBehaviour
         isMapOn = true;
         pc.enabled = false;
         FindObjectOfType<PlayerInput>().GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        FindObjectOfType<PlayerInput>().transform.GetChild(0).GetComponent<Animator>().SetBool("isMoving", false);
+        FindObjectOfType<PlayerInput>().transform.GetComponent<Animator>().SetBool("isMoving", false);
         map.SetActive(true);
         Debug.Log("Open map");
         yield return null;

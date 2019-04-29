@@ -42,20 +42,25 @@ public class NPC : MonoBehaviour
             {
                 Debug.Log("Button pressed");
 
-                if (!md.isTalking)
+                if (FindObjectOfType<PlayerController>().isMoving == false)
                 {
-                    FindObjectOfType<PlayerController>().isMelee = false;
-                    Debug.Log("Start dialogue");
-                    //gameObject.GetComponent<Dialogue_Trigger>().TriggerDialogue();
-                    Say_Dialogue();
-                    FacePlayer();
-                    //Debug.Log("Talk");
+                    if (!md.isTalking)
+                    {
+                        FindObjectOfType<PlayerController>().isMelee = false;
+                        Debug.Log("Start dialogue");
+                        GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                        //gameObject.GetComponent<Dialogue_Trigger>().TriggerDialogue();
+                        Say_Dialogue();
+                        FacePlayer();
+                        //Debug.Log("Talk");
+                    }
+
+                    else
+                    {
+                        md.DisplayNextSentence();
+                    }
                 }
 
-                else
-                {
-                    md.DisplayNextSentence();
-                }
             }
  
         }

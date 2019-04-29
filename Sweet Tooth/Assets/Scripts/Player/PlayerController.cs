@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool isSpinning;
 
     private static bool isPlayerExisting;
+    public static bool isPlayerHurt;
 
     //Transform
     [HideInInspector] public Transform attackPos;
@@ -110,7 +111,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         //GridMovement();
-        if (gameObject.GetComponent<Rigidbody2D>().isKinematic == false)
+        if (!isPlayerHurt)
         {
             EightDirectionalMovement();
             Combat();

@@ -68,8 +68,8 @@ public class LoadNewArea : MonoBehaviour
             StartCoroutine(startPoints[i].Spawn_Player());
         }
 
-        pc.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingLayerName = "Player";
-        pc.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = 200;
+        pc.transform.GetComponent<SpriteRenderer>().sortingLayerName = "Player";
+        pc.transform.GetComponent<SpriteRenderer>().sortingOrder = 200;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
