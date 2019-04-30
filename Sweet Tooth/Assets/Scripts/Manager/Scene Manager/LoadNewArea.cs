@@ -42,6 +42,7 @@ public class LoadNewArea : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         SceneManager.LoadScene(nextLevel);
+
         FindObjectOfType<Fading>().ResetTriggers();
         pc.transform.GetComponent<SpriteRenderer>().sortingLayerName = "Player";
         pc.transform.GetComponent<SpriteRenderer>().sortingOrder = 200;
@@ -76,6 +77,10 @@ public class LoadNewArea : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+
+            FindObjectOfType<PlayerController>().enabled = false;
+            FindObjectOfType<PlayerController>().GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+
             if (nextLevel != SceneManager.GetActiveScene().name)
             {
                 StartCoroutine(GoToNextLevel());
@@ -85,6 +90,7 @@ public class LoadNewArea : MonoBehaviour
             {
                 StartCoroutine(ShiftPlayerToNewSpot());
             }
+
             //collision.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingLayerName = "Player";
             //collision.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = 200;
         }

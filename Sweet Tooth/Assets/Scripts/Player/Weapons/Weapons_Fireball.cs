@@ -7,6 +7,7 @@ public class Weapons_Fireball : MonoBehaviour
 {
     [SerializeField] private Player_ScriptableObject designerValues;
     [SerializeField] private GameObject inferno;
+    [SerializeField] private GameObject effect;
 
     //Floats
     private float currentSpeed;
@@ -110,7 +111,7 @@ public class Weapons_Fireball : MonoBehaviour
             collision.gameObject.GetComponent<Environment_Gum>().Spawn_Sticky();
         }
 
-
+        Instantiate(effect, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 

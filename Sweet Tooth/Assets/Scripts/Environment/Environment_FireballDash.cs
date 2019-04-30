@@ -109,7 +109,7 @@ public class Environment_FireballDash : MonoBehaviour
                     StartCoroutine(Burn_Enemy(collision));
                 }
 
-                if (collision.gameObject.CompareTag("Player"))
+                /*if (collision.gameObject.CompareTag("Player"))
                 {
                     Debug.Log("Hit Player");
                     burner = whoIsOnFire.Player;
@@ -130,7 +130,7 @@ public class Environment_FireballDash : MonoBehaviour
                         Destroy(gameObject, snuffFlames.averageDuration);
                     }
 
-                }
+                }*/
             }
         }
     }
