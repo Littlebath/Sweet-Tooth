@@ -16,14 +16,14 @@ MonoBehaviour:
   maxHealth: 8
   health: 8
   maxArmor: 6
-  armor: 0
+  armor: -1
   armorMultiplier: 25
   hasDash: 1
-  hasFireball: 1
+  hasFireball: 0
   dashSpeed: 15
   dashTime: 0.2
   maxEnergy: 5
-  energyCounter: 3
+  energyCounter: 5
   energyRegenerateTime: 5
   energyRegenerateAmount: 1
   meleeRange: 0.25
@@ -44,8 +44,8 @@ MonoBehaviour:
   fireballDamage: 1
   fireballEnergyUse: 1
   destroyTime: 0.5
-  fireballFireRate: 0.5
-  fireballRecovery: 5
+  fireballFireRate: 0.1
+  fireballRecovery: 4
   whatIsEnemy:
     serializedVersion: 2
     m_Bits: 1024

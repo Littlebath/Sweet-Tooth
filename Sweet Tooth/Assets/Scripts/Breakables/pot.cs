@@ -26,6 +26,7 @@ public class pot : MonoBehaviour
     IEnumerator breakCo()
     {
         yield return new WaitForSeconds(.3f);
+        gameObject.GetComponent<Item_DropScript>().Spawn_Item();
         Destroy(gameObject);
     }
 }

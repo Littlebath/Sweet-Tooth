@@ -97,9 +97,12 @@ public class PlayerController : MonoBehaviour
     {
         if (energyTimeCounter <= 0)
         {
-            designerValues.energyCounter += designerValues.energyRegenerateAmount;
-            energyTimeCounter = designerValues.energyRegenerateTime;
-            //Debug.Log("added amount");
+            if (designerValues.energyCounter < designerValues.maxEnergy)
+            {
+                designerValues.energyCounter += designerValues.energyRegenerateAmount;
+                energyTimeCounter = designerValues.energyRegenerateTime;
+                //Debug.Log("added amount");
+            }
         }
 
         else
@@ -274,14 +277,14 @@ public class PlayerController : MonoBehaviour
 
     void Melee ()
     {
-        //Debug.Log("Can Melee");
+        Debug.Log("I can attack" + isMelee);
 
-        if (Input.GetButton("Dash") == false)
+        if (timeBtwAttack <= 0)
         {
-            if (timeBtwAttack <= 0)
-            {
-                isMelee = false;
+            isMelee = false;
 
+            if (Input.GetButton("Dash") == false)
+            {
                 if (!isMoving)
                 {
                     if (!NPC.canMelee)
@@ -317,20 +320,18 @@ public class PlayerController : MonoBehaviour
                                     shields[i].transform.parent.GetChild(0).GetComponent<Enemy>().Knock_Back_Me(shields[i].transform.parent.GetChild(0).gameObject);
                                 }
                             }
-
-                        
                         }
                     }
                 }
             }
-
-            else
-            {
-                timeBtwAttack -= Time.deltaTime;
-                isMelee = true;
-            }
-
         }
+
+        else
+        {
+            timeBtwAttack -= Time.deltaTime;
+            isMelee = true;
+        }
+
 
         if (isMelee)
         {
@@ -350,7 +351,7 @@ public class PlayerController : MonoBehaviour
             }
 
             //Breakable Objects
-            Collider2D [] breakablesToDestroy = Physics2D.OverlapCircleAll(attackPos.position, designerValues.meleeRange, designerValues.whatIsBreakables);
+            Collider2D[] breakablesToDestroy = Physics2D.OverlapCircleAll(attackPos.position, designerValues.meleeRange, designerValues.whatIsBreakables);
 
             for (int i = 0; i < breakablesToDestroy.Length; i++)
             {
@@ -375,6 +376,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
 
     private IEnumerator Throw_Boomerang()
     {

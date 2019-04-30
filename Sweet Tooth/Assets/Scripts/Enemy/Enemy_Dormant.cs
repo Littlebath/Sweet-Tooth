@@ -7,7 +7,7 @@ public class Enemy_Dormant : Enemy
     [Header("Specific enemy stats")]
     public Transform target;
     public float chaseRadius;
-    public float attackRadius;
+    public float attackRadius = 0.4f;
 
     [HideInInspector] public bool isAggressive;
     // Start is called before the first frame update

@@ -18,9 +18,9 @@ public class UI_DashCounter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //dashCounterDisplay.text = psc.energyCounter.ToString();
+        dashCounterDisplay.text = psc.energyCounter.ToString();
 
-        Set_Bar();
+        //Set_Bar();
     }
 
     void Set_Bar ()
