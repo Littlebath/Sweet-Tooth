@@ -51,6 +51,12 @@ public class Environment_Gum : MonoBehaviour
 
             }
         }
+
+        else if (collision.gameObject.CompareTag("Enemy"))
+        {
+            //Sticky enemy
+            StartCoroutine(Stick_Enemy(collision));
+        }
     }
 
     public void Spawn_Sticky ()
@@ -63,5 +69,13 @@ public class Environment_Gum : MonoBehaviour
     {
         yield return new WaitForSeconds (3f);
         pc.isSpinning = false;
+    }
+
+    private IEnumerator Stick_Enemy (Collider2D other)
+    {
+        float currentSpeed = other.gameObject.GetComponent<Enemy>().moveSpeed;
+        other.gameObject.GetComponent<Enemy>().moveSpeed = 0f;
+        yield return new WaitForSeconds(3f);
+        other.gameObject.GetComponent<Enemy>().moveSpeed = currentSpeed;
     }
 }
