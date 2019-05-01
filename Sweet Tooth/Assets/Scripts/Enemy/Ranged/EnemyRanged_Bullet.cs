@@ -26,6 +26,11 @@ public class EnemyRanged_Bullet : MonoBehaviour
                 FindObjectOfType<PlayerController>().Hurt_Player(damage);
             }
 
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+                collision.gameObject.GetComponent<Enemy>().Take_Damage(damage);
+            }
+
             if (collision.gameObject.name != "Full Level")
             {
                 Destroy(gameObject);
