@@ -10,6 +10,9 @@ public class Dungeon_Room : MonoBehaviour
 
     private Color playerInZone;
 
+    [SerializeField] private GameObject enemiesInRoom;
+
+    private GameObject enemy;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +27,7 @@ public class Dungeon_Room : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -33,6 +36,11 @@ public class Dungeon_Room : MonoBehaviour
         {
             FindObjectOfType<CameraController>().Update_Cameras();
             virtualCamera.SetActive(true);
+
+            if (enemiesInRoom != null)
+            {
+                enemy = Instantiate(enemiesInRoom, transform, false);
+            }
 
             //mapMarker.SetActive(true);
             //mapMarker.GetComponent<SpriteRenderer>().color = playerInZone;
@@ -45,6 +53,12 @@ public class Dungeon_Room : MonoBehaviour
         {
             FindObjectOfType<CameraController>().Update_Cameras();
             virtualCamera.SetActive(false);
+
+            if (enemiesInRoom != null)
+            {
+                Destroy(enemy);
+            }
+
             //mapMarker.GetComponent<SpriteRenderer>().color = Color.white;
         }
     }

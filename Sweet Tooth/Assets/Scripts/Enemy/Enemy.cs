@@ -49,7 +49,6 @@ public class Enemy : MonoBehaviour
 
         if (health <= 0)
         {
-            StartCoroutine(KnockCo(GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>()));
             gameObject.SetActive(false);
             GameObject effect = Instantiate(enemyDeathEffect, transform.position, Quaternion.identity);
             Destroy(effect, 1f);
@@ -63,6 +62,11 @@ public class Enemy : MonoBehaviour
             {
                 Destroy(shield);
             }
+        }
+
+        else
+        {
+            StartCoroutine(KnockCo(GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>()));
         }
 
         if (gameObject.GetComponent<Enemy_Dormant>() != null)
