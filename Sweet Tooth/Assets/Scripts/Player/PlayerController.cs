@@ -320,6 +320,17 @@ public class PlayerController : MonoBehaviour
                                     shields[i].transform.parent.GetChild(0).GetComponent<Enemy>().Knock_Back_Me(shields[i].transform.parent.GetChild(0).gameObject);
                                 }
                             }
+
+                            //Torches
+                            Collider2D[] torches = Physics2D.OverlapCircleAll(attackPos.position, designerValues.meleeRange);
+
+                            for (int i = 0; i < torches.Length; i++)
+                            {
+                                if (torches[i].CompareTag("Big Torch"))
+                                {
+                                    StartCoroutine(torches[i].GetComponent<Environment_TorchController>().Light_Torches());
+                                }
+                            }
                         }
                     }
                 }
