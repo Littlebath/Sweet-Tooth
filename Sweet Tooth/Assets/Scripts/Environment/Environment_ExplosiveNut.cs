@@ -55,12 +55,15 @@ public class Environment_ExplosiveNut : MonoBehaviour
 
     private void OnCollisionEnter2D (Collision2D collision)
     {
-        if (collision.gameObject.name != "Full level" || collision.gameObject.name != gameObject.name)
+        if (isEnemyBomb)
         {
-            if (!isExploding)
+            if (collision.gameObject.name != "Full level" || collision.gameObject.name != gameObject.name)
             {
-                StartCoroutine(Explode());
-                Debug.Log(collision.gameObject.name);
+                if (!isExploding)
+                {
+                    StartCoroutine(Explode());
+                    Debug.Log(collision.gameObject.name);
+                }
             }
         }
     }
@@ -108,6 +111,8 @@ public class Environment_ExplosiveNut : MonoBehaviour
         isEnemyBomb = false;
         yield return new WaitForSeconds(1f);
         Destroy(gameObject);
+        FindObjectOfType<PlayerController>().GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        FindObjectOfType<PlayerController>().GetComponent<Rigidbody2D>().isKinematic = false;
         yield return null;
     }
 
