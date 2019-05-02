@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Dungeon_Room : MonoBehaviour
 {
     private GameObject virtualCamera;
-    private GameObject mapMarker;
+    public GameObject mapMarker;
 
     private Color playerInZone;
 
@@ -19,9 +19,8 @@ public class Dungeon_Room : MonoBehaviour
     {
         virtualCamera = gameObject.transform.GetChild(0).gameObject;
 
-        //playerInZone = Color.green; 
-        //mapMarker = gameObject.transform.GetChild(1).gameObject;
-        //mapMarker.SetActive(false);
+        playerInZone = Color.green; 
+        mapMarker.SetActive(false);
     }
 
     // Update is called once per frame
@@ -42,8 +41,8 @@ public class Dungeon_Room : MonoBehaviour
                 enemy = Instantiate(enemiesInRoom, transform, false);
             }
 
-            //mapMarker.SetActive(true);
-            //mapMarker.GetComponent<SpriteRenderer>().color = playerInZone;
+            mapMarker.SetActive(true);
+            mapMarker.GetComponent<Image>().color = playerInZone;
         }
     }
 
@@ -59,7 +58,7 @@ public class Dungeon_Room : MonoBehaviour
                 Destroy(enemy);
             }
 
-            //mapMarker.GetComponent<SpriteRenderer>().color = Color.white;
+            mapMarker.GetComponent<Image>().color = Color.white;
         }
     }
 }
