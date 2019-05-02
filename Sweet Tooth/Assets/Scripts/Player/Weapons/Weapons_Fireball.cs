@@ -111,6 +111,11 @@ public class Weapons_Fireball : MonoBehaviour
             collision.gameObject.GetComponent<Environment_Gum>().Spawn_Sticky();
         }
 
+        if (collision.gameObject.CompareTag("Boss"))
+        {
+            collision.gameObject.GetComponent<Boss_ChocolateBoss>().Take_Damage(designerValues.fireballDamage);
+        }
+
         Instantiate(effect, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }

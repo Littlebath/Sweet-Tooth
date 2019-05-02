@@ -22,7 +22,7 @@ namespace Light2D
         /// <summary>
         /// Vertex color of mesh.
         /// </summary>
-        public Color Color = Color.white;
+        public Color Color = Color.red;
 
         /// <summary>
         /// Sprite from which mesh will be generated.

@@ -277,8 +277,6 @@ public class PlayerController : MonoBehaviour
 
     void Melee ()
     {
-        Debug.Log("I can attack" + isMelee);
-
         if (timeBtwAttack <= 0)
         {
             isMelee = false;
@@ -384,6 +382,17 @@ public class PlayerController : MonoBehaviour
             for (int i = 0; i < rasgullaExpands.Length; i++)
             {
                 StartCoroutine(rasgullaExpands[i].GetComponent<Environment_Metal>().Metal_Process());
+            }
+
+            //Bosses 
+            Collider2D [] bosses = Physics2D.OverlapCircleAll(attackPos.position, designerValues.meleeRange);
+
+            for (int i = 0; i < bosses.Length; i++)
+            {
+                if (bosses[i].CompareTag("Boss"))
+                {
+                    bosses[i].GetComponent<Boss_ChocolateBoss>().Take_Damage(designerValues.meleeDamage);
+                }
             }
         }
     }
