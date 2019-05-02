@@ -41,7 +41,7 @@ public class Environment_ExplosiveNut : MonoBehaviour
             Vector3 tempPos = MathParabola.Parabola(origin, playerPos, 1f, animation / 1f);
             gameObject.GetComponent<Rigidbody2D>().MovePosition(tempPos);
 
-            if (Vector2.Distance (transform.position, playerPos) <= 0.3f)
+            if (Vector2.Distance (transform.position, playerPos) <= 0.1f)
             {
                 Debug.Log("Explode");
 
@@ -55,10 +55,13 @@ public class Environment_ExplosiveNut : MonoBehaviour
 
     private void OnCollisionEnter2D (Collision2D collision)
     {
-        if (!isExploding)
+        if (collision.gameObject.name != "Full level" || collision.gameObject.name != gameObject.name)
         {
-            StartCoroutine(Explode());
-            Debug.Log(collision.gameObject);
+            if (!isExploding)
+            {
+                StartCoroutine(Explode());
+                Debug.Log(collision.gameObject.name);
+            }
         }
     }
 
