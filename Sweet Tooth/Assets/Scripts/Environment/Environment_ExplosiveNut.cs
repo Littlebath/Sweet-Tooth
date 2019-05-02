@@ -23,7 +23,7 @@ public class Environment_ExplosiveNut : MonoBehaviour
             Destroy(gameObject.GetComponent<Item>());
             origin = gameObject.transform.position;
             playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
-            gameObject.GetComponent<Collider2D>().enabled = false;
+            //gameObject.GetComponent<Collider2D>().enabled = false;
         }
     }
 
@@ -38,7 +38,8 @@ public class Environment_ExplosiveNut : MonoBehaviour
 
             animation = animation % 5;
 
-            transform.position = MathParabola.Parabola(origin, playerPos, 1f, animation / 1f);
+            Vector3 tempPos = MathParabola.Parabola(origin, playerPos, 1f, animation / 1f);
+            gameObject.GetComponent<Rigidbody2D>().MovePosition(tempPos);
 
             if (Vector2.Distance (transform.position, playerPos) <= 0.3f)
             {
@@ -54,12 +55,10 @@ public class Environment_ExplosiveNut : MonoBehaviour
 
     private void OnCollisionEnter2D (Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Boomerang"))
+        if (!isExploding)
         {
-            if (!isExploding)
-            {
-                StartCoroutine(Explode());
-            }
+            StartCoroutine(Explode());
+            Debug.Log(collision.gameObject);
         }
     }
 
@@ -139,6 +138,7 @@ public class Environment_ExplosiveNut : MonoBehaviour
         }
 
     }
+
 
     private void OnDrawGizmosSelected()
     {
