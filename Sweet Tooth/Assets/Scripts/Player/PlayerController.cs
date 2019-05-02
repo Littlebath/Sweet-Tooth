@@ -326,7 +326,7 @@ public class PlayerController : MonoBehaviour
                             {
                                 if (torches[i].CompareTag("Big Torch"))
                                 {
-                                    StartCoroutine(torches[i].GetComponent<Environment_TorchController>().Light_Torches());
+                                    torches[i].GetComponent<Environment_TorchController>().isLit = true;
                                 }
                             }
                         }

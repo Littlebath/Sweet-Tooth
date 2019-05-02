@@ -44,7 +44,7 @@ public class Switch : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D other)
     {
         // Is it the player?
-        if(other.CompareTag("Player"))
+        if(other.CompareTag("Player") || other.CompareTag("Stone") || other.CompareTag("Enemy"))
         {
             ActivateSwitch();
         }
@@ -52,7 +52,7 @@ public class Switch : MonoBehaviour
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") || collision.CompareTag("Stone") || collision.CompareTag("Enemy"))
         {
             if (thisDoor.thisDoorType == DoorType.hold)
             {

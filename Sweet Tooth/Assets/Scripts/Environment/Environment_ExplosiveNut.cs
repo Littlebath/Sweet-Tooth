@@ -34,12 +34,17 @@ public class Environment_ExplosiveNut : MonoBehaviour
 
         if (isEnemyBomb)
         {
-            animation += Time.deltaTime;
+            if (!isExploding)
+            {
+                animation += Time.deltaTime;
 
-            animation = animation % 5;
+                animation = animation % 5;
 
-            Vector3 tempPos = MathParabola.Parabola(origin, playerPos, 1f, animation / 1f);
-            gameObject.GetComponent<Rigidbody2D>().MovePosition(tempPos);
+                Vector3 tempPos = MathParabola.Parabola(origin, playerPos, 1f, animation / 1f);
+                gameObject.GetComponent<Rigidbody2D>().MovePosition(tempPos);
+                Debug.Log("moving");
+
+            }
 
             if (Vector2.Distance (transform.position, playerPos) <= 0.1f)
             {
@@ -72,6 +77,7 @@ public class Environment_ExplosiveNut : MonoBehaviour
     {
         isExploding = true;
         gameObject.GetComponent<Animator>().SetBool("explode", true);
+        gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
         //gameObject.transform.GetChild(0).gameObject.SetActive(true);
 
         Collider2D[] breakablesToDestroy = Physics2D.OverlapCircleAll(transform.position, explosionRange, whatToHit);

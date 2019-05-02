@@ -7,32 +7,54 @@ public class Environment_TorchController : MonoBehaviour
 {
     private Color originalColor;
 
-    [SerializeField] private bool isLit;
+    public bool isLit;
 
     [SerializeField] private GameObject mainLight;
 
     [SerializeField] private GameObject allTorches;
 
+    [SerializeField] private float timer = 0.2f;
+
+    private float counter;
+
+    private int torch;
+
     // Start is called before the first frame update
     void Start()
     {
         originalColor = gameObject.GetComponent<SpriteRenderer>().color;
+        torch = 0;
+        counter = timer;
     }
 
     // Update is called once per frame
     void Update()
     {
         gameObject.GetComponent<Animator>().SetBool("isLit", isLit);
+
+        Set_Alight();
     }
 
-    public IEnumerator Light_Torches()
+    void Set_Alight ()
     {
-        isLit = true;
-        yield return new WaitForSeconds(0.3f);
-        for (int i = 0; i < allTorches.transform.childCount; i++)
+        if (isLit)
         {
-            allTorches.transform.GetChild(i).GetComponent<Environment_TorchUnit>().isLit = true;
-            yield return new WaitForSeconds(0.3f);
+            if (torch < allTorches.transform.childCount)
+            {
+                allTorches.transform.GetChild(torch).GetComponent<Environment_TorchUnit>().isLit = true;
+            }
+
+            if (counter <= 0)
+            {
+                torch++;
+                counter = timer;
+                Debug.Log("Light another torch");
+            }
+
+            else
+            {
+                counter -= Time.deltaTime;
+            }
         }
     }
 
@@ -41,7 +63,7 @@ public class Environment_TorchController : MonoBehaviour
         if (collision.gameObject.CompareTag("Boomerang"))
         {
             Debug.Log("Light up");
-            StartCoroutine(Light_Torches());
+            isLit = true;
         }
     }
 }

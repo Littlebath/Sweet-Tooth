@@ -24,14 +24,17 @@ public class Environment_Cinnamon : MonoBehaviour
 
     public IEnumerator Set_Alight ()
     {
-        isBurning = true;
-        gameObject.GetComponent<Animator>().SetTrigger("burn");
-        Debug.Log("Catch Fire");
-        yield return new WaitForSeconds(burningTime);
-        gameObject.transform.GetChild(0).GetComponent<Animator>().SetTrigger("isDying");
-        yield return new WaitForSeconds(dyingTime.averageDuration);
-        Destroy(gameObject);
-        yield return null;
+        if (gameObject.transform.GetChild(0).gameObject != null)
+        {
+            isBurning = true;
+            gameObject.GetComponent<Animator>().SetTrigger("burn");
+            Debug.Log("Catch Fire");
+            yield return new WaitForSeconds(burningTime);
+            gameObject.transform.GetChild(0).GetComponent<Animator>().SetTrigger("isDying");
+            yield return new WaitForSeconds(dyingTime.averageDuration);
+            Destroy(gameObject);
+            yield return null;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

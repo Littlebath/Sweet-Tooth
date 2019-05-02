@@ -51,7 +51,7 @@ public class Enemy_Ranged : Enemy
     {
         if (timeBtwShotCounter <= 0)
         {
-            Debug.Log("Shoot bullet");
+            //Debug.Log("Shoot bullet");
             GameObject bullet = Instantiate(projectile, transform.position, Quaternion.identity);
             bullet.GetComponent<EnemyRanged_Bullet>().damage = baseAttack;
             Vector2 speed = new Vector2 (0f, 0f);
@@ -74,25 +74,25 @@ public class Enemy_Ranged : Enemy
     {
         if (shootDir == ShootDir.up)
         {
-            Debug.Log("Shoot up");
+            //Debug.Log("Shoot up");
             velocity = Vector2.up * bulletSpeed;
         }
 
         else if (shootDir == ShootDir.left)
         {
-            Debug.Log("Shoot left");
+            //Debug.Log("Shoot left");
             velocity = Vector2.left * bulletSpeed;
         }
 
         else if (shootDir == ShootDir.down)
         {
-            Debug.Log("Shoot down");
+            //Debug.Log("Shoot down");
             velocity = Vector2.down * bulletSpeed;
         }
 
         else if (shootDir == ShootDir.right)
         {
-            Debug.Log("Shoot right");
+            //Debug.Log("Shoot right");
             velocity = Vector2.right * bulletSpeed;
         }
 

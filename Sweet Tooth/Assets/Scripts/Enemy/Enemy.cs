@@ -29,6 +29,8 @@ public class Enemy : MonoBehaviour
 
     [HideInInspector] public Animator anim;
 
+    private GameObject effect;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,8 +52,9 @@ public class Enemy : MonoBehaviour
         if (health <= 0)
         {
             gameObject.SetActive(false);
-            GameObject effect = Instantiate(enemyDeathEffect, transform.position, Quaternion.identity);
+            effect = Instantiate(enemyDeathEffect, transform.position, Quaternion.identity);
             Destroy(effect, 1f);
+            Destroy(transform.parent.gameObject, 1f);
 
             if (gameObject.GetComponent<Item_DropScript>() != null)
             {
