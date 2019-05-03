@@ -20,7 +20,7 @@ public class Dungeon_Room : MonoBehaviour
         virtualCamera = gameObject.transform.GetChild(0).gameObject;
 
         playerInZone = Color.green; 
-        mapMarker.SetActive(false);
+        //mapMarker.SetActive(false);
     }
 
     // Update is called once per frame
@@ -41,8 +41,8 @@ public class Dungeon_Room : MonoBehaviour
                 enemy = Instantiate(enemiesInRoom, transform, false);
             }
 
-            mapMarker.SetActive(true);
-            mapMarker.GetComponent<Image>().color = playerInZone;
+            //mapMarker.SetActive(true);
+            //mapMarker.GetComponent<Image>().color = playerInZone;
         }
     }
 
@@ -58,7 +58,7 @@ public class Dungeon_Room : MonoBehaviour
                 Destroy(enemy);
             }
 
-            mapMarker.GetComponent<Image>().color = Color.white;
+            //mapMarker.GetComponent<Image>().color = Color.white;
         }
     }
 }

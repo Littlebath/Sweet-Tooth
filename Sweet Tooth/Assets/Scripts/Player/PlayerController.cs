@@ -116,7 +116,11 @@ public class PlayerController : MonoBehaviour
         //GridMovement();
         if (!isPlayerHurt)
         {
-            EightDirectionalMovement();
+            if (!isMelee)
+            {
+                EightDirectionalMovement();
+            }
+
             Combat();
         }
     }
@@ -281,54 +285,48 @@ public class PlayerController : MonoBehaviour
         {
             isMelee = false;
 
-            if (Input.GetButton("Dash") == false)
+            if (!NPC.canMelee)
             {
-                if (!isMoving)
+                if (pi.meleeButton)
                 {
-                    if (!NPC.canMelee)
+                    timeBtwAttack = designerValues.meleeTime.averageDuration;
+
+                    //Explosive Nuts
+                    Collider2D[] nutExplodes = Physics2D.OverlapCircleAll(attackPos.position, designerValues.meleeRange, designerValues.whatIsNuts);
+
+                    for (int i = 0; i < nutExplodes.Length; i++)
                     {
-                        if (pi.meleeButton)
+                        StartCoroutine(nutExplodes[i].GetComponent<Environment_ExplosiveNut>().Explode());
+                    }
+
+                    //Cinnamon
+                    Collider2D[] cinnamonBurns = Physics2D.OverlapCircleAll(attackPos.position, designerValues.meleeRange, designerValues.whatIsCinnamon);
+
+                    for (int i = 0; i < cinnamonBurns.Length; i++)
+                    {
+                        StartCoroutine(cinnamonBurns[i].GetComponent<Environment_Cinnamon>().Set_Alight());
+                    }
+
+                    //Shields
+                    Collider2D[] shields = Physics2D.OverlapCircleAll(attackPos.position, designerValues.meleeRange);
+
+                    for (int i = 0; i < shields.Length; i++)
+                    {
+                        if (shields[i].CompareTag("Shield"))
                         {
-                            timeBtwAttack = designerValues.meleeTime.averageDuration;
+                            shields[i].GetComponent<ShieldEnemy_Shield>().Damage_Shield(designerValues.meleeDamage);
+                            shields[i].transform.parent.GetChild(0).GetComponent<Enemy>().Knock_Back_Me(shields[i].transform.parent.GetChild(0).gameObject);
+                        }
+                    }
 
-                            //Explosive Nuts
-                            Collider2D[] nutExplodes = Physics2D.OverlapCircleAll(attackPos.position, designerValues.meleeRange, designerValues.whatIsNuts);
+                    //Torches
+                    Collider2D[] torches = Physics2D.OverlapCircleAll(attackPos.position, designerValues.meleeRange);
 
-                            for (int i = 0; i < nutExplodes.Length; i++)
-                            {
-                                StartCoroutine(nutExplodes[i].GetComponent<Environment_ExplosiveNut>().Explode());
-                            }
-
-                            //Cinnamon
-                            Collider2D[] cinnamonBurns = Physics2D.OverlapCircleAll(attackPos.position, designerValues.meleeRange, designerValues.whatIsCinnamon);
-
-                            for (int i = 0; i < cinnamonBurns.Length; i++)
-                            {
-                                StartCoroutine(cinnamonBurns[i].GetComponent<Environment_Cinnamon>().Set_Alight());
-                            }
-
-                            //Shields
-                            Collider2D[] shields = Physics2D.OverlapCircleAll(attackPos.position, designerValues.meleeRange);
-
-                            for (int i = 0; i < shields.Length; i++)
-                            {
-                                if (shields[i].CompareTag("Shield"))
-                                {
-                                    shields[i].GetComponent<ShieldEnemy_Shield>().Damage_Shield(designerValues.meleeDamage);
-                                    shields[i].transform.parent.GetChild(0).GetComponent<Enemy>().Knock_Back_Me(shields[i].transform.parent.GetChild(0).gameObject);
-                                }
-                            }
-
-                            //Torches
-                            Collider2D[] torches = Physics2D.OverlapCircleAll(attackPos.position, designerValues.meleeRange);
-
-                            for (int i = 0; i < torches.Length; i++)
-                            {
-                                if (torches[i].CompareTag("Big Torch"))
-                                {
-                                    torches[i].GetComponent<Environment_TorchController>().isLit = true;
-                                }
-                            }
+                    for (int i = 0; i < torches.Length; i++)
+                    {
+                        if (torches[i].CompareTag("Big Torch"))
+                        {
+                            torches[i].GetComponent<Environment_TorchController>().isLit = true;
                         }
                     }
                 }
@@ -344,7 +342,7 @@ public class PlayerController : MonoBehaviour
 
         if (isMelee)
         {
-
+            gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             //Enemies
             Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, designerValues.meleeRange, designerValues.whatIsEnemy);
 
