@@ -10,6 +10,8 @@ public class Switch : MonoBehaviour
     private SpriteRenderer mySprite;
     public Door thisDoor;
 
+    public Door[] multipleDoors;
+
     private Sprite originalSprite;
 
     // Start is called before the first frame update
@@ -44,7 +46,7 @@ public class Switch : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D other)
     {
         // Is it the player?
-        if(other.CompareTag("Player") || other.CompareTag("Stone") || other.CompareTag("Enemy"))
+        if(other.CompareTag("Player") || other.CompareTag("Stone") || other.CompareTag("Enemy") || other.gameObject.layer == 16)
         {
             ActivateSwitch();
         }
@@ -52,7 +54,7 @@ public class Switch : MonoBehaviour
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") || collision.CompareTag("Stone") || collision.CompareTag("Enemy"))
+        if (collision.CompareTag("Player") || collision.CompareTag("Stone") || collision.CompareTag("Enemy") || collision.gameObject.layer == 16)
         {
             if (thisDoor.thisDoorType == DoorType.hold)
             {

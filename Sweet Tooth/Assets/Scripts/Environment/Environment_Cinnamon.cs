@@ -24,6 +24,8 @@ public class Environment_Cinnamon : MonoBehaviour
 
     public IEnumerator Set_Alight ()
     {
+        Destroy(gameObject, burningTime + dyingTime.averageDuration);
+
         if (gameObject.transform.GetChild(0).gameObject != null)
         {
             isBurning = true;
@@ -32,9 +34,9 @@ public class Environment_Cinnamon : MonoBehaviour
             yield return new WaitForSeconds(burningTime);
             gameObject.transform.GetChild(0).GetComponent<Animator>().SetTrigger("isDying");
             yield return new WaitForSeconds(dyingTime.averageDuration);
-            Destroy(gameObject);
             yield return null;
         }
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

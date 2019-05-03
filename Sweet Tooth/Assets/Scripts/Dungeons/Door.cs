@@ -7,7 +7,8 @@ public enum DoorType
     key,
     enemy,
     trigger,
-    hold
+    hold,
+    multiple
 }
 public class Door : Interactable
 {
