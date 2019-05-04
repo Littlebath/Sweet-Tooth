@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyRanged_Bullet : MonoBehaviour
 {
     [HideInInspector] public int damage;
+
+    [SerializeField] bool isBossBullet;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +25,12 @@ public class EnemyRanged_Bullet : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("Player"))
             {
-                FindObjectOfType<PlayerController>().Hurt_Player(damage);
+                FindObjectOfType<PlayerController>().Hurt_Player(damage); 
+
+                if (isBossBullet)
+                {
+                    FindObjectOfType<PlayerController>().isSlow = true;
+                }
             }
 
             if (collision.gameObject.CompareTag("Enemy"))
@@ -31,7 +38,7 @@ public class EnemyRanged_Bullet : MonoBehaviour
                 collision.gameObject.GetComponent<Enemy>().Take_Damage(damage);
             }
 
-            if (collision.gameObject.name != "Full Level")
+            if (collision.gameObject.name != "Full Level" || collision.gameObject.tag != "Boss")
             {
                 Destroy(gameObject);
             }

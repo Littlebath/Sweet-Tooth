@@ -20,7 +20,7 @@ public class Boss_BeginBattle : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Begin Battle");
+            //Debug.Log("Begin Battle");
             gameObject.transform.parent.GetComponent<Animator>().SetTrigger("begin");
             Destroy(gameObject);
         }

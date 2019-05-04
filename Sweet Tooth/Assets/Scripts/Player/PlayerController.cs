@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     private bool isDashingToBoomerang;
     private bool thrownBoomerang;
     [HideInInspector] public bool isSpinning;
+    [HideInInspector] public bool isSlow;
 
     private static bool isPlayerExisting;
     public static bool isPlayerHurt;
@@ -83,6 +84,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if (isSlow)
+        {
+            StartCoroutine(Slow_Effect());
+        }
+
         SetAnimations();
 
         if (designerValues.health > designerValues.maxHealth)
@@ -91,6 +97,14 @@ public class PlayerController : MonoBehaviour
         }
 
         Regenerate_Energy();
+    }
+
+    public IEnumerator Slow_Effect ()
+    {
+        isSlow = false;
+        designerValues.moveSpeed -= 2;
+        yield return new WaitForSeconds(2f);
+        designerValues.moveSpeed += 2;
     }
 
     private void Regenerate_Energy()
@@ -389,7 +403,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (bosses[i].CompareTag("Boss"))
                 {
-                    bosses[i].GetComponent<Boss_ChocolateBoss>().Take_Damage(designerValues.meleeDamage);
+                    bosses[i].GetComponent<Boss_OreoChocolateBoss>().Take_Damage(designerValues.meleeDamage);
                 }
             }
         }

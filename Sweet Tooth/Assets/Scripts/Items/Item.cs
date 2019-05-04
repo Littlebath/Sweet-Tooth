@@ -80,7 +80,10 @@ public class Item : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Add_Item();
+            if (system != null)
+            {
+                Add_Item();
+            }
         }
     }
 
@@ -88,7 +91,10 @@ public class Item : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Add_Item();
+            if (system != null)
+            {
+                Add_Item();
+            }
         }
 
     }

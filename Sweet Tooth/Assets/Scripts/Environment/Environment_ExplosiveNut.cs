@@ -71,6 +71,17 @@ public class Environment_ExplosiveNut : MonoBehaviour
                 }
             }
         }
+
+        else
+        {
+            if (collision.gameObject.CompareTag ("Boomerang"))
+            {
+                if (!isExploding)
+                {
+                    StartCoroutine(Explode());                    
+                }
+            }
+        }
     }
 
     public IEnumerator Explode ()
@@ -78,6 +89,7 @@ public class Environment_ExplosiveNut : MonoBehaviour
         isExploding = true;
         gameObject.GetComponent<Animator>().SetBool("explode", true);
         gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+        gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         //gameObject.transform.GetChild(0).gameObject.SetActive(true);
 
         Collider2D[] breakablesToDestroy = Physics2D.OverlapCircleAll(transform.position, explosionRange, whatToHit);

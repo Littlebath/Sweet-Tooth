@@ -113,7 +113,7 @@ public class Weapons_Fireball : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Boss"))
         {
-            collision.gameObject.GetComponent<Boss_ChocolateBoss>().Take_Damage(designerValues.fireballDamage);
+            collision.gameObject.GetComponent<Boss_OreoChocolateBoss>().Take_Damage(designerValues.fireballDamage);
         }
 
         Instantiate(effect, transform.position, Quaternion.identity);

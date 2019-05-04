@@ -26,9 +26,13 @@ public class ChasePlayer : StateMachineBehaviour
 
         else
         {
-            tempPos = Vector3.MoveTowards(animator.transform.position, FindObjectOfType<PlayerController>().gameObject.transform.position, values.chaseSpeed * Time.deltaTime);
-            animator.gameObject.GetComponent<Rigidbody2D>().MovePosition(tempPos);
-            chaseCounter -= Time.deltaTime;
+            if (Vector3.Distance(animator.transform.position, FindObjectOfType<PlayerController>().gameObject.transform.position) >= 1f)
+            {
+                Debug.Log("Start chase");
+                tempPos = Vector3.MoveTowards(animator.transform.position, FindObjectOfType<PlayerController>().gameObject.transform.position, values.chaseSpeed * Time.deltaTime);
+                animator.gameObject.GetComponent<Rigidbody2D>().MovePosition(tempPos);
+                chaseCounter -= Time.deltaTime;
+            }
         }
 
     }
