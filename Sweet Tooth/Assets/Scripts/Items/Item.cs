@@ -57,9 +57,7 @@ public class Item : MonoBehaviour
 
     public void Use_Item ()
     {
-
         Debug.Log("use item");
-
         switch (itemID)
         {
             case 0:
@@ -115,7 +113,8 @@ public class Item : MonoBehaviour
                 {
                     piso.slots[i] = referItem;
                     Debug.Log("Add one" + Time.time);
-                    Instantiate(itemSprite, slots[i].transform, false);
+                    GameObject sprite = Instantiate(itemSprite, slots[i].transform, false);
+                    sprite.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                     piso.numerOfItems[i]++;
                     Destroy(gameObject);
                     return;

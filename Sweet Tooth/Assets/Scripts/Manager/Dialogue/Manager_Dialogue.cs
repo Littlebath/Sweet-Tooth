@@ -100,6 +100,17 @@ public class Manager_Dialogue : MonoBehaviour
         DisplayNextSentence();
     }
 
+    IEnumerator TypeSentence(string sentence)
+    {
+        dialogueText.text = "";
+        foreach (char letter in sentence.ToCharArray())
+        {
+            dialogueText.text += letter;
+            yield return null;
+        }
+    }
+
+
     public void DisplayNextSentence ()
     {/*
         if (sentences.Count == 0)
@@ -131,8 +142,11 @@ public class Manager_Dialogue : MonoBehaviour
             string sentence = sentences.Dequeue();
             pc.isMoving = false;
             nameText.text = currentDialogue.name;
-            dialogueText.text = sentence;
+            //dialogueText.text = sentence;
             portrait.sprite = currentDialogue.portrait;
+
+            StopAllCoroutines();
+            StartCoroutine(TypeSentence(sentence));
         }
 
     }

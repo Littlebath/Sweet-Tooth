@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Player_Inventory : Inventory
 {
@@ -29,7 +30,7 @@ public class Player_Inventory : Inventory
         pi = FindObjectOfType<PlayerInput>();
         pc = FindObjectOfType<PlayerController>();
 
-        numerOfItems = new int[inventorySystem.transform.GetChild(2).childCount];
+        numerOfItems = new int[inventorySystem.transform.GetChild(1).childCount];
         slots = new GameObject[numerOfItems.Length];
 
         Mathf.Clamp(selection, 0, numerOfItems.Length - 1);
@@ -74,7 +75,7 @@ public class Player_Inventory : Inventory
     IEnumerator Open_Inventory()
     {
         //Debug.Log("Open Inventory");
-        selector = inventorySystem.transform.GetChild(3).gameObject;
+        selector = inventorySystem.transform.GetChild(2).gameObject;
         inventorySystem.SetActive(true);
         StartCoroutine(FindObjectOfType<Inventory_System>().Update_Inventory());
         StartCoroutine(Stop_Player_Movement());
@@ -126,30 +127,22 @@ public class Player_Inventory : Inventory
             }
         }
 
-        if (Input.GetButtonDown("Vertical") && Input.GetAxisRaw("Vertical") > 0)
+        selector.transform.position = inventorySystem.transform.GetChild(1).GetChild(selection).transform.position;
+
+        for (int i = 0; i < numerOfItems.Length; i++)
         {
-            if (selection <= numerOfItems.Length - 1)
+            if (i == selection)
             {
-                if (selection >= 3)
-                {
-                    selection -= 3;
-                }
+                inventorySystem.transform.GetChild(1).GetChild(i).GetComponent<Shadow>().enabled = true;
+                inventorySystem.transform.GetChild(1).GetChild(i).localScale = new Vector3(1.25f, 1.25f, 1.25f);
+            }
+
+            else
+            {
+                inventorySystem.transform.GetChild(1).GetChild(i).GetComponent<Shadow>().enabled = false;
+                inventorySystem.transform.GetChild(1).GetChild(i).localScale = new Vector3(1f, 1f, 1f);
             }
         }
-
-        else if (Input.GetButtonDown("Vertical") && Input.GetAxisRaw("Vertical") < 0)
-        {
-            if (selection >= 0)
-            {
-                if (selection <= numerOfItems.Length - 3)
-                {
-                    selection += 3;
-                    //Debug.Log("Down");
-                }
-            }
-        }
-
-        selector.transform.position = inventorySystem.transform.GetChild(2).GetChild(selection).transform.position;
 
         Use_Item();
 
@@ -180,7 +173,7 @@ public class Player_Inventory : Inventory
                     {
                         numerOfItems[selection]--;
                         slots[selection] = null;
-                        Destroy(inventorySystem.transform.GetChild(2).GetChild(selection).GetChild(1).gameObject);
+                        Destroy(inventorySystem.transform.GetChild(1).GetChild(selection).GetChild(2).gameObject);
                     }
 
                     StartCoroutine(FindObjectOfType<Inventory_System>().Update_Inventory());
@@ -214,7 +207,7 @@ public class Player_Inventory : Inventory
                 {
                     numerOfItems[selection]--;
                     slots[selection] = null;
-                    Destroy(inventorySystem.transform.GetChild(2).GetChild(selection).GetChild(1).gameObject);
+                    Destroy(inventorySystem.transform.GetChild(1).GetChild(selection).GetChild(2).gameObject);
                 }
 
                 StartCoroutine(FindObjectOfType<Inventory_System>().Update_Inventory());
