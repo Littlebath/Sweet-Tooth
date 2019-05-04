@@ -14,24 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   phaseTwoHealth: 5
-  damage: 1
+  damage: 0
   player: {fileID: 1269858114674242, guid: 266f7e71afe6845498609c44d3734148, type: 3}
-  chaseRadius: 0.61
+  chaseRadius: 0.65
   bullet: {fileID: 1547210875933261188, guid: f75be3d852a08ce409cb0a4b078b0b60, type: 3}
   thrust: 6
   knockTime: 0.2
   chaseDuration1: 4
-  chaseSpeed1: 3
+  chaseSpeed1: 7
   dashBuildUpTime1: 2
-  chargeSpeed1: 12
+  chargeSpeed1: 15
   dashCoolDown1: 3
   dashCount1: 2
   jumpBuildupTime1: 1
   jumpCooldownTime1: 5
   chaseDuration2: 5
-  chaseSpeed2: 4
+  chaseSpeed2: 12
   dashBuildUpTime2: 1
-  chargeSpeed2: 14
+  chargeSpeed2: 20
   dashCoolDown2: 2
   dashCount2: 2
   jumpBuildupTime2: 1
@@ -46,6 +46,6 @@ MonoBehaviour:
   boulderFallInterval: 0.5
   introParticles: {fileID: 3189042030727236367, guid: 6d189c6afc3bd4b4084d7a9003f10e5b,
     type: 3}
-  currHealth: 10
+  currHealth: 5
   bossIsActive: 0
   noOfDashes: 0

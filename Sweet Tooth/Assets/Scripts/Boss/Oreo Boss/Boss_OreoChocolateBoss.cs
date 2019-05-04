@@ -136,6 +136,30 @@ public class Boss_OreoChocolateBoss : MonoBehaviour
         Destroy(gameObject, 3f);
     }
 
+    public void Knock_Back_Me(GameObject me)
+    {
+        Rigidbody2D enemy = me.GetComponent<Rigidbody2D>();
+
+        if (enemy != null)
+        {
+            enemy.isKinematic = false;
+            Vector2 difference = transform.position - GameObject.FindGameObjectWithTag("Player").transform.position;
+            difference = difference.normalized * values.thrust;
+            enemy.AddForce(difference, ForceMode2D.Impulse);
+            StartCoroutine(KnockMe(enemy));
+        }
+    }
+
+    private IEnumerator KnockMe(Rigidbody2D enemy)
+    {
+        if (enemy != null)
+        {
+            yield return new WaitForSeconds(values.knockTime);
+            enemy.velocity = Vector2.zero;
+            enemy.isKinematic = true;
+        }
+    }
+
     public void Knock_Back_Player(Collision2D collision)
     {
         Rigidbody2D enemy = collision.gameObject.GetComponent<Rigidbody2D>();
@@ -173,6 +197,7 @@ public class Boss_OreoChocolateBoss : MonoBehaviour
         {
             FindObjectOfType<PlayerController>().Hurt_Player(values.damage);
             Knock_Back_Player(collision);
+            Knock_Back_Me(gameObject);
         }
     }
 

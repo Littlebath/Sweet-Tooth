@@ -18,22 +18,25 @@ public class chasePlayer1 : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (chaseCounter <= 0)
+        if (animator.GetComponent<Rigidbody2D>().isKinematic)
         {
-            animator.SetTrigger("startDash");
-            chaseCounter = values.chaseDuration1;
-        }
-
-        else
-        {
-            if (Vector3.Distance(animator.transform.position, FindObjectOfType<PlayerController>().gameObject.transform.position) >= values.chaseRadius)
+            if (chaseCounter <= 0)
             {
-                tempPos = Vector3.MoveTowards(animator.transform.position, FindObjectOfType<PlayerController>().gameObject.transform.position, values.chaseSpeed1 * Time.deltaTime);
-                animator.gameObject.GetComponent<Rigidbody2D>().MovePosition(tempPos);
-                chaseCounter -= Time.deltaTime;
+                animator.SetTrigger("startDash");
+                chaseCounter = values.chaseDuration1;
             }
-        }
 
+            else
+            {
+                if (Vector3.Distance(animator.transform.position, FindObjectOfType<PlayerController>().gameObject.transform.position) >= values.chaseRadius)
+                {
+                    tempPos = Vector3.MoveTowards(animator.transform.position, FindObjectOfType<PlayerController>().gameObject.transform.position, values.chaseSpeed1 * Time.deltaTime);
+                    animator.gameObject.GetComponent<Rigidbody2D>().MovePosition(tempPos);
+                    chaseCounter -= Time.deltaTime;
+                }
+            }
+
+        }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
