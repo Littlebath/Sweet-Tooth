@@ -84,6 +84,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if (!isPlayerHurt)
+        {
+            Combat();
+        }
+
         if (isSlow)
         {
             StartCoroutine(Slow_Effect());
@@ -134,8 +139,6 @@ public class PlayerController : MonoBehaviour
             {
                 EightDirectionalMovement();
             }
-
-            Combat();
         }
     }
 
@@ -145,9 +148,9 @@ public class PlayerController : MonoBehaviour
         if (FindObjectOfType<Manager_Dialogue>().isTalking == false)
         {
             Melee();
+            FireBallCombat();
         }
         //BoomerangCombat();
-        FireBallCombat();
     }
 
     private void FireBallCombat()

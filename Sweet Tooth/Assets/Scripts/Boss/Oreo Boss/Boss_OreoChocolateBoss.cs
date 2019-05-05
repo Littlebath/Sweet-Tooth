@@ -5,6 +5,7 @@ using UnityEngine;
 public class Boss_OreoChocolateBoss : MonoBehaviour
 {
     [SerializeField] private OreoBossScriptableObject values;
+    public float moreTurn;
 
     private bool isHurt;
 
@@ -15,6 +16,8 @@ public class Boss_OreoChocolateBoss : MonoBehaviour
 
     public Animator roomShake;
 
+    public GameObject indicator;
+
     [Header("Boulder properties")]
     public Transform minX;
     public Transform maxX;
@@ -24,12 +27,28 @@ public class Boss_OreoChocolateBoss : MonoBehaviour
     void Start()
     {
         values.Reset_Boss_Parameters();
+        indicator.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Charging_Indicator();
+    }
+
+    void Charging_Indicator ()
+    {
+        //indicator.transform.rotation = Quaternion.Euler (0f, 0f, moreTurn);
+
+        Vector3 direction = indicator.transform.position - FindObjectOfType<PlayerController>().transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Quaternion lookRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        indicator.transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, 10f);
+    }
+
+    float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
+    {
+        return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
     }
 
     public void Boulders_Fall ()
@@ -154,7 +173,7 @@ public class Boss_OreoChocolateBoss : MonoBehaviour
     {
         if (enemy != null)
         {
-            yield return new WaitForSeconds(values.knockTime);
+            yield return new WaitForSeconds(values.knockTime + 0.2f);
             enemy.velocity = Vector2.zero;
             enemy.isKinematic = true;
         }

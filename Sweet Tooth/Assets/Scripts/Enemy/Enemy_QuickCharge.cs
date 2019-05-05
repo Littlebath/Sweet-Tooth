@@ -9,10 +9,14 @@ public class Enemy_QuickCharge : Enemy
 
     [SerializeField] private float chaseRadius;
 
+    public GameObject indicator;
+
     [SerializeField] private float timeBtwCharge;
     float timeBtwChargeCounter;
 
     Vector2 origin;
+
+    private bool isCharging;
 
     // Start is called before the first frame update
     void Start()
@@ -26,9 +30,21 @@ public class Enemy_QuickCharge : Enemy
     {
         origin = transform.position;
 
+        if (isCharging)
+        {
+            indicator.SetActive(false);
+        }
+
+        else
+        {
+            indicator.SetActive(true);
+        }
+
         if (FindObjectOfType<PlayerController>() != null)
         {
             target = FindObjectOfType<PlayerController>().gameObject.transform;
+
+            Charging_Indicator();
 
             if (target != null)
             {
@@ -53,7 +69,18 @@ public class Enemy_QuickCharge : Enemy
         {
             //Debug.Log("Go to sleep");
             anim.SetBool("isAwake", false);
+            indicator.SetActive(false);
         }
+    }
+
+    void Charging_Indicator()
+    {
+        //indicator.transform.rotation = Quaternion.Euler (0f, 0f, moreTurn);
+
+        Vector3 direction = indicator.transform.position - FindObjectOfType<PlayerController>().transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Quaternion lookRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        indicator.transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, 10f);
     }
 
     private void Charging_AI()
@@ -67,6 +94,7 @@ public class Enemy_QuickCharge : Enemy
             StartCoroutine(Charge_Duration());
             timeBtwChargeCounter = timeBtwCharge;
             gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
+            indicator.SetActive(false);
         }
 
         else
@@ -77,9 +105,11 @@ public class Enemy_QuickCharge : Enemy
 
     private IEnumerator Charge_Duration ()
     {
+        isCharging = true;
         yield return new WaitForSeconds(timeBtwCharge/2);
         gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+        isCharging = false;
     }
 
     private void Change_State(EnemyState newState)

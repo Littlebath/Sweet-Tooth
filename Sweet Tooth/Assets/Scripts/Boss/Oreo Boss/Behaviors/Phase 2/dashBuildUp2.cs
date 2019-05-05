@@ -12,6 +12,7 @@ public class dashBuildUp2 : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         counter = values.dashBuildUpTime2;
+        FindObjectOfType<Boss_OreoChocolateBoss>().indicator.SetActive(true);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -20,6 +21,7 @@ public class dashBuildUp2 : StateMachineBehaviour
         if (counter <= 0)
         {
             animator.SetTrigger("dashAttack");
+            FindObjectOfType<Boss_OreoChocolateBoss>().indicator.SetActive(false);
             counter = values.dashBuildUpTime2;
         }
 
@@ -32,7 +34,7 @@ public class dashBuildUp2 : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
+        FindObjectOfType<Boss_OreoChocolateBoss>().indicator.SetActive(false);
     }
 
 }

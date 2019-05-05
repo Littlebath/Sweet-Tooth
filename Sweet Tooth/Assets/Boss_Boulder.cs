@@ -20,12 +20,15 @@ public class Boss_Boulder : MonoBehaviour
     float yPosition;
 
     Vector2 boulderLandPos;
+    float timeTakenToReachGround;
 
     // Start is called before the first frame update
     void Start()
     {
         Boulder_Start_Position();
         Boulder_Trajectory();
+
+        transform.localScale = Vector3.zero;
     }
 
     void Boulder_Start_Position ()
@@ -59,7 +62,8 @@ public class Boss_Boulder : MonoBehaviour
             boulderLandPos = new Vector2(xPosition, Random.Range(boulderProperties.minX.transform.position.y, boulderProperties.maxX.transform.position.y));
         }
 
-        Debug.Log(boulderLandPos);
+        timeTakenToReachGround = (Vector2.Distance(new Vector2 (xPosition, yPosition), boulderLandPos))/values.boulderFallSpeed;
+
     }
 
     void Boulder_Falls ()
@@ -75,6 +79,8 @@ public class Boss_Boulder : MonoBehaviour
             gameObject.GetComponent<Rigidbody2D>().MovePosition(tempPos);
             Debug.Log("Fall");
         }
+
+        transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1f, 1f, 1f), values.boulderFallSpeed - 0.08f);
     }
 
     // Update is called once per frame
