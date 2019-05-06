@@ -19,7 +19,7 @@ public class dashAttack2 : StateMachineBehaviour
     {
         if (Vector3.Distance(animator.transform.position, playerPos) >= 0.2f)
         {
-            Vector3 tempPos = Vector3.MoveTowards(animator.transform.position, playerPos, values.chargeSpeed2 * Time.deltaTime);
+            Vector3 tempPos = Vector3.MoveTowards(animator.transform.position, playerPos, values.chargeSpeed2 * Time.fixedDeltaTime);
             animator.gameObject.GetComponent<Rigidbody2D>().MovePosition(tempPos);
             Debug.Log("Dashing");
         }

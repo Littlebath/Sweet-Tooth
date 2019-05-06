@@ -49,6 +49,8 @@ public class Manager_GameMaster : MonoBehaviour
     {
         player = FindObjectOfType<PlayerController>().gameObject;
         player.GetComponent<BoxCollider2D>().enabled = false;
+        player.GetComponent<PlayerController>().enabled = false;
+        player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         player.GetComponentInChildren<Animator>().SetTrigger("died");
         //player.SetActive(false);
         FindObjectOfType<Fading>().FadeOut();

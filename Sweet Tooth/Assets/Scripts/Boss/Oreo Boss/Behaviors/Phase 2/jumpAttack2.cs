@@ -27,7 +27,7 @@ public class jumpAttack2 : StateMachineBehaviour
 
         else
         {
-            animation += Time.deltaTime;
+            animation += Time.fixedDeltaTime;
             animation = animation % 5;
             Vector3 tempPos = MathParabola.Parabola(origin, playerPos, 1f, animation / 1f);
             animator.GetComponent<Rigidbody2D>().MovePosition(tempPos);

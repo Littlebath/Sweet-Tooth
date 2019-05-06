@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Boss_BeginBattle : MonoBehaviour
 {
+    public GameObject doors;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +23,7 @@ public class Boss_BeginBattle : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             //Debug.Log("Begin Battle");
+            doors.SetActive(true);
             gameObject.transform.parent.GetComponent<Animator>().SetTrigger("begin");
             Destroy(gameObject);
         }

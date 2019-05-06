@@ -28,4 +28,12 @@ public class pot : MonoBehaviour
         yield return new WaitForSeconds(.3f);
         Destroy(gameObject);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Boomerang"))
+        {
+            Smash();
+        }
+    }
 }

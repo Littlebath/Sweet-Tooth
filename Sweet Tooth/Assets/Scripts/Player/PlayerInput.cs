@@ -30,6 +30,11 @@ public class PlayerInput : MonoBehaviour
     {
         //FindObjectOfType<Manager_AudioManager>().Stop();
         //FindObjectOfType<Manager_AudioManager>().Play("Theme");
+
+        if (FindObjectOfType<PlayerController>() != null)
+        {
+            FindObjectOfType<PlayerController>().enabled = true;
+        }
     }
 	
 	// Update is called once per frame

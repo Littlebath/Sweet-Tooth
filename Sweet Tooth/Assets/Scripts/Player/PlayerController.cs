@@ -107,9 +107,11 @@ public class PlayerController : MonoBehaviour
     public IEnumerator Slow_Effect ()
     {
         isSlow = false;
+        gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
         designerValues.moveSpeed -= 2;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2.5f);
         designerValues.moveSpeed += 2;
+        gameObject.GetComponent<SpriteRenderer>().color = Color.white;
     }
 
     private void Regenerate_Energy()
@@ -601,6 +603,7 @@ public class PlayerController : MonoBehaviour
         if (designerValues.health <= 0)
         {
             FindObjectOfType<Manager_GameMaster>().PlayerRespawn();
+            gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         }
     }
 

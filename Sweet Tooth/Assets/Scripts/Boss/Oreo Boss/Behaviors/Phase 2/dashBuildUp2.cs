@@ -27,7 +27,7 @@ public class dashBuildUp2 : StateMachineBehaviour
 
         else
         {
-            counter -= Time.deltaTime;
+            counter -= Time.fixedDeltaTime;
         }
     }
 

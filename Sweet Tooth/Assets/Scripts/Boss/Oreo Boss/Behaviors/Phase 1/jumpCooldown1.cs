@@ -25,7 +25,7 @@ public class jumpCooldown1 : StateMachineBehaviour
 
         else
         {
-            counter -= Time.deltaTime;
+            counter -= Time.fixedDeltaTime;
         }
     }
 

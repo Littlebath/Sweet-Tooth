@@ -42,7 +42,7 @@ public class dashCooldown2 : StateMachineBehaviour
 
         else
         {
-            counter -= Time.deltaTime;
+            counter -= Time.fixedDeltaTime;
         }
     }
 

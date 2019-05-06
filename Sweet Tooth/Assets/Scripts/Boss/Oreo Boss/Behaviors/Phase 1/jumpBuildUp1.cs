@@ -25,7 +25,7 @@ public class jumpBuildUp1 : StateMachineBehaviour
 
         else
         {
-            counter -= Time.deltaTime;
+            counter -= Time.fixedDeltaTime;
         }
     }
 

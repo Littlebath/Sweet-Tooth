@@ -32,7 +32,7 @@ public class chasePlayer1 : StateMachineBehaviour
                 {
                     tempPos = Vector3.MoveTowards(animator.transform.position, FindObjectOfType<PlayerController>().gameObject.transform.position, values.chaseSpeed1 * Time.fixedDeltaTime);
                     animator.gameObject.GetComponent<Rigidbody2D>().MovePosition(tempPos);
-                    chaseCounter -= Time.deltaTime;
+                    chaseCounter -= Time.fixedDeltaTime;
                 }
             }
 
