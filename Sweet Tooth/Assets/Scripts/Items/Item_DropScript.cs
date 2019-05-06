@@ -27,8 +27,12 @@ public class Item_DropScript : MonoBehaviour
         if (itemSpawner <= percentageOfSpawningItem)
         {
             int itemRandomizer = Random.Range(0, itemsToSpawn.Length - 1);
-            GameObject item = Instantiate(itemsToSpawn[itemRandomizer], transform.position, Quaternion.identity);
-            Debug.Log("Item dropped is " + item);
+
+            if (itemsToSpawn[itemRandomizer] != null)
+            {
+                GameObject item = Instantiate(itemsToSpawn[itemRandomizer], transform.position, Quaternion.identity);
+                Debug.Log("Item dropped is " + item);
+            }
         }
 
         else

@@ -60,6 +60,8 @@ public class Enemy : MonoBehaviour
                 gameObject.GetComponent<Save_ObjState>().obj.ForceSerialization();
             }
 
+            FindObjectOfType<PlayerController>().GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            PlayerController.isPlayerHurt = false;
             Destroy(effect, 1f);
             Destroy(transform.parent.gameObject, 1f);
 
