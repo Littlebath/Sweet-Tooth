@@ -21,7 +21,10 @@ public class Manager_GameMaster : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-       
+       if (Input.GetKey(KeyCode.R))
+        {
+            PlayerRespawn();
+        }
     }
 
     void DontDestroy ()

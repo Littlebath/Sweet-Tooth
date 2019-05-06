@@ -195,22 +195,26 @@ public class Player_Inventory : Inventory
         {
             if (slots[selection] != null)
             {
-                //Use Item here!!
-                slots[selection].GetComponent<Item>().Use_Item();
-
-                if (numerOfItems[selection] > 1)
+                if (slots[selection].gameObject.name != "Explosive Nuts")
                 {
-                    numerOfItems[selection]--;
-                }
+                    //Use Item here!!
+                    slots[selection].GetComponent<Item>().Use_Item();
+                    Debug.Log(slots[selection].gameObject.name);
 
-                else
-                {
-                    numerOfItems[selection]--;
-                    slots[selection] = null;
-                    Destroy(inventorySystem.transform.GetChild(1).GetChild(selection).GetChild(2).gameObject);
-                }
+                    if (numerOfItems[selection] > 1)
+                    {
+                        numerOfItems[selection]--;
+                    }
 
-                StartCoroutine(FindObjectOfType<Inventory_System>().Update_Inventory());
+                    else
+                    {
+                        numerOfItems[selection]--;
+                        slots[selection] = null;
+                        Destroy(inventorySystem.transform.GetChild(1).GetChild(selection).GetChild(2).gameObject);
+                    }
+
+                    StartCoroutine(FindObjectOfType<Inventory_System>().Update_Inventory());
+                }
             }
         }
     }

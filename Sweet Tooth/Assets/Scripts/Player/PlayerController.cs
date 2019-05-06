@@ -346,6 +346,8 @@ public class PlayerController : MonoBehaviour
                         if (torches[i].CompareTag("Big Torch"))
                         {
                             torches[i].GetComponent<Environment_TorchController>().isLit = true;
+                            torches[i].GetComponent<Save_ObjState>().obj.saveState = 1;
+                            torches[i].GetComponent<Save_ObjState>().obj.ForceSerialization();
                         }
                     }
                 }

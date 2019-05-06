@@ -68,6 +68,8 @@ public class Environment_Fire : MonoBehaviour
                 {
                     yield return new WaitForSeconds(0.5f);
                     objectsToBurn[i].GetComponent<Environment_TorchController>().isLit = true;
+                    objectsToBurn[i].GetComponent<Save_ObjState>().obj.saveState = 1;
+                    objectsToBurn[i].GetComponent<Save_ObjState>().obj.ForceSerialization();
                 }
             }
         }

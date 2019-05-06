@@ -55,7 +55,16 @@ public class Environment_FireballDash : MonoBehaviour
         {
             if (countDown <= 0)
             {
-                enemy.GetComponent<Enemy>().Take_Damage(burningDamage);
+                if (enemy.GetComponent<Enemy>() != null)
+                {
+                    enemy.GetComponent<Enemy>().Take_Damage(burningDamage);
+                }
+
+                if (enemy.GetComponent<Boss_OreoChocolateBoss>() != null)
+                {
+                    enemy.GetComponent<Boss_OreoChocolateBoss>().Take_Damage(burningDamage);
+                }
+
                 countDown = 1;
             }
 
@@ -101,15 +110,20 @@ public class Environment_FireballDash : MonoBehaviour
         {
             if (burner == whoIsOnFire.NoOne)
             {
-                if (collision.gameObject.CompareTag("Enemy"))
+                if (collision.gameObject.CompareTag("Enemy") || (collision.gameObject.CompareTag("Boss")))
                 {
+                    if (collision.gameObject.CompareTag("Boss"))
+                    {
+                        gameObject.transform.localScale = new Vector3(2f, 2f, 2f);
+                    }
+
                     Debug.Log("Hit enemy");
                     burner = whoIsOnFire.Enemy;
                     StopCoroutine(Snuff_Flames());
                     StartCoroutine(Burn_Enemy(collision));
                 }
 
-                /*if (collision.gameObject.CompareTag("Player"))
+                if (collision.gameObject.CompareTag("Player"))
                 {
                     Debug.Log("Hit Player");
                     burner = whoIsOnFire.Player;
@@ -130,7 +144,7 @@ public class Environment_FireballDash : MonoBehaviour
                         Destroy(gameObject, snuffFlames.averageDuration);
                     }
 
-                }*/
+                }
             }
         }
     }
@@ -138,11 +152,26 @@ public class Environment_FireballDash : MonoBehaviour
     IEnumerator Burn_Enemy (Collider2D other)
     {
         gameObject.transform.position = other.gameObject.transform.position;
-        other.GetComponent<Enemy>().Take_Damage(pso.fireballDamage);
+
+        if (other.GetComponent<Enemy>() != null)
+        {
+            other.GetComponent<Enemy>().Take_Damage(pso.fireballDamage);
+        }
+
+        if (other.GetComponent<Boss_OreoChocolateBoss>() != null)
+        {
+            other.GetComponent<Boss_OreoChocolateBoss>().Take_Damage(pso.fireballDamage);
+        }
+
         gameObject.transform.parent = other.gameObject.transform;
         enemy = other;
         yield return new WaitForSeconds(1f);
-        other.gameObject.GetComponent<Enemy>().anim.SetBool("isHurt", false);
+
+        if (other.GetComponent<Enemy>() != null)
+        {
+            other.gameObject.GetComponent<Enemy>().anim.SetBool("isHurt", false);
+        }
+
         isDying = true;
         anim.SetTrigger("dies");
         Destroy(gameObject, snuffFlames.averageDuration);
