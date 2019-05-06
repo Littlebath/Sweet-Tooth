@@ -40,6 +40,7 @@ public class Enemy_QuickCharge : Enemy
             indicator.SetActive(true);
         }
 
+
         if (FindObjectOfType<PlayerController>() != null)
         {
             target = FindObjectOfType<PlayerController>().gameObject.transform;
@@ -49,6 +50,14 @@ public class Enemy_QuickCharge : Enemy
             if (target != null)
             {
                 Check_Distance();
+            }
+        }
+
+        if (gameObject.GetComponent<Save_ObjState>() != null)
+        {
+            if (gameObject.GetComponent<Save_ObjState>().obj.saveState == 1)
+            {
+                Destroy(gameObject.transform.parent.gameObject);
             }
         }
     }

@@ -53,6 +53,13 @@ public class Enemy : MonoBehaviour
         {
             gameObject.SetActive(false);
             effect = Instantiate(enemyDeathEffect, transform.position, Quaternion.identity);
+
+            if (gameObject.GetComponent<Save_ObjState>() != null)
+            {
+                gameObject.GetComponent<Save_ObjState>().obj.saveState = 1;
+                gameObject.GetComponent<Save_ObjState>().obj.ForceSerialization();
+            }
+
             Destroy(effect, 1f);
             Destroy(transform.parent.gameObject, 1f);
 

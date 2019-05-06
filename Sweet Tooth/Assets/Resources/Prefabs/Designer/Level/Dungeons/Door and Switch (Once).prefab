@@ -118,6 +118,7 @@ GameObject:
   - component: {fileID: 1447933348}
   - component: {fileID: 1447933350}
   - component: {fileID: 1447933349}
+  - component: {fileID: 8657433876779793287}
   m_Layer: 0
   m_Name: Trigger Area
   m_TagString: Untagged
@@ -182,6 +183,19 @@ MonoBehaviour:
   open: 0
   doorSprite: {fileID: 679697199}
   physicCollider: {fileID: 679697198}
+--- !u!114 &8657433876779793287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1447933347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc46b086d70412d4a8706d03085d183e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obj: {fileID: 0}
 --- !u!1 &1897966894
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,6 +319,7 @@ MonoBehaviour:
   storedValue: {fileID: 11400000, guid: f9905a3d1c2e641a1aa8baee4bc9d6a1, type: 2}
   activeSprite: {fileID: 21300196, guid: 552e97499fa604cd0bcd0abe27786e8d, type: 3}
   thisDoor: {fileID: 1447933349}
+  multipleDoors: []
 --- !u!1 &1947137734
 GameObject:
   m_ObjectHideFlags: 0

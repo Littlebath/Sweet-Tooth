@@ -30,7 +30,7 @@ public class chasePlayer1 : StateMachineBehaviour
             {
                 if (Vector3.Distance(animator.transform.position, FindObjectOfType<PlayerController>().gameObject.transform.position) >= values.chaseRadius)
                 {
-                    tempPos = Vector3.MoveTowards(animator.transform.position, FindObjectOfType<PlayerController>().gameObject.transform.position, values.chaseSpeed1 * Time.deltaTime);
+                    tempPos = Vector3.MoveTowards(animator.transform.position, FindObjectOfType<PlayerController>().gameObject.transform.position, values.chaseSpeed1 * Time.fixedDeltaTime);
                     animator.gameObject.GetComponent<Rigidbody2D>().MovePosition(tempPos);
                     chaseCounter -= Time.deltaTime;
                 }

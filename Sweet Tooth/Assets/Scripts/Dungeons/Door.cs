@@ -20,9 +20,20 @@ public class Door : Interactable
     public BoxCollider2D physicCollider;
 
     private void Start()
-    {
-        
-        
+    { 
+        if (GetComponent<Save_ObjState>() != null)
+        {
+            if (GetComponent<Save_ObjState>().obj.saveState == 0)
+            {
+                Close();
+            }
+
+            else if (GetComponent<Save_ObjState>().obj.saveState == 1)
+            {
+                Open();
+            }
+
+        }
     }
 
     // Update is called once per frame
@@ -42,14 +53,26 @@ public class Door : Interactable
     {
         doorSprite.enabled = false;
         open = true;
+        if (GetComponent<Save_ObjState>() != null)
+        {
+            GetComponent<Save_ObjState>().obj.saveState = 1;
+            gameObject.GetComponent<Save_ObjState>().obj.ForceSerialization();
+        }
         physicCollider.enabled = false;
+        Debug.Log("Open");
         //Destroy(gameObject.transform.parent.gameObject);
     }
 
     public void Close()
     {
+        Debug.Log("Close");
         doorSprite.enabled = true;
         open = false;
+        if (GetComponent<Save_ObjState>() != null)
+        {
+            GetComponent<Save_ObjState>().obj.saveState = 0;
+            gameObject.GetComponent<Save_ObjState>().obj.ForceSerialization();
+        }
         physicCollider.enabled = true;
     }
 
@@ -57,11 +80,9 @@ public class Door : Interactable
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("In Trigger");
-
             if (thisDoorType == DoorType.key)
             {
-                if (!open)
+                if (GetComponent<Save_ObjState>().obj.saveState == 0)
                 {
                     if (FindObjectOfType<Player_Inventory>().numberOfKeys > 0)
                     {
