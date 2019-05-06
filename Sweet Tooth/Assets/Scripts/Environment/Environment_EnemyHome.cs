@@ -55,7 +55,7 @@ public class Environment_EnemyHome : MonoBehaviour
 
             yield return new WaitForSeconds(2.5f);
         }
-
+        Destroy(gameObject, 1.5f);
         yield return null;
     }
 
