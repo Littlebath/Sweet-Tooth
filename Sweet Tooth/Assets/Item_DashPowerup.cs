@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item_FireballUpgrade : MonoBehaviour
+public class Item_DashPowerup : MonoBehaviour
 {
     [SerializeField] private Player_ScriptableObject values;
 
     bool pickedUp;
 
     private Sprite originalSprite;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,12 +32,12 @@ public class Item_FireballUpgrade : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            values.hasFireball = true;
+            values.hasDash = true;
             StartCoroutine(PickUp_Animation());
         }
     }
 
-    IEnumerator PickUp_Animation ()
+    IEnumerator PickUp_Animation()
     {
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
         gameObject.GetComponent<SpriteRenderer>().sprite = null;

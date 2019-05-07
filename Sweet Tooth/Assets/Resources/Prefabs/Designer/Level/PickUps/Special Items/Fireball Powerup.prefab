@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 9060457376168086711}
   - component: {fileID: 4129518243349603012}
   - component: {fileID: 26959272303794008}
+  - component: {fileID: 463762019}
   m_Layer: 0
-  m_Name: Fireball PickUp
-  m_TagString: Boomerang
+  m_Name: Fireball Powerup
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,3 +121,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   values: {fileID: 11400000, guid: da3d95efc83070544a77644ede6be87f, type: 2}
+--- !u!114 &463762019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 440061214300644924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c25cbb7da6c93344c834101c5a25f15c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue:
+  - {fileID: 11400000, guid: e06d3bc722dcfeb428719e5de2ec0e46, type: 2}
+  cutsceneDialogue: 0
