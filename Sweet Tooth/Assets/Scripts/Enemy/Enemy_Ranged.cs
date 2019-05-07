@@ -111,9 +111,10 @@ public class Enemy_Ranged : Enemy
         if (timeBtwShotCounter <= 0)
         {
             Debug.Log("Shoot bullet");
-            GameObject bullet = Instantiate(projectile, transform.position, Quaternion.identity);
+            Vector3 direction = GameObject.FindGameObjectWithTag("Player").transform.position - transform.position;
+            spawnPoint = transform.position + direction.normalized;
+            GameObject bullet = Instantiate(projectile, spawnPoint, Quaternion.identity);
             bullet.GetComponent<EnemyRanged_Bullet>().damage = baseAttack;
-            Vector2 direction = GameObject.FindGameObjectWithTag("Player").transform.position - transform.position;
             bullet.GetComponent<Rigidbody2D>().velocity = bulletSpeed * direction.normalized;
             //Face_Direction(bullet.GetComponent<Rigidbody2D>().velocity);
 
