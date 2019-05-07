@@ -13,7 +13,7 @@ public class Environment_TorchController : MonoBehaviour
 
     [SerializeField] private GameObject allTorches;
 
-    [SerializeField] private float timer = 0.2f;
+    [SerializeField] private float timer = 0.4f;
 
     private float counter;
 
