@@ -402,6 +402,17 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine(rasgullaExpands[i].GetComponent<Environment_Metal>().Metal_Process());
             }
 
+            //Enemy houses
+            Collider2D[] enemyHomes = Physics2D.OverlapCircleAll(attackPos.position, designerValues.meleeRange);
+
+            for (int i = 0; i < enemyHomes.Length; i++)
+            {
+                if (enemyHomes[i].GetComponent<Environment_EnemyHome>() != null)
+                {
+                    Destroy(enemyHomes[i], 6f);
+                }
+            }
+
             //Bosses 
             Collider2D [] bosses = Physics2D.OverlapCircleAll(attackPos.position, designerValues.meleeRange);
 
