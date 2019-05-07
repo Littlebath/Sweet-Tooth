@@ -129,6 +129,11 @@ public class PlayerController : MonoBehaviour
         {
             energyTimeCounter -= Time.deltaTime;
         }
+
+        if (designerValues.energyCounter > designerValues.maxEnergy)
+        {
+            designerValues.energyCounter = designerValues.maxEnergy;
+        }
     }
 
     private void FixedUpdate()

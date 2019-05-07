@@ -40,7 +40,7 @@ public class Environment_FireballDash : MonoBehaviour
     void Start()
     {
         burner = whoIsOnFire.NoOne;
-        countDown = 1f;
+        countDown = pso.burnTimeOnEnemy;
         anim = gameObject.GetComponent<Animator>();
         StartCoroutine(Snuff_Flames());
 
@@ -57,15 +57,15 @@ public class Environment_FireballDash : MonoBehaviour
             {
                 if (enemy.GetComponent<Enemy>() != null)
                 {
-                    enemy.GetComponent<Enemy>().Take_Damage(burningDamage);
+                    enemy.GetComponent<Enemy>().Take_Damage(pso.burnDamageOverTime);
                 }
 
                 if (enemy.GetComponent<Boss_OreoChocolateBoss>() != null)
                 {
-                    enemy.GetComponent<Boss_OreoChocolateBoss>().Take_Damage(burningDamage);
+                    enemy.GetComponent<Boss_OreoChocolateBoss>().Take_Damage(pso.burnDamageOverTime);
                 }
 
-                countDown = 1;
+                countDown = pso.burnTimeOnEnemy;
             }
 
             else
@@ -165,7 +165,7 @@ public class Environment_FireballDash : MonoBehaviour
 
         if (other.GetComponent<Boss_OreoChocolateBoss>() != null)
         {
-            other.GetComponent<Boss_OreoChocolateBoss>().Take_Damage(pso.fireballDamage);
+            other.GetComponent<Boss_OreoChocolateBoss>().Take_Damage(pso.burnDamageOverTime);
         }
 
         gameObject.transform.parent = other.gameObject.transform;

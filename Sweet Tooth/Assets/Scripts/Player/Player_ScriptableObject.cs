@@ -72,6 +72,8 @@ public class Player_ScriptableObject : ScriptableObject
     public int fireballEnergyUse;
     public float destroyTime;
     public float fireballFireRate;
+    public float burnDamageOverTime;
+    public float burnTimeOnEnemy;
     public int fireballRecovery;
 
     [Header("Layer properties")]

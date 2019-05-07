@@ -58,7 +58,7 @@ public class Enemy_Ranged : Enemy
             bullet.GetComponent<EnemyRanged_Bullet>().damage = baseAttack;
             Vector2 speed = new Vector2 (0f, 0f);
             Face_Direction(speed);
-            Debug.Log(speed);
+            //Debug.Log(speed);
             bullet.GetComponent<Rigidbody2D>().velocity = Face_Direction (speed);
             //Face_Direction(bullet.GetComponent<Rigidbody2D>().velocity);
 
