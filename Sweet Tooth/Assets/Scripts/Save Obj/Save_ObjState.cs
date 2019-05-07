@@ -25,5 +25,6 @@ public class Save_ObjState : MonoBehaviour
     void Reset_World ()
     {
         obj.saveState = 0;
+        Debug.Log("Reset");
     }
 }

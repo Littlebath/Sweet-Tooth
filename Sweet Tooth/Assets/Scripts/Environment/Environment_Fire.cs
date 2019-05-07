@@ -42,6 +42,7 @@ public class Environment_Fire : MonoBehaviour
         {
             if (objectsToBurn[i] != null)
             {
+                //Debug.Log(objectsToBurn[i].name);
                 //Cinnamon
                 if (objectsToBurn[i].gameObject.CompareTag("Cinnamon"))
                 {
@@ -49,10 +50,11 @@ public class Environment_Fire : MonoBehaviour
                     StartCoroutine(objectsToBurn[i].gameObject.GetComponent<Environment_Cinnamon>().Set_Alight());
                 }
 
-                //Nuts
-                if (objectsToBurn[i].gameObject.layer == 17)
+                //Nuts.
+                if (objectsToBurn[i].gameObject.GetComponent<Environment_ExplosiveNut>() != null)
                 {
-                    yield return new WaitForSeconds(1.5f);
+                    Debug.Log("Explode nut");
+                    yield return new WaitForSeconds(0.25f);
                     StartCoroutine(objectsToBurn[i].GetComponent<Environment_ExplosiveNut>().Explode());
                 }
 

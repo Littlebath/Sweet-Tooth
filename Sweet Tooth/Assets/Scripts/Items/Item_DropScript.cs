@@ -24,6 +24,8 @@ public class Item_DropScript : MonoBehaviour
 
     public void Spawn_Item ()
     {
+        Debug.Log(itemSpawner);
+
         if (itemSpawner <= percentageOfSpawningItem)
         {
             int itemRandomizer = Random.Range(0, itemsToSpawn.Length - 1);

@@ -72,7 +72,7 @@ public class Enemy_Patrolling : Enemy
                     ChangeAnim(currPos - transform.position);
                     gameObject.GetComponent<Rigidbody2D>().MovePosition(currPos);
                     Change_State(EnemyState.idle);
-                    Debug.Log(currPos);
+                    //Debug.Log(currPos);
 
                     if (shield != null)
                     {
