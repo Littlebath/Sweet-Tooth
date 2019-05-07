@@ -58,7 +58,7 @@ public class Player_Start : MonoBehaviour
         if (pc.startPoint == pointName)
         {
             pc.transform.position = transform.position;
-            pc.enabled = true;
+            //pc.enabled = true;
             pc.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             cc = FindObjectOfType<CinemachineVirtualCamera>();
             cc.transform.position = new Vector3(transform.position.x, transform.position.y, cc.transform.position.z);
