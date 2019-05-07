@@ -6,7 +6,9 @@ public class dashAttack1 : StateMachineBehaviour
 {
     [SerializeField] private OreoBossScriptableObject values;
 
-    private Vector3 playerPos; 
+    private Vector3 playerPos;
+
+    [HideInInspector] public Boss_OreoChocolateBoss boss;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -34,5 +36,20 @@ public class dashAttack1 : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         
+    }
+
+    public void Dash_Attack_1 (Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        if (Vector3.Distance(animator.transform.position, playerPos) >= 0.2f)
+        {
+            Vector3 tempPos = Vector3.MoveTowards(animator.transform.position, playerPos, values.chargeSpeed1 * Time.fixedDeltaTime);
+            animator.gameObject.GetComponent<Rigidbody2D>().MovePosition(tempPos);
+            Debug.Log("Dashing");
+        }
+
+        else
+        {
+            animator.SetTrigger("dashCoolDown");
+        }
     }
 }

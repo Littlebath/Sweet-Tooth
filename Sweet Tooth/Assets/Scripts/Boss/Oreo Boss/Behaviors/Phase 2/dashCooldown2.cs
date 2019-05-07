@@ -20,6 +20,17 @@ public class dashCooldown2 : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+
+    }
+
+    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+
+    }
+
+    public void Dash_Cooldown_2 (Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
         if (counter <= 0)
         {
             if (values.noOfDashes >= values.dashCount2 - 1)
@@ -44,11 +55,5 @@ public class dashCooldown2 : StateMachineBehaviour
         {
             counter -= Time.fixedDeltaTime;
         }
-    }
-
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-
     }
 }

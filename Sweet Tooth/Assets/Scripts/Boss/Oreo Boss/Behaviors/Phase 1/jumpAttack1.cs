@@ -10,6 +10,8 @@ public class jumpAttack1 : StateMachineBehaviour
     Vector3 origin;
     float animation;
 
+    [HideInInspector] public Boss_OreoChocolateBoss boss;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -19,6 +21,17 @@ public class jumpAttack1 : StateMachineBehaviour
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+
+    }
+
+    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        
+    }
+
+    public void Jump_Attack_1 (Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (Vector3.Distance(animator.transform.position, playerPos) <= 0.1f)
         {
@@ -32,11 +45,5 @@ public class jumpAttack1 : StateMachineBehaviour
             Vector3 tempPos = MathParabola.Parabola(origin, playerPos, 1f, animation / 1f);
             animator.GetComponent<Rigidbody2D>().MovePosition(tempPos);
         }
-    }
-
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        
     }
 }
