@@ -45,4 +45,27 @@ public class chasePlayer1 : StateMachineBehaviour
         
     }
 
+    void Chase_Player1 (Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        if (animator.GetComponent<Rigidbody2D>().isKinematic)
+        {
+            if (chaseCounter <= 0)
+            {
+                animator.SetTrigger("startDash");
+                chaseCounter = values.chaseDuration1;
+            }
+
+            else
+            {
+                if (Vector3.Distance(animator.transform.position, FindObjectOfType<PlayerController>().gameObject.transform.position) >= values.chaseRadius)
+                {
+                    tempPos = Vector3.MoveTowards(animator.transform.position, FindObjectOfType<PlayerController>().gameObject.transform.position, values.chaseSpeed1 * Time.fixedDeltaTime);
+                    animator.gameObject.GetComponent<Rigidbody2D>().MovePosition(tempPos);
+                    chaseCounter -= Time.fixedDeltaTime;
+                }
+            }
+
+        }
+    }
+
 }

@@ -23,9 +23,14 @@ public class Boss_OreoChocolateBoss : MonoBehaviour
     public Transform maxX;
     public Transform spawnHeight;
 
+    private Animator anim;
+    //State Machine Behavior Properties
+
+
     // Start is called before the first frame update
     void Start()
     {
+        anim = gameObject.GetComponent<Animator>();
         values.Reset_Boss_Parameters();
         indicator.SetActive(false);
     }
