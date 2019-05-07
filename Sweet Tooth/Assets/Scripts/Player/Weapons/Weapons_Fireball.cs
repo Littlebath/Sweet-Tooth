@@ -101,7 +101,7 @@ public class Weapons_Fireball : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
            collision.gameObject.GetComponent<Enemy>().Take_Damage(designerValues.fireballDamage);
-           GameObject blaze = Instantiate(inferno, transform.position, Quaternion.identity);
+           //GameObject blaze = Instantiate(inferno, transform.position, Quaternion.identity);
            Debug.Log("Hit enemy");
             //pk.Knock_Back(collision);
         }

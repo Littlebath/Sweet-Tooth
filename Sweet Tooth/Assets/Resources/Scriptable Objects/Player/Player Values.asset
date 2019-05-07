@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   maxHealth: 8
-  health: 6
+  health: 8
   maxArmor: 6
   armor: 0
   armorMultiplier: 25
@@ -23,7 +23,7 @@ MonoBehaviour:
   dashSpeed: 15
   dashTime: 0.2
   maxEnergy: 5
-  energyCounter: 5
+  energyCounter: 3
   energyRegenerateTime: 5
   energyRegenerateAmount: 1
   meleeRange: 0.45
@@ -40,11 +40,13 @@ MonoBehaviour:
   boomerangTurnSpeed: 50
   fireball: {fileID: 7680812659788672856, guid: 9b09fb2f8b30f224c9bf3e5f5bf24a5b,
     type: 3}
-  fireballSpeed: 8
+  fireballSpeed: 6
   fireballDamage: 1
-  fireballEnergyUse: 1
-  destroyTime: 0.5
+  fireballEnergyUse: 2
+  destroyTime: 0.6
   fireballFireRate: 0.1
+  burnDamageOverTime: 0.8
+  burnTimeOnEnemy: 3
   fireballRecovery: 4
   whatIsEnemy:
     serializedVersion: 2
