@@ -18,13 +18,15 @@ public class Enemy_Ranged : Enemy
     public ShootDir shootDir;
     [SerializeField] float bulletSpeed;
     [SerializeField] float timeBtwShot;
-    [SerializeField] Transform spawnPoint;
+    Vector3 spawnPoint;
+    Vector3 origin;
     float timeBtwShotCounter; 
     [SerializeField] private GameObject projectile;
 
     // Start is called before the first frame update
     void Start()
     {
+        origin = transform.position;
         anim = gameObject.GetComponent<Animator>();
         Face_Direction(new Vector2(0F, 0F));
         timeBtwShotCounter = timeBtwShot;
@@ -52,7 +54,7 @@ public class Enemy_Ranged : Enemy
         if (timeBtwShotCounter <= 0)
         {
             //Debug.Log("Shoot bullet");
-            GameObject bullet = Instantiate(projectile, transform.position, Quaternion.identity);
+            GameObject bullet = Instantiate(projectile, spawnPoint, Quaternion.identity);
             bullet.GetComponent<EnemyRanged_Bullet>().damage = baseAttack;
             Vector2 speed = new Vector2 (0f, 0f);
             Face_Direction(speed);
@@ -76,24 +78,28 @@ public class Enemy_Ranged : Enemy
         {
             //Debug.Log("Shoot up");
             velocity = Vector2.up * bulletSpeed;
+            spawnPoint = transform.position + Vector3.up;  
         }
 
         else if (shootDir == ShootDir.left)
         {
             //Debug.Log("Shoot left");
             velocity = Vector2.left * bulletSpeed;
+            spawnPoint = transform.position + Vector3.left;
         }
 
         else if (shootDir == ShootDir.down)
         {
             //Debug.Log("Shoot down");
             velocity = Vector2.down * bulletSpeed;
+            spawnPoint = transform.position + Vector3.down;
         }
 
         else if (shootDir == ShootDir.right)
         {
             //Debug.Log("Shoot right");
             velocity = Vector2.right * bulletSpeed;
+            spawnPoint = transform.position + Vector3.right;
         }
 
         ChangeAnim(velocity);
