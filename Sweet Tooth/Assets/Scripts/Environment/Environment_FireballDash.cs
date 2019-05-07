@@ -138,7 +138,12 @@ public class Environment_FireballDash : MonoBehaviour
                         StopCoroutine(Snuff_Flames());
                         gameObject.transform.position = pc.gameObject.transform.position;
                         gameObject.transform.parent = pc.gameObject.transform;
-                        pso.energyCounter += pso.fireballRecovery;
+
+                        if (pso.energyCounter < pso.maxEnergy)
+                        {
+                            pso.energyCounter += pso.fireballRecovery;
+                        }
+
                         isDying = true;
                         anim.SetTrigger("dies");
                         Destroy(gameObject, snuffFlames.averageDuration);

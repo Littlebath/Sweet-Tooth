@@ -17,6 +17,17 @@ public class dashAttack2 : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+
+    }
+
+    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+
+    }
+
+    public void Dash_Attack_2 (Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
         if (Vector3.Distance(animator.transform.position, playerPos) >= 0.2f)
         {
             Vector3 tempPos = Vector3.MoveTowards(animator.transform.position, playerPos, values.chargeSpeed2 * Time.fixedDeltaTime);
@@ -28,11 +39,5 @@ public class dashAttack2 : StateMachineBehaviour
         {
             animator.SetTrigger("dashCoolDown");
         }
-    }
-
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-
     }
 }

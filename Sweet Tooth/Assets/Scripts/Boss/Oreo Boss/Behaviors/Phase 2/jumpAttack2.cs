@@ -20,6 +20,17 @@ public class jumpAttack2 : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+
+    }
+
+    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+
+    }
+
+    public void Jump_Attack_2 (Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
         if (Vector3.Distance(animator.transform.position, playerPos) <= 0.1f)
         {
             animator.SetTrigger("jumpCooldown");
@@ -32,11 +43,5 @@ public class jumpAttack2 : StateMachineBehaviour
             Vector3 tempPos = MathParabola.Parabola(origin, playerPos, 1f, animation / 1f);
             animator.GetComponent<Rigidbody2D>().MovePosition(tempPos);
         }
-    }
-
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-
     }
 }

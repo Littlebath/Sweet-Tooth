@@ -5,7 +5,6 @@ using UnityEngine;
 public class Boss_OreoChocolateBoss : MonoBehaviour
 {
     [SerializeField] private OreoBossScriptableObject values;
-    public float moreTurn;
 
     private bool isHurt;
 
@@ -23,9 +22,29 @@ public class Boss_OreoChocolateBoss : MonoBehaviour
     public Transform maxX;
     public Transform spawnHeight;
 
+    private Animator anim;
+    //State Machine Behavior Properties
+    private chasePlayer1 chasePlayer1;
+    private dashWait1 dashWait1;
+    private dashAttack1 dashAttack1;
+    private dashCooldown1 dashCooldown1;
+    private jumpBuildUp1 jumpBuildUp1;
+    private jumpAttack1 jumpAttack1;
+    private jumpCooldown1 jumpCooldown1;
+
+    private chasePlayer2 chasePlayer2;
+    private dashBuildUp2 dashBuildUp2;
+    private dashAttack2 dashAttack2;
+    private dashCooldown2 dashCooldown2;
+    private jumpBuildUp2 jumpBuildUp2;
+    private jumpAttack2 jumpAttack2;
+    private jumpCooldown2 jumpCooldown2;
+
     // Start is called before the first frame update
     void Start()
     {
+        anim = gameObject.GetComponent<Animator>();
+        Set_Animation_Behaviors();
         values.Reset_Boss_Parameters();
         indicator.SetActive(false);
     }
@@ -34,6 +53,108 @@ public class Boss_OreoChocolateBoss : MonoBehaviour
     void Update()
     {
         Charging_Indicator();
+    }
+
+    private void FixedUpdate()
+    {
+        Boss_Behaviors();
+    }
+
+    void Boss_Behaviors ()
+    {
+        AnimatorStateInfo info = anim.GetCurrentAnimatorStateInfo(0);
+        Debug.Log("Run boss");
+        Debug.Log(info);
+
+        if (info.IsName("chasePlayer1"))
+        {
+            chasePlayer1.Chase_Player1(anim, info, 0);
+        }
+
+        else if (info.IsName("dashBuild1"))
+        {
+            dashWait1.DashBuildUp1(anim, info, 0);
+        }
+
+        else if (info.IsName("dashAttack1"))
+        {
+            dashAttack1.Dash_Attack_1(anim, info, 0);
+        }
+
+        else if (info.IsName("dashCooldown1"))
+        {
+            dashCooldown1.Dash_Cooldown_1(anim, info, 0);
+        }
+
+        else if (info.IsName("jumpBuildUp1"))
+        {
+            jumpBuildUp1.Jump_BuildUp_1(anim, info, 0);
+        }
+
+        else if (info.IsName("jumpAttack1"))
+        {
+            jumpAttack1.Jump_Attack_1(anim, info, 0);
+        }
+
+        else if (info.IsName("jumpCooldown1"))
+        {
+            jumpCooldown1.Jump_Cooldown_1(anim, info, 0);
+        }
+
+        else if (info.IsName("chasePlayer2"))
+        {
+            chasePlayer2.Chase_Player_2(anim, info, 0);
+        }
+
+        else if (info.IsName("dashBuildUp2"))
+        {
+            dashBuildUp2.Dash_Build_2(anim, info, 0);
+        }
+
+        else if (info.IsName("dashAttack2"))
+        {
+            dashAttack2.Dash_Attack_2(anim, info, 0);
+        }
+
+        else if (info.IsName("dashCooldown2"))
+        {
+            dashCooldown2.Dash_Cooldown_2(anim, info, 0);
+        }
+
+        else if (info.IsName("jumpBuildUp2"))
+        {
+            jumpBuildUp2.Jump_Build_Up_2(anim, info, 0);
+        }
+
+        else if (info.IsName("jumpAttack2"))
+        {
+            jumpAttack2.Jump_Attack_2(anim, info, 0);
+        }
+
+        else if (info.IsName("jumpCooldown2"))
+        {
+            jumpCooldown2.Jump_CoolDown_2(anim, info, 0);
+        }
+    }
+
+    void Set_Animation_Behaviors ()
+    {
+        chasePlayer1 = anim.GetBehaviour<chasePlayer1>();
+        chasePlayer1.boss = this;
+
+        dashWait1 = anim.GetBehaviour<dashWait1>();
+        dashAttack1 = anim.GetBehaviour<dashAttack1>();
+        dashCooldown1 = anim.GetBehaviour<dashCooldown1>();
+        jumpBuildUp1 = anim.GetBehaviour<jumpBuildUp1>();
+        jumpAttack1 = anim.GetBehaviour<jumpAttack1>();
+        jumpCooldown1 = anim.GetBehaviour<jumpCooldown1>();
+        chasePlayer2 = anim.GetBehaviour<chasePlayer2>();
+        dashBuildUp2 = anim.GetBehaviour<dashBuildUp2>();
+        dashAttack2 = anim.GetBehaviour<dashAttack2>();
+        dashCooldown2 = anim.GetBehaviour<dashCooldown2>();
+        jumpBuildUp2 = anim.GetBehaviour<jumpBuildUp2>();
+        jumpAttack2 = anim.GetBehaviour<jumpAttack2>();
+        jumpCooldown2 = anim.GetBehaviour<jumpCooldown2>();
     }
 
     void Charging_Indicator ()
@@ -151,6 +272,7 @@ public class Boss_OreoChocolateBoss : MonoBehaviour
     {
         StopCoroutine(Flash());
         deathOrigin = transform.position;
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
         gameObject.GetComponent<Animator>().SetTrigger("death");
         Destroy(gameObject, 3f);
     }

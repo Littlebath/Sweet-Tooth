@@ -55,7 +55,6 @@ public class Environment_EnemyHome : MonoBehaviour
 
             yield return new WaitForSeconds(2.5f);
         }
-        Destroy(gameObject, 1.5f);
         yield return null;
     }
 
@@ -71,6 +70,7 @@ public class Environment_EnemyHome : MonoBehaviour
                 isEmpty = true;
                 isBurning = true;
                 StartCoroutine(Spawn_Enemies());
+                Destroy(gameObject, 6f);
             }
         }
     }
