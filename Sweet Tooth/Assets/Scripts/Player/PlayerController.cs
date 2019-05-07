@@ -122,7 +122,6 @@ public class PlayerController : MonoBehaviour
             {
                 designerValues.energyCounter += designerValues.energyRegenerateAmount;
                 energyTimeCounter = designerValues.energyRegenerateTime;
-                //Debug.Log("added amount");
             }
         }
 
