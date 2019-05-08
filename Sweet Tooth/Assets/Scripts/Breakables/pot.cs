@@ -39,6 +39,7 @@ public class pot : MonoBehaviour
         if (gameObject.GetComponent<Save_ObjState>() != null)
         {
             gameObject.GetComponent<Save_ObjState>().obj.saveState = 1;
+            gameObject.GetComponent<Save_ObjState>().obj.ForceSerialization();
         }
 
         yield return new WaitForSeconds(.3f);
