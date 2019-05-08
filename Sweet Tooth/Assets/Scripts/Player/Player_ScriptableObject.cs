@@ -89,6 +89,9 @@ public class Player_ScriptableObject : ScriptableObject
     public AnimationClip throwTime;
     public AnimationClip knockUpTime;
 
+    [Header("Particle Effects")]
+    public GameObject dust;
+
     public void ResetValues ()
     {
         health = maxHealth;

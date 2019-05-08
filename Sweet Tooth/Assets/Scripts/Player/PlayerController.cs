@@ -481,6 +481,7 @@ public class PlayerController : MonoBehaviour
         if (isDashing)
         {
             StartCoroutine(Dashing());
+            Instantiate(designerValues.dust, transform.position, Quaternion.identity);
         }
 
         if (pi.dashButton)
