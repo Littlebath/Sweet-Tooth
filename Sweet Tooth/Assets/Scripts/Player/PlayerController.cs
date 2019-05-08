@@ -313,6 +313,7 @@ public class PlayerController : MonoBehaviour
                 if (pi.meleeButton)
                 {
                     timeBtwAttack = designerValues.meleeTime.averageDuration;
+                    Instantiate(designerValues.sparkle, attackPos.transform.position, Quaternion.identity);
 
                     //Explosive Nuts
                     Collider2D[] nutExplodes = Physics2D.OverlapCircleAll(attackPos.position, designerValues.meleeRange, designerValues.whatIsNuts);

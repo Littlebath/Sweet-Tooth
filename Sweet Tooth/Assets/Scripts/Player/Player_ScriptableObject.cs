@@ -91,6 +91,7 @@ public class Player_ScriptableObject : ScriptableObject
 
     [Header("Particle Effects")]
     public GameObject dust;
+    public GameObject sparkle;
 
     public void ResetValues ()
     {
