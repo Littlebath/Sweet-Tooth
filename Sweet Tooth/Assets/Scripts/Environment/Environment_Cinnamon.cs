@@ -13,7 +13,10 @@ public class Environment_Cinnamon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (gameObject.GetComponent<Save_ObjState>().obj.saveState == 1)
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Update is called once per frame
@@ -29,6 +32,8 @@ public class Environment_Cinnamon : MonoBehaviour
         if (gameObject.transform.GetChild(0).gameObject != null)
         {
             isBurning = true;
+            gameObject.GetComponent<Save_ObjState>().obj.saveState = 1;
+            gameObject.GetComponent<Save_ObjState>().obj.ForceSerialization();
             gameObject.GetComponent<Animator>().SetTrigger("burn");
             Debug.Log("Catch Fire");
             yield return new WaitForSeconds(burningTime);
