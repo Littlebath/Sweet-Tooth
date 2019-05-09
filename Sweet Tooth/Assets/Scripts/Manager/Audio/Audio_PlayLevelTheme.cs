@@ -10,33 +10,16 @@ public class Audio_PlayLevelTheme : MonoBehaviour
     {
         StartCoroutine(PlaySongAtStart());
 
-        if (gameObject.GetComponent<Dialogue_Trigger>() != null)
+        /*if (gameObject.GetComponent<Dialogue_Trigger>() != null)
         {
             gameObject.GetComponent<Dialogue_Trigger>().TriggerDialogue();
-        }
+        }*/
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (gameObject.GetComponent<Dialogue_Trigger>() != null)
-        {
-            if (FindObjectOfType<PlayerInput>().interactButton)
-            {
-                if (!FindObjectOfType<Manager_Dialogue>().isTalking)
-                {
-                    FindObjectOfType<PlayerController>().isMelee = false;
-                    Debug.Log("Start dialogue");
-                    GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-                    //Debug.Log("Talk");
-                }
 
-                else
-                {
-                    FindObjectOfType<Manager_Dialogue>().DisplayNextSentence();
-                }
-            }
-        }
     }
 
     IEnumerator PlaySongAtStart ()
