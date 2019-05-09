@@ -76,6 +76,7 @@ public class PlayerController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+
         if (designerValues.hasDash)
         {
             if (rb2d.velocity != Vector2.zero)
@@ -94,14 +95,22 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(Slow_Effect());
         }
 
-        SetAnimations();
-
         if (designerValues.health > designerValues.maxHealth)
         {
             designerValues.health = designerValues.maxHealth;
         }
 
+        if (!isPlayerHurt)
+        {
+            if (!isMelee)
+            {
+                EightDirectionalMovement();
+            }
+        }
+
         Regenerate_Energy();
+        SetAnimations();
+
     }
 
     public IEnumerator Slow_Effect ()
@@ -139,13 +148,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         //GridMovement();
-        if (!isPlayerHurt)
-        {
-            if (!isMelee)
-            {
-                EightDirectionalMovement();
-            }
-        }
+
     }
 
 
@@ -361,8 +364,9 @@ public class PlayerController : MonoBehaviour
 
         else
         {
-            timeBtwAttack -= Time.deltaTime;
             isMelee = true;
+            anim.SetBool("isMelee", true);
+            timeBtwAttack -= Time.deltaTime;
         }
 
 
