@@ -252,6 +252,7 @@ public class Boss_OreoChocolateBoss : MonoBehaviour
         float x = deathOrigin.x + Random.Range(0f, 1f);
         float y = deathOrigin.y + Random.Range(0f, 1f);
         transform.position = new Vector2(x, y);
+        Instantiate(values.introParticles, transform.position, Quaternion.identity);
     }
 
 
@@ -274,7 +275,7 @@ public class Boss_OreoChocolateBoss : MonoBehaviour
         deathOrigin = transform.position;
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
         gameObject.GetComponent<Animator>().SetTrigger("death");
-        Destroy(gameObject, 3f);
+        Destroy(gameObject.transform.gameObject.transform.gameObject, 3f);
     }
 
     public void Knock_Back_Me(GameObject me)
