@@ -59,13 +59,13 @@ public class Door : Interactable
             gameObject.GetComponent<Save_ObjState>().obj.ForceSerialization();
         }
         physicCollider.enabled = false;
-        Debug.Log("Open");
+        //Debug.Log("Open");
         //Destroy(gameObject.transform.parent.gameObject);
     }
 
     public void Close()
     {
-        Debug.Log("Close");
+        //Debug.Log("Close");
         doorSprite.enabled = true;
         open = false;
         if (GetComponent<Save_ObjState>() != null)

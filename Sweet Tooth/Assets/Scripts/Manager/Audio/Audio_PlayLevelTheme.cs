@@ -26,6 +26,6 @@ public class Audio_PlayLevelTheme : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         FindObjectOfType<Manager_AudioManager>().Play(levelSong);
-        Debug.Log(levelSong);
+        //Debug.Log(levelSong);
     }
 }

@@ -43,7 +43,7 @@ public class EnemyRanged_Bullet : MonoBehaviour
                 Destroy(gameObject);
             }
 
-            Debug.Log(collision.gameObject.name);
+            //Debug.Log(collision.gameObject.name);
         }
     }
 }

@@ -65,8 +65,8 @@ public class Boss_OreoChocolateBoss : MonoBehaviour
     void Boss_Behaviors ()
     {
         AnimatorStateInfo info = anim.GetCurrentAnimatorStateInfo(0);
-        Debug.Log("Run boss");
-        Debug.Log(info);
+        //Debug.Log("Run boss");
+        //Debug.Log(info);
 
         if (info.IsName("chasePlayer1"))
         {

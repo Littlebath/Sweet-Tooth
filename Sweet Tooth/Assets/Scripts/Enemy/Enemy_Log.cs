@@ -77,7 +77,7 @@ public class Enemy_Log : Enemy
 
         else if (Vector3.Distance(target.position, transform.position) > chaseRadius)
         {
-            Debug.Log("Go to sleep");
+            //Debug.Log("Go to sleep");
             anim.SetBool("isAwake", false);
 
             if (shield != null)
