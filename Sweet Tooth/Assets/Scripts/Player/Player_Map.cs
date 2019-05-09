@@ -18,11 +18,6 @@ public class Player_Map : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (map == null)
-        {
-            map = GameObject.FindGameObjectWithTag("Map").transform.GetChild(0).gameObject;
-        }
-
         if (pi == null)
         {
             pi = FindObjectOfType<PlayerInput>();
