@@ -605,7 +605,7 @@ public class PlayerController : MonoBehaviour
         anim.SetTrigger("isHurt");
         FindObjectOfType<UI_HeartDisplay>().Update_Hearts();
         FindObjectOfType<CameraController>().Screen_Kick();
-        Handheld.Vibrate();
+        //Handheld.Vibrate();
 
         if (FindObjectOfType<Manager_Dialogue>().isTalking)
         {

@@ -63,6 +63,7 @@ public class Environment_EnemyHome : MonoBehaviour
         if (collision.gameObject.CompareTag("Boomerang"))
         {
             fire.SetActive(true);
+            Destroy(gameObject, 5f);
 
             if (!isEmpty)
             {
@@ -70,7 +71,6 @@ public class Environment_EnemyHome : MonoBehaviour
                 isEmpty = true;
                 isBurning = true;
                 StartCoroutine(Spawn_Enemies());
-                Destroy(gameObject, 6f);
             }
         }
     }
