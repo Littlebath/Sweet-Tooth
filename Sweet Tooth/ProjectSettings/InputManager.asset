@@ -15,8 +15,8 @@ InputManager:
     altPositiveButton: 
     gravity: 3
     dead: 0.001
-    sensitivity: 3
-    snap: 1
+    sensitivity: 1000
+    snap: 0
     invert: 0
     type: 0
     axis: 0
@@ -31,8 +31,8 @@ InputManager:
     altPositiveButton: 
     gravity: 3
     dead: 0.001
-    sensitivity: 3
-    snap: 1
+    sensitivity: 1000
+    snap: 0
     invert: 0
     type: 0
     axis: 0
@@ -159,7 +159,23 @@ InputManager:
     altPositiveButton: 
     gravity: 0
     dead: 0.19
-    sensitivity: 1
+    sensitivity: 10000
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: HorizontalUI
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 2
+    sensitivity: 1.5
     snap: 0
     invert: 0
     type: 2
@@ -178,6 +194,22 @@ InputManager:
     sensitivity: 1
     snap: 0
     invert: 1
+    type: 2
+    axis: 1
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: VerticalUI
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 0
+    invert: 0
     type: 2
     axis: 1
     joyNum: 0
@@ -300,7 +332,7 @@ InputManager:
     negativeButton: 
     positiveButton: m
     altNegativeButton: 
-    altPositiveButton: joystick button 1
+    altPositiveButton: joystick button 6
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -316,7 +348,7 @@ InputManager:
     negativeButton: 
     positiveButton: q
     altNegativeButton: 
-    altPositiveButton: joystick button 1
+    altPositiveButton: joystick button 3
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -364,14 +396,14 @@ InputManager:
     negativeButton: 
     positiveButton: left shift
     altNegativeButton: 
-    altPositiveButton: joystick button 1
+    altPositiveButton: joystick button 2
     gravity: 1000
     dead: 0.001
-    sensitivity: 1000
+    sensitivity: 100000
     snap: 0
     invert: 0
     type: 0
-    axis: 0
+    axis: 8
     joyNum: 0
   - serializedVersion: 3
     m_Name: Melee

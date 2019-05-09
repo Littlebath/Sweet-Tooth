@@ -111,7 +111,7 @@ public class Player_Inventory : Inventory
 
     void Selection_Procecss ()
     {
-        if (Input.GetButtonDown("Horizontal") && Input.GetAxisRaw("Horizontal") > 0)
+        if (Input.GetButtonDown("Horizontal") && Input.GetAxis("Horizontal") > 0)
         {
             if (selection < numerOfItems.Length - 1)
             {
@@ -119,10 +119,29 @@ public class Player_Inventory : Inventory
             }
         }
 
-        else if (Input.GetButtonDown("Horizontal") && Input.GetAxisRaw("Horizontal") < 0)
+        else if (Input.GetButtonDown("Horizontal") && Input.GetAxis("Horizontal") < 0)
         {
             if (selection > 0)
             {
+                selection--;
+            }
+        }
+
+        //Joystick
+        if (Input.GetAxis("HorizontalUI") > 0)
+        {
+            if (selection < numerOfItems.Length - 1)
+            {
+                selection++;
+                Debug.Log("Go Right");
+            }
+        }
+
+        else if (Input.GetAxis("HorizontalUI") < 0)
+        {
+            if (selection > 0)
+            {
+                Debug.Log("Go Left");
                 selection--;
             }
         }
