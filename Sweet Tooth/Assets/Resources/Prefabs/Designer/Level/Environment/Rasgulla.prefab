@@ -69,6 +69,7 @@ GameObject:
   - component: {fileID: 8415649212530179802}
   - component: {fileID: 8415649212530179803}
   - component: {fileID: 8415649212530179800}
+  - component: {fileID: 131339144645302446}
   m_Layer: 16
   m_Name: Rasgulla
   m_TagString: Untagged
@@ -108,7 +109,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a07a4d6b0c8c27647abe3c478d38126d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -179,3 +180,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   newSize: {x: 1.25, y: 1.25, z: 1.25}
   timeToShrink: 3
+--- !u!114 &131339144645302446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8415649212530179801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15c64963cfe73ab479255f7d8e914371, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 1, g: 1, b: 1, a: 0}
+  radius: 1
+  outlineSize: 1

@@ -71,6 +71,7 @@ GameObject:
   - component: {fileID: 4650149657067725275}
   - component: {fileID: 4650149657067725272}
   - component: {fileID: 3555080048052172479}
+  - component: {fileID: 7912940907479784152}
   m_Layer: 14
   m_Name: Pot
   m_TagString: Untagged
@@ -110,7 +111,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a07a4d6b0c8c27647abe3c478d38126d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -215,3 +216,18 @@ MonoBehaviour:
   - {fileID: 6686337591148734998, guid: 889730ba1bcaab6409fcac9ba4a200da, type: 3}
   - {fileID: 6389354763630157469, guid: 04c8312e208c34e3884c7bec958c4221, type: 3}
   - {fileID: 1710015484758234, guid: b33feb015946755478a6a00ad9ea0988, type: 3}
+--- !u!114 &7912940907479784152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4650149657067725273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15c64963cfe73ab479255f7d8e914371, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 0.05490196, g: 0.7529412, b: 1, a: 0}
+  radius: 1
+  outlineSize: 1
