@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6204988226262411491}
   - component: {fileID: 6204988226262411490}
   - component: {fileID: 6204988226262411501}
+  - component: {fileID: 1541875982459453407}
   m_Layer: 0
   m_Name: Enemy_House
   m_TagString: Untagged
@@ -54,7 +55,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a07a4d6b0c8c27647abe3c478d38126d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -146,6 +147,21 @@ MonoBehaviour:
   spawnPoint: {fileID: 6204988226853858165}
   healthDrop: 3
   speedDrop: 1
+--- !u!114 &1541875982459453407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6204988226262411500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15c64963cfe73ab479255f7d8e914371, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 1, g: 0, b: 0, a: 1}
+  radius: 9
+  outlineSize: 2
 --- !u!1 &6204988226720596762
 GameObject:
   m_ObjectHideFlags: 0
