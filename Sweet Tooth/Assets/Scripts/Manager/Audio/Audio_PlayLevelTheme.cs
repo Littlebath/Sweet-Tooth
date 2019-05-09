@@ -5,6 +5,8 @@ using UnityEngine;
 public class Audio_PlayLevelTheme : MonoBehaviour
 {
     public string levelSong;
+
+    public bool isPlayerLightOn;
     // Start is called before the first frame update
     void Start ()
     {
@@ -19,6 +21,18 @@ public class Audio_PlayLevelTheme : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (FindObjectOfType<PlayerController>() != null)
+        {
+            if (isPlayerLightOn)
+            {
+                FindObjectOfType<PlayerController>().transform.GetChild(0).gameObject.SetActive(true);
+            }
+
+            else
+            {
+                FindObjectOfType<PlayerController>().transform.GetChild(0).gameObject.SetActive(false);
+            }
+        }
 
     }
 

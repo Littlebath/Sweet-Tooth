@@ -19,10 +19,17 @@ public class Dungeon_Room : MonoBehaviour
     void Start()
     {
         virtualCamera = gameObject.transform.GetChild(0).gameObject;
-        enemiesInRoom = gameObject.transform.GetChild(1).gameObject;
 
-        enemy = enemiesInRoom;
-        enemiesInRoom.SetActive(false);
+        if (gameObject.transform.GetChild(1).gameObject != null)
+        {
+            enemiesInRoom = gameObject.transform.GetChild(1).gameObject;
+        }
+
+        if (enemiesInRoom != null)
+        {
+            enemy = enemiesInRoom;
+            enemiesInRoom.SetActive(false);
+        }
 
         playerInZone = Color.green; 
         //mapMarker.SetActive(false);
@@ -41,8 +48,12 @@ public class Dungeon_Room : MonoBehaviour
             FindObjectOfType<CameraController>().Update_Cameras();
             virtualCamera.SetActive(true);
 
-            enemy = Instantiate(enemiesInRoom, transform, false);
-            enemy.SetActive(true);
+            if (enemiesInRoom != null)
+            {
+                enemy = Instantiate(enemiesInRoom, transform, false);
+                enemy.SetActive(true);
+            }
+
 
             //mapMarker.SetActive(true);
             //mapMarker.GetComponent<Image>().color = playerInZone;
@@ -55,7 +66,11 @@ public class Dungeon_Room : MonoBehaviour
         {
             FindObjectOfType<CameraController>().Update_Cameras();
             virtualCamera.SetActive(false);
-            Destroy(enemy);
+
+            if (enemiesInRoom != null)
+            {
+                Destroy(enemy);
+            }
             //mapMarker.GetComponent<Image>().color = Color.white;
         }
     }

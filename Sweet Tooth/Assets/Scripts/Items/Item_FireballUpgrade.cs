@@ -44,11 +44,11 @@ public class Item_FireballUpgrade : MonoBehaviour
         FindObjectOfType<PlayerController>().GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         FindObjectOfType<PlayerController>().enabled = false;
         FindObjectOfType<PlayerInput>().GetComponent<Animator>().SetBool("hasItem", true);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSecondsRealtime(2f);
         FindObjectOfType<PlayerController>().GetComponent<Animator>().SetBool("isMoving", false);
         FindObjectOfType<PlayerInput>().GetComponent<Animator>().SetBool("hasItem", false);
         FindObjectOfType<PlayerInput>().transform.GetChild(4).GetComponent<SpriteRenderer>().sprite = null;
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSecondsRealtime(0.2f);
         gameObject.GetComponent<Dialogue_Trigger>().TriggerDialogue();
         pickedUp = true;
     }

@@ -158,6 +158,7 @@ public class Manager_Dialogue : MonoBehaviour
         isTalking = false;
         anim.SetBool("isOpen", false);
         dialogueCounter = 0;
+        Time.timeScale = 1f;
     }
 
     void DontDestroy()
