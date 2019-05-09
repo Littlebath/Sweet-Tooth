@@ -6,6 +6,8 @@ public class Boss_OreoChocolateBoss : MonoBehaviour
 {
     [SerializeField] private OreoBossScriptableObject values;
 
+    public GameObject Doors;
+
     private bool isHurt;
 
     private Vector3 origin;
@@ -275,6 +277,7 @@ public class Boss_OreoChocolateBoss : MonoBehaviour
         deathOrigin = transform.position;
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
         gameObject.GetComponent<Animator>().SetTrigger("death");
+        Destroy(Doors);
         Destroy(gameObject.transform.gameObject.transform.gameObject, 3f);
     }
 
