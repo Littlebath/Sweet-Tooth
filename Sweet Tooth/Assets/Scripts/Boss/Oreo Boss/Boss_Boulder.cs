@@ -103,6 +103,7 @@ public class Boss_Boulder : MonoBehaviour
         if (collision.gameObject.CompareTag ("Player"))
         {
             Destroy(gameObject);
+            Destroy(target);
             FindObjectOfType<PlayerController>().Hurt_Player(values.damage);
         }
     }

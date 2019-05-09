@@ -55,6 +55,11 @@ public class Boss_OreoChocolateBoss : MonoBehaviour
     void Update()
     {
         Charging_Indicator();
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Boulders_Fall();
+        }
     }
 
     private void FixedUpdate()
