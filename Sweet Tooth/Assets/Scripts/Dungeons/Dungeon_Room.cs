@@ -12,7 +12,7 @@ public class Dungeon_Room : MonoBehaviour
 
     [SerializeField] private GameObject enemiesInRoom;
 
-    private GameObject enemy;
+    [SerializeField] private GameObject enemy;
     private GameObject room;
 
     // Start is called before the first frame update
