@@ -20,11 +20,6 @@ public class Switch : MonoBehaviour
         mySprite = GetComponent<SpriteRenderer>();
         originalSprite = mySprite.sprite;
         active = storedValue.RuntimeValue;
-
-        if(active)
-        {
-            ActivateSwitch();
-        }
     }
 
     public void ActivateSwitch()
