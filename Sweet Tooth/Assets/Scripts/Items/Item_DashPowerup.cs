@@ -14,6 +14,17 @@ public class Item_DashPowerup : MonoBehaviour
     void Start()
     {
         originalSprite = gameObject.GetComponent<SpriteRenderer>().sprite;
+
+        if (gameObject.GetComponent<Save_ObjState>() != null)
+        {
+            if (gameObject.GetComponent<Save_ObjState>().obj != null)
+            {
+                if (gameObject.GetComponent<Save_ObjState>().obj.saveState == 1)
+                {
+                    Destroy(gameObject);
+                }
+            }
+        }
     }
 
     // Update is called once per frame
@@ -34,6 +45,16 @@ public class Item_DashPowerup : MonoBehaviour
         {
             values.hasDash = true;
             StartCoroutine(PickUp_Animation());
+
+
+            if (gameObject.GetComponent<Save_ObjState>() != null)
+            {
+                if (gameObject.GetComponent<Save_ObjState>().obj != null)
+                {
+                    gameObject.GetComponent<Save_ObjState>().obj.saveState = 1;
+                    gameObject.GetComponent<Save_ObjState>().obj.ForceSerialization();
+                }
+            }
         }
     }
 

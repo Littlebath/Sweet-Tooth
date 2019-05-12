@@ -26,6 +26,17 @@ public class Item : MonoBehaviour
     void Start()
     {        
         piso = FindObjectOfType<Player_Inventory>();
+
+        if (gameObject.GetComponent<Save_ObjState>() != null)
+        {
+            if (gameObject.GetComponent<Save_ObjState>().obj != null)
+            {
+                if (gameObject.GetComponent<Save_ObjState>().obj.saveState == 1)
+                {
+                    Destroy(gameObject);
+                }
+            }
+        }
     }
 
     private void OnEnable()
@@ -81,6 +92,15 @@ public class Item : MonoBehaviour
             if (system != null)
             {
                 Add_Item();
+
+                if (gameObject.GetComponent<Save_ObjState>() != null)
+                {
+                    if (gameObject.GetComponent<Save_ObjState>().obj != null)
+                    {
+                        gameObject.GetComponent<Save_ObjState>().obj.saveState = 1;
+                        gameObject.GetComponent<Save_ObjState>().obj.ForceSerialization();
+                    }
+                }
             }
         }
     }
@@ -92,6 +112,15 @@ public class Item : MonoBehaviour
             if (system != null)
             {
                 Add_Item();
+
+                if (gameObject.GetComponent<Save_ObjState>() != null)
+                {
+                    if (gameObject.GetComponent<Save_ObjState>().obj != null)
+                    {
+                        gameObject.GetComponent<Save_ObjState>().obj.saveState = 1;
+                        gameObject.GetComponent<Save_ObjState>().obj.ForceSerialization();
+                    }
+                }
             }
         }
 

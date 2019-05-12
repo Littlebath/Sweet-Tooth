@@ -34,7 +34,16 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (gameObject.GetComponent<Save_ObjState>() != null)
+        {
+            if (gameObject.GetComponent<Save_ObjState>().obj != null)
+            {
+                if (gameObject.GetComponent<Save_ObjState>().obj.saveState == 1)
+                {
+                    Destroy(gameObject);
+                }
+            }
+        }
     }
 
     // Update is called once per frame
@@ -56,8 +65,11 @@ public class Enemy : MonoBehaviour
 
             if (gameObject.GetComponent<Save_ObjState>() != null)
             {
-                gameObject.GetComponent<Save_ObjState>().obj.saveState = 1;
-                gameObject.GetComponent<Save_ObjState>().obj.ForceSerialization();
+                if (gameObject.GetComponent<Save_ObjState>().obj != null)
+                {
+                    gameObject.GetComponent<Save_ObjState>().obj.saveState = 1;
+                    gameObject.GetComponent<Save_ObjState>().obj.ForceSerialization();
+                }
             }
 
             FindObjectOfType<PlayerController>().GetComponent<Rigidbody2D>().velocity = Vector2.zero;
