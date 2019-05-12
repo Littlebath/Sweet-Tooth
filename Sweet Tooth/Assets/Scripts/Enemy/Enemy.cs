@@ -31,9 +31,13 @@ public class Enemy : MonoBehaviour
 
     private GameObject effect;
 
+    private bool isHurt;
+    public Color oldColor;
+
     // Start is called before the first frame update
     void Start()
     {
+
         if (gameObject.GetComponent<Save_ObjState>() != null)
         {
             if (gameObject.GetComponent<Save_ObjState>().obj != null)
@@ -54,49 +58,66 @@ public class Enemy : MonoBehaviour
 
     public void Take_Damage (float damage)
     {
-        //Debug.Log("Hurt enemy");
-        anim.SetTrigger("isHurt");
-        health -= damage;
-
-        if (health <= 0)
+        if (!isHurt)
         {
-            gameObject.SetActive(false);
-            effect = Instantiate(enemyDeathEffect, transform.position, Quaternion.identity);
+            StartCoroutine(Flash());
+            health -= damage;
 
-            if (gameObject.GetComponent<Save_ObjState>() != null)
+            if (health <= 0)
             {
-                if (gameObject.GetComponent<Save_ObjState>().obj != null)
+                gameObject.SetActive(false);
+                effect = Instantiate(enemyDeathEffect, transform.position, Quaternion.identity);
+
+                if (gameObject.GetComponent<Save_ObjState>() != null)
                 {
-                    gameObject.GetComponent<Save_ObjState>().obj.saveState = 1;
-                    gameObject.GetComponent<Save_ObjState>().obj.ForceSerialization();
+                    if (gameObject.GetComponent<Save_ObjState>().obj != null)
+                    {
+                        gameObject.GetComponent<Save_ObjState>().obj.saveState = 1;
+                        gameObject.GetComponent<Save_ObjState>().obj.ForceSerialization();
+                    }
+                }
+
+                FindObjectOfType<PlayerController>().GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                PlayerController.isPlayerHurt = false;
+                Destroy(effect, 1f);
+                Destroy(transform.parent.gameObject, 1f);
+
+                if (gameObject.GetComponent<Item_DropScript>() != null)
+                {
+                    gameObject.GetComponent<Item_DropScript>().Spawn_Item();
+                }
+
+                if (shield != null)
+                {
+                    Destroy(shield);
                 }
             }
 
-            FindObjectOfType<PlayerController>().GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            PlayerController.isPlayerHurt = false;
-            Destroy(effect, 1f);
-            Destroy(transform.parent.gameObject, 1f);
-
-            if (gameObject.GetComponent<Item_DropScript>() != null)
+            else
             {
-                gameObject.GetComponent<Item_DropScript>().Spawn_Item();
+                StartCoroutine(KnockCo(GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>()));
             }
 
-            if (shield != null)
+            if (gameObject.GetComponent<Enemy_Dormant>() != null)
             {
-                Destroy(shield);
+                gameObject.GetComponent<Enemy_Dormant>().isAggressive = true;
             }
         }
+    }
 
-        else
+    private IEnumerator Flash ()
+    {
+        isHurt = true;
+
+        for (int i = 0; i < 1 * 2; i++)
         {
-            StartCoroutine(KnockCo(GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>()));
+            gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+            yield return new WaitForSeconds(0.1f);
+            gameObject.GetComponent<SpriteRenderer>().color = oldColor;
+            yield return new WaitForSeconds(0.1f);
         }
 
-        if (gameObject.GetComponent<Enemy_Dormant>() != null)
-        {
-            gameObject.GetComponent<Enemy_Dormant>().isAggressive = true;
-        }
+        isHurt = false;
     }
 
     public void Knock_Back_Player(Collision2D collision)

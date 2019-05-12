@@ -23,6 +23,7 @@ public class Enemy_QuickCharge : Enemy
     {
         anim = gameObject.GetComponent<Animator>();
         timeBtwChargeCounter = timeBtwCharge;
+        oldColor = gameObject.GetComponent<SpriteRenderer>().color;
     }
 
     // Update is called once per frame

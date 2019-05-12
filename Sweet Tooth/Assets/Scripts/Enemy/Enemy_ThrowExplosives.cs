@@ -17,6 +17,7 @@ public class Enemy_ThrowExplosives : Enemy
     {
         TimeBtwBombThrowCounter = timeBtwBombThrow;
         anim = gameObject.GetComponent<Animator>();
+        oldColor = gameObject.GetComponent<SpriteRenderer>().color;
     }
 
     // Update is called once per frame

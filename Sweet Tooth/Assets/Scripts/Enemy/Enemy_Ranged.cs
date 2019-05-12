@@ -30,6 +30,7 @@ public class Enemy_Ranged : Enemy
         anim = gameObject.GetComponent<Animator>();
         Face_Direction(new Vector2(0F, 0F));
         timeBtwShotCounter = timeBtwShot;
+        oldColor = gameObject.GetComponent<SpriteRenderer>().color;
     }
 
     // Update is called once per frame

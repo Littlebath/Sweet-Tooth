@@ -602,34 +602,55 @@ public class PlayerController : MonoBehaviour
 
     public void Hurt_Player(int damage)
     {
-        anim.SetTrigger("isHurt");
-        FindObjectOfType<UI_HeartDisplay>().Update_Hearts();
-        FindObjectOfType<CameraController>().Screen_Kick();
-        //Handheld.Vibrate();
-
-        if (FindObjectOfType<Manager_Dialogue>().isTalking)
+        if (!isPlayerHurt)
         {
-            FindObjectOfType<Manager_Dialogue>().EndDialogue();
+            FindObjectOfType<UI_HeartDisplay>().Update_Hearts();
+            FindObjectOfType<CameraController>().Screen_Kick();
+            StartCoroutine(Flash());
+            //Handheld.Vibrate();
+
+            if (FindObjectOfType<Manager_Dialogue>().isTalking)
+            {
+                FindObjectOfType<Manager_Dialogue>().EndDialogue();
+            }
+
+            if (designerValues.armor <= 0)
+            {
+                designerValues.health -= damage;
+                designerValues.armor = 0;
+            }
+
+            else
+            {
+                float percentage = (100 - designerValues.armorMultiplier) / 100;
+                designerValues.armor -= Mathf.Round(damage * percentage);
+            }
+
+            if (designerValues.health <= 0)
+            {
+                FindObjectOfType<Manager_GameMaster>().PlayerRespawn();
+                gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            }
         }
 
-        if (designerValues.armor <= 0)
-        {
-            designerValues.health -= damage;
-            designerValues.armor = 0;
-        }
-
-        else
-        {
-            float percentage = (100 - designerValues.armorMultiplier) / 100;
-            designerValues.armor -= Mathf.Round(damage * percentage);
-        }
-
-        if (designerValues.health <= 0)
-        {
-            FindObjectOfType<Manager_GameMaster>().PlayerRespawn();
-            gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        }
     }
+
+    private IEnumerator Flash()
+    {
+        isPlayerHurt = true;
+
+        for (int i = 0; i < 1 * 2; i++)
+        {
+            gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+            yield return new WaitForSeconds(0.1f);
+            gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        isPlayerHurt = false;
+    }
+
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

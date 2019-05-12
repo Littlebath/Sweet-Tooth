@@ -265,7 +265,7 @@ public class Boss_OreoChocolateBoss : MonoBehaviour
 
     private IEnumerator Flash()
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < values.hurtAnimationDuration * 2; i++)
         {
             gameObject.GetComponent<SpriteRenderer>().color = Color.red;
             yield return new WaitForSeconds(0.1f);

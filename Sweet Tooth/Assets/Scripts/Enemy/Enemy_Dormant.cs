@@ -14,6 +14,7 @@ public class Enemy_Dormant : Enemy
     void Start()
     {
         anim = gameObject.GetComponent<Animator>();
+        oldColor = gameObject.GetComponent<SpriteRenderer>().color;
     }
 
     // Update is called once per frame

@@ -19,6 +19,7 @@ public class Enemy_Log : Enemy
     {
         timeBtwChangeDirectionCounter = timeBtwChangeDirection;
         anim = gameObject.GetComponent<Animator>();
+        oldColor = gameObject.GetComponent<SpriteRenderer>().color;
     }
 
     // Update is called once per frame
