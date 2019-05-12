@@ -22,6 +22,14 @@ public class Environment_Switch_Multiple : MonoBehaviour
         mySprite = gameObject.GetComponent<SpriteRenderer>();
         originalSprite = gameObject.GetComponent<SpriteRenderer>().sprite;
         DeActivateSwitch();
+
+        if (gameObject.GetComponent<Save_ObjState>() != null)
+        {
+            if (gameObject.GetComponent<Save_ObjState>().obj != null)
+            {
+                multipleDoors[gameObject.GetComponent<Save_ObjState>().obj.saveState].Open();
+            }
+        }
     }
 
     public void ActivateSwitch()
@@ -51,6 +59,16 @@ public class Environment_Switch_Multiple : MonoBehaviour
             multipleDoors[i].Close();
         }
         multipleDoors[doorSelector].Open();
+
+        if (gameObject.GetComponent<Save_ObjState>() != null)
+        {
+            if (gameObject.GetComponent<Save_ObjState>().obj != null)
+            {
+                gameObject.GetComponent<Save_ObjState>().obj.saveState = doorSelector;
+                gameObject.GetComponent<Save_ObjState>().obj.ForceSerialization();
+            }
+        }
+
         mySprite.sprite = originalSprite;
     }
 
