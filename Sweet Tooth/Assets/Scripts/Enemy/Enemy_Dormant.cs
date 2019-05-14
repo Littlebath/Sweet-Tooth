@@ -106,6 +106,7 @@ public class Enemy_Dormant : Enemy
             {
                 FindObjectOfType<PlayerController>().Hurt_Player(baseAttack);
                 Knock_Back_Player(collision);
+                Knock_Back_Me(gameObject);
             }
 
             else if (collision.gameObject.GetComponent<PlayerController>().states == playerStates.Charging)

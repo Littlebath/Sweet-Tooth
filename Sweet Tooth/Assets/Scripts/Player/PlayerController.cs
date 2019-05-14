@@ -358,6 +358,18 @@ public class PlayerController : MonoBehaviour
                             torches[i].GetComponent<Save_ObjState>().obj.ForceSerialization();
                         }
                     }
+
+                    //Enemy houses
+                    Collider2D[] enemyHouses = Physics2D.OverlapCircleAll(attackPos.position, designerValues.meleeRange);
+
+                    for (int i = 0; i < enemyHouses.Length; i++)
+                    {
+                        if (enemyHouses[i].GetComponent<Environment_EnemyHome>() != null)
+                        {
+                            enemyHouses[i].GetComponent<Environment_EnemyHome>().isBurning = true;
+                            StartCoroutine(enemyHouses[i].GetComponent<Environment_EnemyHome>().Spawn_Enemies());
+                        }
+                    }
                 }
             }
         }

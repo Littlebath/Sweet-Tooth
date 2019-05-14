@@ -128,8 +128,10 @@ public class Player_Inventory : Inventory
         }
 
         //Joystick
-        if (Input.GetAxis("HorizontalUI") > 0)
+        if (Input.GetButtonDown ("HorizontalUI"))
         {
+            Debug.Log("Button pushed");
+
             if (selection < numerOfItems.Length - 1)
             {
                 selection++;

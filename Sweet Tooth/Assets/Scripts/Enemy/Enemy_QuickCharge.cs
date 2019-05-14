@@ -103,7 +103,7 @@ public class Enemy_QuickCharge : Enemy
             gameObject.GetComponent<Rigidbody2D>().velocity = direction.normalized * moveSpeed;
             StartCoroutine(Charge_Duration());
             timeBtwChargeCounter = timeBtwCharge;
-            gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
+            //gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
             indicator.SetActive(false);
         }
 
@@ -171,6 +171,10 @@ public class Enemy_QuickCharge : Enemy
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+
+        gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+
         if (collision.gameObject.CompareTag("Player"))
         {
             if (collision.gameObject.GetComponent<PlayerController>().states == playerStates.None)
@@ -186,9 +190,44 @@ public class Enemy_QuickCharge : Enemy
             }
         }
 
-        gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+        else if (collision.gameObject.name != "Full Level")
+        {
+            Knock_Back_Me(gameObject);
+        }
     }
+
+    public void Knock_Away(GameObject me, Collision2D coll)
+    {
+        Rigidbody2D enemy = me.GetComponent<Rigidbody2D>();
+        Debug.Log("Do knockback");
+
+        if (enemy != null)
+        {
+            if (enemy.GetComponent<Enemy>().health > 0)
+            {
+                enemy.GetComponent<Enemy>().currentState = EnemyState.stagger;
+                enemy.isKinematic = false;
+                enemy.velocity = Vector2.zero;
+                Vector2 difference = transform.position - coll.transform.position;
+                difference = difference.normalized * thrust;
+                Debug.Log(difference);
+                enemy.velocity = difference;
+                StartCoroutine(Knock(enemy));
+            }
+        }
+    }
+
+    private IEnumerator Knock(Rigidbody2D enemy)
+    {
+        if (enemy != null)
+        {
+            yield return new WaitForSeconds(knockTime);
+            enemy.velocity = Vector2.zero;
+            enemy.isKinematic = true;
+            enemy.GetComponent<Enemy>().currentState = EnemyState.idle;
+        }
+    }
+
 
     private void OnDrawGizmosSelected()
     {

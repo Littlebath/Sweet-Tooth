@@ -9,6 +9,8 @@ public class UI_DashCounter : MonoBehaviour
 
     [SerializeField] private Player_ScriptableObject psc;
 
+    public bool isMax;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +20,15 @@ public class UI_DashCounter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        dashCounterDisplay.text = psc.energyCounter.ToString();
+        if (!isMax)
+        {
+            dashCounterDisplay.text = psc.energyCounter.ToString();
+        }
+
+        else
+        {
+            dashCounterDisplay.text = "/" + psc.maxEnergy.ToString();
+        }
 
         //Set_Bar();
     }

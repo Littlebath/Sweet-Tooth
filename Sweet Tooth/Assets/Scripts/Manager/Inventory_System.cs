@@ -37,6 +37,7 @@ public class Inventory_System : MonoBehaviour
         {
             //Debug.Log("Spill it");
             slots[i].transform.GetChild(1).GetComponent<Text>().text = piso.numerOfItems[i].ToString();
+            slots[i].transform.GetChild(3).GetComponent<Text>().text = piso.maxItemsPerSlot.ToString();
         }
         yield return null;
     }

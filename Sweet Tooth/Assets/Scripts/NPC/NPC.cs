@@ -116,7 +116,7 @@ public class NPC : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+   /* private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
@@ -134,7 +134,28 @@ public class NPC : MonoBehaviour
             isInRange = false;
             canMelee = false;
         }
+    }*/
+
+    private void OnTriggerEnter2D (Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("Player is in");
+            isInRange = true;
+            canMelee = true;
+        }
     }
+
+    private void OnTriggerExit2D (Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            //Debug.Log("Player is out");
+            isInRange = false;
+            canMelee = false;
+        }
+    }
+
 
     void Find_Objects ()
     {
@@ -158,9 +179,12 @@ public class NPC : MonoBehaviour
     {
         Gizmos.color = Color.blue;
         //Gizmos.DrawWireSphere(transform.position + new Vector3(-0.5f, 0f, 0f), 0.5f);
-        Gizmos.DrawCube(transform.position + Vector3.left * distance, size);
-        Gizmos.DrawCube(transform.position + Vector3.up * distance, size);
-        Gizmos.DrawCube(transform.position + Vector3.right * distance, size);
-        Gizmos.DrawCube(transform.position + Vector3.down * distance, size);
+        Gizmos.DrawWireCube(transform.position + Vector3.left * distance, size);
+        Gizmos.DrawWireCube(transform.position + Vector3.up * distance, size);
+        Gizmos.DrawWireCube(transform.position + Vector3.right * distance, size);
+        Gizmos.DrawWireCube(transform.position + Vector3.down * distance, size);
+
+
+
     }
 }
