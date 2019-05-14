@@ -19,6 +19,8 @@ public class Player_Inventory : Inventory
     private PlayerInput pi;
     private PlayerController pc;
 
+    private bool isStickPressed;
+
     private void Awake()
     {
         inventorySystem = FindObjectOfType<Inventory_System>().gameObject.transform.GetChild(0).gameObject;
@@ -128,25 +130,52 @@ public class Player_Inventory : Inventory
         }
 
         //Joystick
-        if (Input.GetButtonDown ("HorizontalUI"))
-        {
-            Debug.Log("Button pushed");
 
-            if (selection < numerOfItems.Length - 1)
+        if (Input.GetAxisRaw("HorizontalUI") < 0)
+        {
+            if (!isStickPressed)
             {
-                selection++;
-                Debug.Log("Go Right");
+                if (selection > 0)
+                {
+                    isStickPressed = true;
+                    Debug.Log("Go Left");
+                    selection--;
+                }
             }
         }
 
-        else if (Input.GetAxis("HorizontalUI") < 0)
-        {
-            if (selection > 0)
+        else if (Input.GetAxisRaw("HorizontalUI") > 0)
+        {   
+            if (!isStickPressed)
             {
-                Debug.Log("Go Left");
-                selection--;
+                if (selection < numerOfItems.Length - 1)
+                {
+                    isStickPressed = true;
+                    selection++;
+                    Debug.Log("Go Right");
+                }
             }
         }
+
+        else if (Input.GetAxisRaw("HorizontalUI") == 0)
+        {
+            isStickPressed = false;
+        }
+
+
+        /* if (Input.GetButtonDown("HorizontalUI"))
+         {
+             Debug.Log(Input.GetAxisRaw("HorizontalUI"));
+
+             if (Input.GetAxisRaw("HorizontalUI") == 1)
+             {
+                 selection++;
+             }
+             if (Input.GetAxisRaw("HorizontalUI") == -1)
+             {
+                 selection--;
+             }
+         }*/
 
         selector.transform.position = inventorySystem.transform.GetChild(1).GetChild(selection).transform.position;
 

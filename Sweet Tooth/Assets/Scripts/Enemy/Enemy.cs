@@ -164,6 +164,7 @@ public class Enemy : MonoBehaviour
         {
             yield return new WaitForSeconds(knockTime);
             enemy.velocity = Vector2.zero;
+            yield return new WaitForSeconds(0.2f);
             enemy.isKinematic = true;
             enemy.GetComponent<Enemy>().currentState = EnemyState.idle;
         }

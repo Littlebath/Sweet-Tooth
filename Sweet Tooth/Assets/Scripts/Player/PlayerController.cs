@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
 
     private static bool isPlayerExisting;
     public static bool isPlayerHurt;
+    public bool isHoldingBomb;
 
     //Transform
     [HideInInspector] public Transform attackPos;
@@ -156,10 +157,23 @@ public class PlayerController : MonoBehaviour
     {
         if (FindObjectOfType<Manager_Dialogue>().isTalking == false)
         {
-            Melee();
-            FireBallCombat();
+            if (!isHoldingBomb)
+            {
+                Melee();
+                FireBallCombat();
+            }
+
+            else
+            {
+                Bomb_Throwing();
+            }
         }
         //BoomerangCombat();
+    }
+
+    private void Bomb_Throwing ()
+    {
+        
     }
 
     private void FireBallCombat()
