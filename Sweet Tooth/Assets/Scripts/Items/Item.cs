@@ -17,7 +17,7 @@ public class Item : MonoBehaviour
     [SerializeField] private GameObject[] slots;
 
     [Header("Don't touch the ID number. It's used for identification")]
-    [SerializeField] private int itemID;
+    public int itemID;
 
     // Start is called before the first frame update
     private void Awake()

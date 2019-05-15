@@ -47,5 +47,10 @@ public class Item_Effect : MonoBehaviour
         }
     }
 
+    public void Explosive_Nut_Effect ()
+    {
+        FindObjectOfType<Player_Inventory>().Drop_Item();
+    }
+
 
 }

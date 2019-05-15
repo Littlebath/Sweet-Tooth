@@ -125,8 +125,9 @@ public class Manager_Dialogue : MonoBehaviour
         {
             if (currentDialogue.followDialogue)
             {
-                StartDialogue(dialogues);
                 dialogueCounter++;
+                Debug.Log("Spoken dialogue" + dialogueCounter);
+                StartDialogue(dialogues);
             }
 
             else

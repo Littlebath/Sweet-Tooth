@@ -21,6 +21,8 @@ public class Player_Inventory : Inventory
 
     private bool isStickPressed;
 
+    private GameObject item;
+
     private void Awake()
     {
         inventorySystem = FindObjectOfType<Inventory_System>().gameObject.transform.GetChild(0).gameObject;
@@ -196,46 +198,47 @@ public class Player_Inventory : Inventory
 
         Use_Item();
 
-        Drop_Item();
-    }
-
-    private void Drop_Item()
-    {
         if (pi.dashButton)
         {
-            if (slots[selection] != null)
+            Drop_Item();
+        }
+    }
+
+    public void Drop_Item()
+    {
+        if (slots[selection] != null)
+        {
+            //Drop Item here!!
+            Collider2D areaDrop = Physics2D.OverlapCircle(spawnPoint.position, 0.5f);
+
+            if (areaDrop == null)
             {
-                //Drop Item here!!
-                Collider2D areaDrop = Physics2D.OverlapCircle(spawnPoint.position, 0.5f);
+                item = Resources.Load<GameObject>("Prefabs/Designer/Level/PickUps/Items/" + slots[selection].GetComponent<Item>().gameObject.name);
+                Instantiate(item, pc.spawnPoint.transform.position, Quaternion.identity);
+                Debug.Log(item);
+                item.name = slots[selection].GetComponent<Item>().gameObject.name;
 
-                if (areaDrop == null)
+                if (numerOfItems[selection] > 1)
                 {
-                    GameObject item = Resources.Load<GameObject>("Prefabs/Designer/Level/PickUps/Items/" + slots[selection].GetComponent<Item>().gameObject.name);
-                    Instantiate(item, pc.spawnPoint.transform.position, Quaternion.identity);
-                    item.name = slots[selection].GetComponent<Item>().gameObject.name;
-
-                    if (numerOfItems[selection] > 1)
-                    {
-                        numerOfItems[selection]--;
-                    }
-
-                    else
-                    {
-                        numerOfItems[selection]--;
-                        slots[selection] = null;
-                        Destroy(inventorySystem.transform.GetChild(1).GetChild(selection).GetChild(2).gameObject);
-                    }
-
-                    StartCoroutine(FindObjectOfType<Inventory_System>().Update_Inventory());
+                    numerOfItems[selection]--;
                 }
 
                 else
                 {
-                    Debug.Log("Blocked by object");
-                    Debug.Log(areaDrop);
+                    numerOfItems[selection]--;
+                    slots[selection] = null;
+                    Destroy(inventorySystem.transform.GetChild(1).GetChild(selection).GetChild(4).gameObject);
                 }
 
+                StartCoroutine(FindObjectOfType<Inventory_System>().Update_Inventory());
             }
+
+            else
+            {
+                Debug.Log("Blocked by object");
+                Debug.Log(areaDrop);
+            }
+
         }
     }
 
@@ -260,10 +263,34 @@ public class Player_Inventory : Inventory
                     {
                         numerOfItems[selection]--;
                         slots[selection] = null;
-                        Destroy(inventorySystem.transform.GetChild(1).GetChild(selection).GetChild(2).gameObject);
+                        Destroy(inventorySystem.transform.GetChild(1).GetChild(selection).GetChild(4).gameObject);
                     }
 
                     StartCoroutine(FindObjectOfType<Inventory_System>().Update_Inventory());
+                }
+
+                else
+                {
+                    if (slots[selection] != null)
+                    {
+                        item = Resources.Load<GameObject>("Prefabs/Designer/Level/PickUps/Items/Player Bomb");
+                        Instantiate(item, pc.spawnPoint.transform.position, Quaternion.identity);
+                        item.name = slots[selection].GetComponent<Item>().gameObject.name;
+
+                        if (numerOfItems[selection] > 1)
+                        {
+                            numerOfItems[selection]--;
+                        }
+
+                        else
+                        {
+                            numerOfItems[selection]--;
+                            slots[selection] = null;
+                            Destroy(inventorySystem.transform.GetChild(1).GetChild(selection).GetChild(4).gameObject);
+                        }
+
+                        StartCoroutine(FindObjectOfType<Inventory_System>().Update_Inventory());                       
+                    }
                 }
             }
         }

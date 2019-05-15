@@ -202,6 +202,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 263424
   isEnemyBomb: 0
+  isPlayerBomb: 0
+  timerDuration: {fileID: 7400000, guid: 7a4d05c3b9269da438b1ffd59d9a5f8f, type: 2}
 --- !u!61 &7617600234759421783
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -254,7 +256,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7617600234759421776}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 172d1ac3088bcfe4194761b1c45fa334, type: 3}
   m_Name: 
