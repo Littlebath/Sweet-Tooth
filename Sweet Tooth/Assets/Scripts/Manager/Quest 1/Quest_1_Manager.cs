@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Quest_1_Manager : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class Quest_1_Manager : MonoBehaviour
     void Start()
     {
         Destroy_Duplicates();
+
+        Fill_Up_Variables();
+        Hide_Objects();
     }
 
     void Update()
@@ -37,14 +41,24 @@ public class Quest_1_Manager : MonoBehaviour
 
     void PathA ()
     {
-        if (questValues.pathA[0] == false)
+
+    }
+
+    void Hide_Objects ()
+    {
+        //All variables to disable
+        shopkeeperNPC.SetActive(false);
+
+        //Conditions
+        if (SceneManager.GetActiveScene().name == "Shop")
         {
+            Debug.Log("Reactivate");
             shopkeeperNPC.SetActive(true);
         }
+    }
 
-        else
-        {
-            shopkeeperNPC.SetActive(false);
-        }
+    void Fill_Up_Variables ()
+    {
+
     }
 }

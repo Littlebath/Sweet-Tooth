@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class QuestNPC : MonoBehaviour
 {
@@ -69,8 +70,17 @@ public class QuestNPC : MonoBehaviour
 
     void Say_Dialogue()
     {
-        int noOfDialogues = allDialogues.transform.childCount;
-        dialogueSelector = Random.Range(0, noOfDialogues);
+        if (questValues.pathA[0] == false)
+        {
+            dialogueSelector = 0;
+            questValues.pathA[0] = true;
+            questValues.ForceSerialization();
+        }
+
+        else if (questValues.pathA[0] == true || questValues.pathA[1] == true || questValues.pathA[2] == true)
+        {
+            dialogueSelector = 1;
+        }
 
         allDialogues.transform.GetChild(dialogueSelector).GetComponent<Dialogue_Trigger>().TriggerDialogue();
     }

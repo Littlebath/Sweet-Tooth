@@ -76,6 +76,12 @@ public class Player_ScriptableObject : ScriptableObject
     public float burnTimeOnEnemy;
     public int fireballRecovery;
 
+    [Header("Ground stomp properties")]
+    public float chargeUpTime;
+    public float areaOfEffectRange;
+    public float groundPoundDamage;
+    public float increaseKnockBack;
+
     [Header("Layer properties")]
     public LayerMask whatIsEnemy;
     public LayerMask whatIsBreakables;
@@ -88,6 +94,7 @@ public class Player_ScriptableObject : ScriptableObject
     public AnimationClip meleeTime;
     public AnimationClip throwTime;
     public AnimationClip knockUpTime;
+    public AnimationClip groundPoundTime;
 
     [Header("Particle Effects")]
     public GameObject dust;

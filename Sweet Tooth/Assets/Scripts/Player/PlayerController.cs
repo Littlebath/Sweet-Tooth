@@ -24,12 +24,13 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool isMelee;
     private bool isDashingToBoomerang;
     private bool thrownBoomerang;
+    private bool isGroundPoundReady;
     [HideInInspector] public bool isSpinning;
     [HideInInspector] public bool isSlow;
+    private bool isCharingGroundpound;
 
     private static bool isPlayerExisting;
     public static bool isPlayerHurt;
-    public bool isHoldingBomb;
 
     //Transform
     [HideInInspector] public Transform attackPos;
@@ -38,6 +39,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public float currentMoveSpeed;
     private float timeBtwAttack;
     private float energyTimeCounter;
+    private float groundPoundCounter;
 
     //strings
     public string startPoint;
@@ -69,15 +71,16 @@ public class PlayerController : MonoBehaviour
 
         rb2d = gameObject.GetComponent<Rigidbody2D>();
 
-        designerValues.ResetValues();
+        //designerValues.ResetValues();
 
         energyTimeCounter = designerValues.energyRegenerateTime;
+
+        groundPoundCounter = designerValues.chargeUpTime;
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-
         if (designerValues.hasDash)
         {
             if (rb2d.velocity != Vector2.zero)
@@ -105,7 +108,11 @@ public class PlayerController : MonoBehaviour
         {
             if (!isMelee)
             {
-                EightDirectionalMovement();
+                if (!pi.groundPound && !isCharingGroundpound)
+                {
+                    EightDirectionalMovement();
+                    Debug.Log("is running");
+                }
             }
         }
 
@@ -157,23 +164,89 @@ public class PlayerController : MonoBehaviour
     {
         if (FindObjectOfType<Manager_Dialogue>().isTalking == false)
         {
-            if (!isHoldingBomb)
-            {
-                Melee();
-                FireBallCombat();
-            }
-
-            else
-            {
-                Bomb_Throwing();
-            }
+            Melee();
+            FireBallCombat();
+            Ground_Pound();
         }
         //BoomerangCombat();
     }
 
-    private void Bomb_Throwing ()
+    private void Ground_Pound ()
     {
-        
+        if (pi.groundPound)
+        {
+            groundPoundCounter -= Time.deltaTime;
+
+            if (groundPoundCounter <= designerValues.chargeUpTime - designerValues.meleeTime.averageDuration)
+            {
+                //Debug.Log("Begin charging");
+                isCharingGroundpound = true;
+                currentMoveSpeed = 0f;
+            }
+
+            if (groundPoundCounter <= 0)
+            {
+                //Debug.Log("Charge is done");
+                isGroundPoundReady = true;
+                isMoving = false;
+                anim.SetBool("isMoving", false);
+            }
+        }
+
+        else
+        {
+            groundPoundCounter = designerValues.chargeUpTime;
+        }
+
+
+        if (Input.GetButtonUp("Melee") && isGroundPoundReady)
+        {
+            anim.SetTrigger("hammerAttack");
+            StartCoroutine(Ground_Pound_Attack());
+        }
+
+        else if (Input.GetButtonUp("Melee") && groundPoundCounter > 0)
+        {
+            isCharingGroundpound = false;
+        }
+    }
+
+    public void Pound_The_Ground ()
+    {
+        //StartCoroutine(Ground_Pound_Attack());
+    }
+
+    private IEnumerator Ground_Pound_Attack ()
+    {
+        //Debug.Log("Punch the ground like a man");
+
+        //Activate ground pound animation attack
+        FindObjectOfType<Player_Knockback>().thrust += designerValues.increaseKnockBack;
+        yield return new WaitForSeconds(0.1f);
+
+        FindObjectOfType<CameraController>().Screen_Kick();
+        Instantiate(designerValues.sparkle, attackPos.transform.position, Quaternion.identity);
+        Debug.Log(designerValues.groundPoundTime.averageDuration);
+        currentMoveSpeed = 0f;
+        Collider2D[] enemyInPound = Physics2D.OverlapCircleAll(attackPos.position, designerValues.areaOfEffectRange);
+
+        for (int i = 0; i < enemyInPound.Length; i++)
+        {
+            if (enemyInPound[i].GetComponent<Enemy>() != null)
+            {
+                enemyInPound[i].GetComponent<Enemy>().Take_Damage(designerValues.groundPoundDamage);
+                FindObjectOfType<Player_Knockback>().Knock_Back(enemyInPound[i]);
+            }
+        }
+
+        yield return new WaitForSeconds(designerValues.groundPoundTime.averageDuration);
+
+        isCharingGroundpound = false;
+        isGroundPoundReady = false;
+        currentMoveSpeed = designerValues.moveSpeed;
+        FindObjectOfType<Player_Knockback>().thrust -= designerValues.increaseKnockBack;
+        //anim.SetTrigger("returnAnimation");
+        yield return null;
     }
 
     private void FireBallCombat()
@@ -623,6 +696,7 @@ public class PlayerController : MonoBehaviour
         anim.SetFloat("LastMoveX", lastMove.x);
         anim.SetFloat("LastMoveY", lastMove.y);
         anim.SetBool("holdingDash", Input.GetButton("Dash"));
+        anim.SetBool("isChargingGroundPound", isCharingGroundpound);
     }
 
 
@@ -707,5 +781,8 @@ public class PlayerController : MonoBehaviour
 
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, designerValues.knockUpRange);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, designerValues.areaOfEffectRange);
     }
 }
