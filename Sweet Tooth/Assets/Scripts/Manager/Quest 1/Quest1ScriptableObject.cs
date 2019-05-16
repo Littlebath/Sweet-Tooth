@@ -16,4 +16,22 @@ public class Quest1ScriptableObject : ScriptableObject
         UnityEditor.EditorUtility.SetDirty(this);
 #endif
     }
+
+    public void ResetQuest ()
+    {
+        for (int i = 0; i < pathA.Length; i++)
+        {
+            pathA[i] = false;
+        }
+
+        for (int i = 0; i < pathB.Length; i++)
+        {
+            pathB[i] = false;
+        }
+
+        for (int i = 0; i < pathC.Length; i++)
+        {
+            pathC[i] = false;
+        }
+    }
 }

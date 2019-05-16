@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -23,7 +24,18 @@ public class Quest_1_Manager : MonoBehaviour
     void Update()
     {
         PathA();
+
+        PathB();
+
+        PathC();
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            questValues.ResetQuest();
+        }
     }
+
+
 
     void Destroy_Duplicates ()
     {
@@ -42,6 +54,17 @@ public class Quest_1_Manager : MonoBehaviour
     void PathA ()
     {
 
+    }
+
+
+    private void PathB()
+    {
+        //throw new NotImplementedException();
+    }
+
+    private void PathC()
+    {
+        //throw new NotImplementedException();
     }
 
     void Hide_Objects ()

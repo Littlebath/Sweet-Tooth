@@ -190,6 +190,7 @@ public class PlayerController : MonoBehaviour
                 isGroundPoundReady = true;
                 isMoving = false;
                 anim.SetBool("isMoving", false);
+                gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
             }
         }
 
@@ -222,8 +223,9 @@ public class PlayerController : MonoBehaviour
 
         //Activate ground pound animation attack
         FindObjectOfType<Player_Knockback>().thrust += designerValues.increaseKnockBack;
+        gameObject.GetComponent<SpriteRenderer>().color = Color.white;
         yield return new WaitForSeconds(0.1f);
-
+        Instantiate(designerValues.groundStompParticles, transform.position, Quaternion.identity);
         FindObjectOfType<CameraController>().Screen_Kick();
         Instantiate(designerValues.sparkle, attackPos.transform.position, Quaternion.identity);
         Debug.Log(designerValues.groundPoundTime.averageDuration);
@@ -236,6 +238,11 @@ public class PlayerController : MonoBehaviour
             {
                 enemyInPound[i].GetComponent<Enemy>().Take_Damage(designerValues.groundPoundDamage);
                 FindObjectOfType<Player_Knockback>().Knock_Back(enemyInPound[i]);
+            }
+
+            if (enemyInPound[i].GetComponent<Boss_OreoChocolateBoss>() != null)
+            {
+                enemyInPound[i].GetComponent<Boss_OreoChocolateBoss>().Take_Damage(designerValues.groundPoundDamage);
             }
         }
 

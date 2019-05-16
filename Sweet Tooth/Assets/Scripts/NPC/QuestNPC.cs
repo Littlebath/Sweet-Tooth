@@ -14,6 +14,9 @@ public class QuestNPC : MonoBehaviour
 
     [SerializeField] private GameObject allDialogues;
 
+    //NPC Quest ID
+    public int ID;
+
     //Gameobjects
     private GameObject player;
 
@@ -70,16 +73,25 @@ public class QuestNPC : MonoBehaviour
 
     void Say_Dialogue()
     {
-        if (questValues.pathA[0] == false)
+        //Shop Keeper
+        if (ID == 0)
         {
-            dialogueSelector = 0;
-            questValues.pathA[0] = true;
-            questValues.ForceSerialization();
+            if (questValues.pathA[0] == false)
+            {
+                dialogueSelector = 0;
+                questValues.pathA[0] = true;
+                questValues.ForceSerialization();
+            }
+
+            else if (questValues.pathA[0] == true || questValues.pathA[1] == true || questValues.pathA[2] == true)
+            {
+                dialogueSelector = 1;
+            }
         }
 
-        else if (questValues.pathA[0] == true || questValues.pathA[1] == true || questValues.pathA[2] == true)
+        else if (ID == 1)
         {
-            dialogueSelector = 1;
+
         }
 
         allDialogues.transform.GetChild(dialogueSelector).GetComponent<Dialogue_Trigger>().TriggerDialogue();
