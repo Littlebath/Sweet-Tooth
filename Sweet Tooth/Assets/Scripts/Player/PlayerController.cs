@@ -227,7 +227,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         Instantiate(designerValues.groundStompParticles, transform.position, Quaternion.identity);
         FindObjectOfType<CameraController>().Screen_Kick();
-        Instantiate(designerValues.sparkle, attackPos.transform.position, Quaternion.identity);
+        //Instantiate(designerValues.sparkle, attackPos.transform.position, Quaternion.identity);
         Debug.Log(designerValues.groundPoundTime.averageDuration);
         currentMoveSpeed = 0f;
         Collider2D[] enemyInPound = Physics2D.OverlapCircleAll(attackPos.position, designerValues.areaOfEffectRange);

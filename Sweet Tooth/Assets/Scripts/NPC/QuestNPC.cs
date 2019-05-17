@@ -33,7 +33,7 @@ public class QuestNPC : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        Debug.Log(gameObject.name + " has " + allDialogues.transform.childCount + " dialogues to be said");
     }
 
     // Update is called once per frame
@@ -89,11 +89,225 @@ public class QuestNPC : MonoBehaviour
             }
         }
 
+        //Jill dialogue
         else if (ID == 1)
         {
+            //Debug.Log("Running quest");
+
+            if (!questValues.questCompleted)
+            {
+                //Initation of finding jack
+                if (questValues.pathA[0] == true || questValues.pathB[0] == false)
+                {
+                    Debug.Log("This condition is true");
+
+                    if (questValues.pathA[1] == false)
+                    {
+                        dialogueSelector = 0;
+                        questValues.pathA[0] = true;
+                        questValues.pathA[1] = true;
+                        questValues.pathB[0] = true;
+                        questValues.ForceSerialization();
+                        Debug.Log("Say your line");
+                    }
+
+                    //Hasn't found jack but repeats hint
+                    else if (questValues.pathB[0] == true || questValues.pathA[1] == true)
+                    {
+                        if (questValues.pathA[3] == false)
+                        {
+                            dialogueSelector = 1;
+                            Debug.Log("Say the other line");
+                        }
+
+                        //Finished quest dialogue
+                        else if (questValues.pathA[3] == true || questValues.pathB[2] == true || questValues.pathC[1] == true)
+                        {
+                            dialogueSelector = 2;
+                            //Place reward code here
+                            questValues.questCompleted = true;
+                            questValues.objectives2[0] = true;
+                            questValues.ForceSerialization();
+                        }
+                    }
+                }
+
+            }
+
+            //Bark after finishing quest
+            else
+            {
+                dialogueSelector = 3;
+            }
+        }
+
+        //Eddie in the overworld
+        else if (ID == 2)
+        {
+            if (questValues.pathA[2] == false || questValues.pathB[1] == false)
+            {
+                //Eddie lures player into the trap
+                if (questValues.pathC[0] == false)
+                {
+                    dialogueSelector = 0;
+                    questValues.pathC[0] = true;
+                }
+
+                //Eddie says another dialogue and tells player to go
+                else if (questValues.pathC[0] == true)
+                {
+                    dialogueSelector = 1;
+                }
+            }
+        }
+
+        //Jack in the cell in underground
+        else if (ID==3)
+        {
+            //Hasn't saved Jack yet
+            if (questValues.pathC[1] == false)
+            {
+                //Speaking to jack and you spoke to his sister
+                if (questValues.pathB[0] == true || questValues.pathA[1] == true)
+                {
+                    dialogueSelector = 0;
+                }
+
+                //Speaking to jack and haven't spoken to his sister
+                else
+                {
+                    dialogueSelector = 1;
+                }
+            }
+
+            //Saved Jack
+            else
+            {
+                dialogueSelector = 2;
+            }
 
         }
 
+        //Talking to Jack after saving him
+        else if (ID == 4)
+        {
+            if (questValues.quest2Completed == false)
+            {
+                if (questValues.objectives2[0] == true)
+                {
+                    if (questValues.objectives2[2] == false)
+                    {
+                        //Jack gives the information about Perry
+                        if (questValues.objectives2[1] == false)
+                        {
+                            dialogueSelector = 0;
+                            questValues.objectives2[1] = true;
+                        }
+                        //Jack repeats the information to the player
+                        else
+                        {
+                            dialogueSelector = 1;
+                        }
+                    }
+
+                    //Jack rewards the player
+                    else
+                    {
+                        dialogueSelector = 2;
+                        questValues.quest2Completed = true;
+                    }
+                }
+            }
+
+            //Jack thanks the player again. Just a random bark
+            else
+            {
+                dialogueSelector = 3;
+            }
+        }
+
+        //Talking to perry after deafeating the boss
+        else if (ID == 5)
+        {
+            //Talking to perry the first time
+            if (questValues.objectives2[2] == false)
+            {
+                dialogueSelector = 0;
+                questValues.objectives2[2] = true;
+            }
+
+            //Talking to perry after helping him but he's still in area 1 zone 2
+            else
+            {
+                dialogueSelector = 1;
+                //Or play a cutscene of him leaving
+            }
+        }
+
+        //Talking to the small langos
+        else if (ID == 6)
+        {
+            //Haven't saved father Lagos yet
+            if (questValues.objectives3A[2] == false)
+            {
+                //First time talking to langos
+                if (questValues.objectives3A[0] == false)
+                {
+                    dialogueSelector = 0;
+                    questValues.objectives3A[0] = true;
+                }
+
+                //Barks that they say after talking to em
+                else
+                {
+                    dialogueSelector = 1;
+                }
+            }
+
+            //Saved father lagos
+            else
+            {
+                dialogueSelector = 2;
+            }
+        }
+
+        //Father Lagos conversations
+        else if (ID == 7)
+        {
+            //Spoke to the kids
+            if (questValues.objectives3A[0] == true)
+            {
+                //First time speaking to player
+                if (questValues.objectives3A[1] == false)
+                {
+                    dialogueSelector = 0;
+                    questValues.objectives3A[1] = true;
+                }
+
+                //Reminds player that they need to find the key
+                else
+                {
+                    dialogueSelector = 1;
+                }
+            }
+
+            //Didn't speak to the kids
+            else
+            {
+                //Talks to player for first time
+                if (questValues.objectives3B[0] == false)
+                {
+                    dialogueSelector = 2;
+                    questValues.objectives3B[0] = true;
+                }
+
+                //Reminds player on what to do
+                else
+                {
+                    dialogueSelector = 3;
+                }
+            }
+        }
         allDialogues.transform.GetChild(dialogueSelector).GetComponent<Dialogue_Trigger>().TriggerDialogue();
     }
 
@@ -103,7 +317,6 @@ public class QuestNPC : MonoBehaviour
         RaycastHit2D hitDown = Physics2D.Raycast(transform.position, Vector2.down, 1.5f);
         RaycastHit2D hitRight = Physics2D.Raycast(transform.position, Vector2.right, 1.5f);
         RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, 1.5f);*/
-
 
         Collider2D hitLeft = Physics2D.OverlapBox(transform.position + Vector3.left * distance, size, 0f);
         Collider2D hitDown = Physics2D.OverlapBox(transform.position + Vector3.down * distance, size, 0f);

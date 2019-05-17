@@ -5,16 +5,28 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="Quests", menuName ="Quest 1")]
 public class Quest1ScriptableObject : ScriptableObject
 {
-    [Header("Alternating Pathways")]
+    [Header("Quest 1 values")]
     public bool[] pathA;
     public bool[] pathB;
     public bool[] pathC;
+    public bool questCompleted;
+
+    [Header("Quest 2 values")]
+    public bool [] objectives2;
+    public bool quest2Completed;
+
+    [Header("Quest 3 values")]
+    public bool[] objectives3A;
+    public bool[] objectives3B;
+    public bool quest3Completed;
+
 
     public void ForceSerialization()
+
     {
-#if UNITY_EDITOR
+        #if UNITY_EDITOR
         UnityEditor.EditorUtility.SetDirty(this);
-#endif
+        #endif
     }
 
     public void ResetQuest ()
@@ -33,5 +45,7 @@ public class Quest1ScriptableObject : ScriptableObject
         {
             pathC[i] = false;
         }
+
+        questCompleted = false;
     }
 }
