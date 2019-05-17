@@ -61,6 +61,9 @@ public class PlayerController : MonoBehaviour
     {
         DestroyDuplicates();
 
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
         anim = GetComponent<Animator>();
         pi = FindObjectOfType<PlayerInput>();
 

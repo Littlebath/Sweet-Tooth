@@ -63,6 +63,15 @@ public class QuestNPC : MonoBehaviour
                     else
                     {
                         md.DisplayNextSentence();
+
+                        if (ID == 0)
+                        {
+                            if (md.anim.GetBool("isOpen") == false)
+                            {
+                                Debug.Log("Open shop");
+                                gameObject.GetComponent<ShopController>().OpenShop();
+                            }
+                        }
                     }
                 }
 
