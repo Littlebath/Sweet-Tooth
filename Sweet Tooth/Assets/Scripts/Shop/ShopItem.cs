@@ -43,6 +43,18 @@ public class ShopItem : MonoBehaviour
 
     public void Buy_Item ()
     {
+        if (FindObjectOfType<Player_Inventory>().currency >= itemDetails.itemCost)
+        {
+            FindObjectOfType<Player_Inventory>().currency -= itemDetails.itemCost;
+            Instantiate(itemDetails.itemForPlayer, FindObjectOfType<PlayerController>().transform.position, Quaternion.identity);
 
+            FindObjectOfType<ShopController>().UpdatePlayerMoney();
+            Debug.Log("Bought Item");
+        }
+
+        else
+        {
+            Debug.Log("Not enough money");
+        }
     }
 }

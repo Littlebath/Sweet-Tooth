@@ -9,6 +9,7 @@ public class ShopItemSO : ScriptableObject
     public int itemID;
     public string itemName;
     public Sprite itemSprite;
+    public GameObject itemForPlayer;
     [TextArea(3, 10)]
     public string description;
     public int itemCost;

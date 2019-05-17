@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,7 +8,10 @@ public class ShopController : MonoBehaviour
 {
     public GameObject shopUI;
 
-    [Header("Shop variables")]
+    [Header("Shop Variables")]
+    public GameObject moneyCounter;
+
+    [Header("Item variables")]
     public GameObject DescriptionText;
     public GameObject itemImage;
 
@@ -50,6 +54,8 @@ public class ShopController : MonoBehaviour
         FindObjectOfType<Player_Map>().enabled = false;
 
         mySystem.SetSelectedGameObject(firstButton, new BaseEventData(mySystem));
+
+        UpdatePlayerMoney();
     }
 
     public void CloseShop ()
@@ -62,4 +68,11 @@ public class ShopController : MonoBehaviour
         FindObjectOfType<Manager_Dialogue>().enabled = true;
         FindObjectOfType<Player_Map>().enabled = true;
     }
+
+
+    public void UpdatePlayerMoney()
+    {
+        moneyCounter.GetComponent<Text>().text = "$" + FindObjectOfType<Player_Inventory>().currency.ToString();
+    }
+
 }
