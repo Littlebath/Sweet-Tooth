@@ -222,14 +222,13 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Ground_Pound_Attack ()
     {
-        //Debug.Log("Punch the ground like a man");
-
         //Activate ground pound animation attack
         FindObjectOfType<Player_Knockback>().thrust += designerValues.increaseKnockBack;
         gameObject.GetComponent<SpriteRenderer>().color = Color.white;
         yield return new WaitForSeconds(0.1f);
         Instantiate(designerValues.groundStompParticles, transform.position, Quaternion.identity);
         FindObjectOfType<CameraController>().Screen_Kick();
+        isGroundPoundReady = false;
         //Instantiate(designerValues.sparkle, attackPos.transform.position, Quaternion.identity);
         Debug.Log(designerValues.groundPoundTime.averageDuration);
         currentMoveSpeed = 0f;
@@ -252,7 +251,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(designerValues.groundPoundTime.averageDuration);
 
         isCharingGroundpound = false;
-        isGroundPoundReady = false;
+        //isGroundPoundReady = false;
         currentMoveSpeed = designerValues.moveSpeed;
         FindObjectOfType<Player_Knockback>().thrust -= designerValues.increaseKnockBack;
         //anim.SetTrigger("returnAnimation");
