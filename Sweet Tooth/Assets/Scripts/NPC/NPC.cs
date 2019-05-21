@@ -25,6 +25,8 @@ public class NPC : MonoBehaviour
 
     private int dialogueSelector;
 
+    private Vector3 targetPos;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -83,7 +85,7 @@ public class NPC : MonoBehaviour
         RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, 1.5f);*/
 
 
-        Collider2D hitLeft = Physics2D.OverlapBox(transform.position + Vector3.left * distance, size, 0f);
+        /*Collider2D hitLeft = Physics2D.OverlapBox(transform.position + Vector3.left * distance, size, 0f);
         Collider2D hitDown = Physics2D.OverlapBox(transform.position + Vector3.down * distance, size, 0f);
         Collider2D hitRight = Physics2D.OverlapBox(transform.position + Vector3.right * distance, size, 0f);
         Collider2D hitUp = Physics2D.OverlapBox(transform.position + Vector3.up * distance, size, 0f);
@@ -112,8 +114,44 @@ public class NPC : MonoBehaviour
         {
             gameObject.GetComponent<SpriteRenderer>().sprite = direction.facingUp;
             Debug.Log("Turn up");
+        }*/
+
+        Vector3 playerPos = FindObjectOfType<PlayerController>().transform.position;
+        targetPos = playerPos - transform.position;
+        TurnDirection(targetPos);
+    }
+
+    void TurnDirection(Vector3 target)
+    {
+        if (Mathf.Abs(target.x) > Mathf.Abs(target.y))
+        {
+            if (target.x > 0)
+            {
+                gameObject.GetComponent<SpriteRenderer>().sprite = direction.facingRight;
+                //timeBtwChangeDirectionCounter = timeBtwChangeDirection;
+            }
+
+            else if (target.x < 0)
+            {
+                gameObject.GetComponent<SpriteRenderer>().sprite = direction.facingLeft;
+                //timeBtwChangeDirectionCounter = timeBtwChangeDirection;
+            }
         }
 
+        else if (Mathf.Abs(targetPos.x) < Mathf.Abs(targetPos.y))
+        {
+            if (target.y > 0)
+            {
+                gameObject.GetComponent<SpriteRenderer>().sprite = direction.facingUp;
+                //timeBtwChangeDirectionCounter = timeBtwChangeDirection;
+            }
+
+            else if (target.y < 0)
+            {
+                gameObject.GetComponent<SpriteRenderer>().sprite = direction.facingDown;
+                //timeBtwChangeDirectionCounter = timeBtwChangeDirection;
+            }
+        }
     }
 
    /* private void OnCollisionEnter2D(Collision2D collision)
