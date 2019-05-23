@@ -10,18 +10,31 @@ public class ShopController : MonoBehaviour
 
     [Header("Shop Variables")]
     public GameObject moneyCounter;
+    public GameObject seedCounter;
+
+    public GameObject normalItemList;
+    public GameObject specialItemList;
 
     [Header("Item variables")]
     public GameObject DescriptionText;
-    public GameObject itemImage;
 
-    public GameObject firstButton;
+    public GameObject firstNormalButton;
+    public GameObject firstSpecialButton;
 
     private bool isShopOpen;
 
     private PlayerInput pi;
 
     private EventSystem mySystem;
+
+
+    private enum Tabs
+    {
+        NormalItems,
+        SpecialItems
+    }
+
+    private Tabs tabState;
 
     // Start is called before the first frame update
     void Start()
@@ -39,10 +52,16 @@ public class ShopController : MonoBehaviour
                 CloseShop();
             }
         }
+
+        if (shopUI.activeInHierarchy == true)
+        {
+            Switch_Tabs();
+        }
     }
 
     public void OpenShop ()
     {
+        Debug.Log("Open shop");
         pi = FindObjectOfType<PlayerInput>();
         isShopOpen = true;
         shopUI.SetActive(true);
@@ -53,13 +72,14 @@ public class ShopController : MonoBehaviour
         FindObjectOfType<Player_Inventory>().enabled = false;
         FindObjectOfType<Player_Map>().enabled = false;
 
-        mySystem.SetSelectedGameObject(firstButton, new BaseEventData(mySystem));
-
         UpdatePlayerMoney();
+        OpenNormalShopItems();
+        mySystem.SetSelectedGameObject(firstNormalButton, new BaseEventData(mySystem));
     }
 
     public void CloseShop ()
     {
+        Debug.Log("Close shop");
         isShopOpen = false;
         shopUI.SetActive(false);
         FindObjectOfType<PlayerController>().enabled = true;
@@ -69,10 +89,51 @@ public class ShopController : MonoBehaviour
         FindObjectOfType<Player_Map>().enabled = true;
     }
 
+    void Switch_Tabs ()
+    {
+        if (tabState == Tabs.NormalItems)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                OpenSpecialShopItems();
+            }
+
+        }
+
+        else if (tabState == Tabs.SpecialItems)
+        {
+            if (Input.GetKeyDown(KeyCode.Q))
+            { 
+                OpenNormalShopItems();
+            }
+        }
+    }
+
+    void OpenNormalShopItems ()
+    {
+        Debug.Log("Open normal tab");
+        tabState = Tabs.NormalItems;
+        normalItemList.SetActive(true);
+        specialItemList.SetActive(false);
+
+        mySystem.SetSelectedGameObject(firstNormalButton, new BaseEventData(mySystem));
+    }
+
+    void OpenSpecialShopItems ()
+    {
+        Debug.Log("Open special tab");
+        normalItemList.SetActive(false);
+        specialItemList.SetActive(true);
+        tabState = Tabs.SpecialItems;
+
+        mySystem.SetSelectedGameObject(firstSpecialButton, new BaseEventData(mySystem));
+    }
+
 
     public void UpdatePlayerMoney()
     {
         moneyCounter.GetComponent<Text>().text = "$" + FindObjectOfType<Player_Inventory>().currency.ToString();
+        seedCounter.GetComponent<Text>().text = "$" + FindObjectOfType<Player_Inventory>().seeds.ToString();
     }
 
 }

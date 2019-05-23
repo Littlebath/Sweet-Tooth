@@ -70,7 +70,6 @@ public class QuestNPC : MonoBehaviour
                         {
                             if (md.anim.GetBool("isOpen") == false)
                             {
-                                Debug.Log("Open shop");
                                 gameObject.GetComponent<ShopController>().OpenShop();
                             }
                         }
