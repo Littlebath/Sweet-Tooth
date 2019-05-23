@@ -134,6 +134,20 @@ public class PlayerController : MonoBehaviour
         gameObject.GetComponent<SpriteRenderer>().color = Color.white;
     }
 
+    public IEnumerator Make_Slow ()
+    {
+        gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+        designerValues.moveSpeed -= 2;
+        yield return null;
+    }
+
+    public IEnumerator Make_Normal ()
+    {
+        designerValues.moveSpeed += 2;
+        gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        yield return null;
+    }
+
     private void Regenerate_Energy()
     {
         if (energyTimeCounter <= 0)

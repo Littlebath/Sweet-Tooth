@@ -56,6 +56,20 @@ public class Enemy : MonoBehaviour
         
     }
 
+    public IEnumerator Make_Slow ()
+    {
+        moveSpeed -= 1;
+        gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+        yield return null;
+    }
+
+    public IEnumerator Make_Normal ()
+    {
+        moveSpeed += 1;
+        gameObject.GetComponent<SpriteRenderer>().color = oldColor;
+        yield return null;
+    }
+
     public void Take_Damage (float damage)
     {
         if (!isHurt)

@@ -45,8 +45,8 @@ public class Environment_Gum : MonoBehaviour
                 else
                 {
                     Debug.Log("Get stuck");
-                    pc.isSpinning = true;
-                    StartCoroutine(Stick_Player());
+                    //StartCoroutine(Stick_Player());
+                    StartCoroutine(FindObjectOfType<PlayerController>().Make_Slow());
                 }
 
             }
@@ -55,14 +55,42 @@ public class Environment_Gum : MonoBehaviour
         else if (collision.gameObject.CompareTag("Enemy"))
         {
             //Sticky enemy
-            StartCoroutine(Stick_Enemy(collision));
+            StartCoroutine(collision.gameObject.GetComponent<Enemy>().Make_Slow());
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            if (pc != null)
+            {
+                if (pc.isDashing)
+                {
+                    Debug.Log("Dash Past");
+                }
+
+                else
+                {
+                    Debug.Log("Get stuck");
+                    //StartCoroutine(Stick_Player());
+                    StartCoroutine(FindObjectOfType<PlayerController>().Make_Normal());
+                }
+
+            }
+        }
+
+        else if (collision.gameObject.CompareTag("Enemy"))
+        {
+            //Sticky enemy
+            StartCoroutine(collision.gameObject.GetComponent<Enemy>().Make_Normal());
         }
     }
 
     public void Spawn_Sticky ()
     {
-        Instantiate(meltedGum, transform.position, Quaternion.identity);
-        Destroy(gameObject);
+        //Instantiate(meltedGum, transform.position, Quaternion.identity);
+        //Destroy(gameObject);
     }
 
     private IEnumerator Stick_Player ()
