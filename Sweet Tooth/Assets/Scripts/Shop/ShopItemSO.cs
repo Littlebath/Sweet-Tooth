@@ -13,4 +13,12 @@ public class ShopItemSO : ScriptableObject
     [TextArea(3, 10)]
     public string description;
     public int itemCost;
+
+    public enum typeOfItem
+    {
+        Normal,
+        Special,
+    }
+
+    public typeOfItem itemType;
 }

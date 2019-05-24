@@ -22,8 +22,7 @@ public class ShopItem : MonoBehaviour
 
         if (itemDetails != null)
         {
-            itemName.GetComponent<Text>().text = itemDetails.itemName;
-            itemCost.GetComponent<Text>().text = "$" + itemDetails.itemCost.ToString();
+            itemSprite.GetComponent<Image>().sprite = itemDetails.itemSprite;
         }
     }
 
@@ -34,6 +33,8 @@ public class ShopItem : MonoBehaviour
         {
             if (mySystem.currentSelectedGameObject == gameObject)
             {
+                itemCost.GetComponent<Text>().text = "$" + itemDetails.itemCost.ToString();
+                itemName.GetComponent<Text>().text = itemDetails.itemName;
                 description.GetComponent<Text>().text = itemDetails.description;
                 itemSprite.GetComponent<Image>().sprite = itemDetails.itemSprite;
                 Debug.Log(itemDetails.itemName);
@@ -43,18 +44,38 @@ public class ShopItem : MonoBehaviour
 
     public void Buy_Item ()
     {
-        if (FindObjectOfType<Player_Inventory>().currency >= itemDetails.itemCost)
+        if (itemDetails.itemType == ShopItemSO.typeOfItem.Normal)
         {
-            FindObjectOfType<Player_Inventory>().currency -= itemDetails.itemCost;
-            Instantiate(itemDetails.itemForPlayer, FindObjectOfType<PlayerController>().transform.position, Quaternion.identity);
+            if (FindObjectOfType<Player_Inventory>().currency >= itemDetails.itemCost)
+            {
+                FindObjectOfType<Player_Inventory>().currency -= itemDetails.itemCost;
+                Instantiate(itemDetails.itemForPlayer, FindObjectOfType<PlayerController>().transform.position, Quaternion.identity);
 
-            FindObjectOfType<ShopController>().UpdatePlayerMoney();
-            Debug.Log("Bought Item");
+                FindObjectOfType<ShopController>().UpdatePlayerMoney();
+                Debug.Log("Bought Item");
+            }
+
+            else
+            {
+                Debug.Log("Not enough money");
+            }
         }
 
-        else
+        else if (itemDetails.itemType == ShopItemSO.typeOfItem.Special)
         {
-            Debug.Log("Not enough money");
+            if (FindObjectOfType<Player_Inventory>().seeds >= itemDetails.itemCost)
+            {
+                FindObjectOfType<Player_Inventory>().seeds -= itemDetails.itemCost;
+                Instantiate(itemDetails.itemForPlayer, FindObjectOfType<PlayerController>().transform.position, Quaternion.identity);
+
+                FindObjectOfType<ShopController>().UpdatePlayerMoney();
+                Debug.Log("Bought Item");
+            }
+
+            else
+            {
+                Debug.Log("Not enough money");
+            }
         }
     }
 }
