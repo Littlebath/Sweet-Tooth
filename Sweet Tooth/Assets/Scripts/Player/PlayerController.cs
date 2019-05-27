@@ -766,9 +766,9 @@ public class PlayerController : MonoBehaviour
 
         for (int i = 0; i < 1 * 2; i++)
         {
-            gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+            gameObject.GetComponent<SpriteRenderer>().color = new Color (1f, 1f, 1f, 0f);
             yield return new WaitForSeconds(0.1f);
-            gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+            gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
             yield return new WaitForSeconds(0.1f);
         }
 
