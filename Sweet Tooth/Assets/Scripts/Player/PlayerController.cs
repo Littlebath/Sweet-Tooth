@@ -61,6 +61,8 @@ public class PlayerController : MonoBehaviour
     {
         DestroyDuplicates();
 
+        StartCoroutine(Make_Normal());
+
         //Cursor.visible = false;
         //Cursor.lockState = CursorLockMode.Locked;
 
@@ -143,7 +145,7 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator Make_Normal ()
     {
-        designerValues.moveSpeed += 2;
+        designerValues.moveSpeed = 4;
         gameObject.GetComponent<SpriteRenderer>().color = Color.white;
         yield return null;
     }
