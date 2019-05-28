@@ -10,125 +10,39 @@ public class Options_Controller : MonoBehaviour
     public string mainMenu;
 
     [Header("Option controller variables")]
-    public GameObject audioPanel;
-    public GameObject videoPanel;
-    public GameObject controlsPanel;
-
-    [Header("Settings Menu Variables")]
-    public AudioMixer audioMixer;
-    public AudioMixerGroup effect;
-
-    Resolution[] resolutions;
-
-    [Header("Controls variables")]
+    public GameObject gamepadPanel;
     public GameObject keyboardPanel;
-    public GameObject controllerPanel;
+
+    [Header("Buttons")]
+    public GameObject gamepadButton;
+    public GameObject keyboardButton;
+
 
 
     private void Start()
     {
         Deactivate_Panels();
-
-        resolutions = Screen.resolutions;
-
-        //resolutionDropdown.ClearOptions();
-
-        List<string> options = new List<string>();
-
-        int currentResolutionIndex = 0;
-
-        for (int i = 0; i < resolutions.Length; i++)
-        {
-            string option = resolutions[i].width + " x " + resolutions[i].height;
-            options.Add(option);
-
-            if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
-            {
-                currentResolutionIndex = i;
-            }
-        }
+        Open_Keyboard();
     }
 
-    public void SetResolution(int resolutionIndex)
+    public void Open_Keyboard ()
     {
-        Resolution resolution = resolutions[resolutionIndex];
-        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
-    }
-
-    public void SetVolume(float volume)
-    {
-        audioMixer.SetFloat("Master Volume", volume);
-    }
-
-    public void SetEffect(float volume)
-    {
-        effect.audioMixer.SetFloat("Effect Volume", volume);
-    }
-
-    public void SetFullScreen(bool isFullscreen)
-    {
-        Screen.fullScreen = isFullscreen;
-    }
-
-    private void Update()
-    {
-        if (controlsPanel.activeInHierarchy)
-        {
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                Debug.Log("Keyboard panel open");
-                Open_Keyboard();
-
-            }
-
-            else if (Input.GetKeyDown(KeyCode.E))
-            {
-                Debug.Log("Controller panel open");
-                Open_Controller();
-            }
-        }
-    }
-
-    private void Open_Keyboard ()
-    {
-        //Deactivate_Panels();
-        controllerPanel.SetActive(false);
+        Deactivate_Panels();
+        gamepadPanel.SetActive(false);
         keyboardPanel.SetActive(true);
     }
 
-    private void Open_Controller ()
+    public void Open_Controller ()
     {
-        //Deactivate_Panels();
+        Deactivate_Panels();
         keyboardPanel.SetActive(false);
-        controllerPanel.SetActive(true);
+        gamepadPanel.SetActive(true);
     }
 
-    private void Deactivate_Panels ()
+    void Deactivate_Panels ()
     {
-        audioPanel.SetActive(false);
-        videoPanel.SetActive(false);
-        controlsPanel.SetActive(false);
-        controllerPanel.SetActive(false);
         keyboardPanel.SetActive(false);
-    }
-
-    public void Open_Controls_Panel ()
-    {
-        Deactivate_Panels();
-        controlsPanel.SetActive(true);
-        keyboardPanel.SetActive(true);
-    }
-
-    public void Open_Video_Panel ()
-    {
-        Deactivate_Panels();
-        videoPanel.SetActive(true);
-    }
-
-    public void Open_Audio_Panel ()
-    {
-        Deactivate_Panels();
-        audioPanel.SetActive(true);
+        gamepadPanel.SetActive(false);
     }
 
     public void MainMenu ()
