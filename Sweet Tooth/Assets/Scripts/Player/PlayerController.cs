@@ -139,7 +139,7 @@ public class PlayerController : MonoBehaviour
     public IEnumerator Make_Slow ()
     {
         gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
-        designerValues.moveSpeed -= 2;
+        designerValues.moveSpeed = 2;
         yield return null;
     }
 
