@@ -64,7 +64,16 @@ public class QuestNPC : MonoBehaviour
 
                     else
                     {
-                        md.DisplayNextSentence();
+
+                        if (md.isSpeaking)
+                        {
+                            md.SkipDialogue();
+                        }
+
+                        else
+                        {
+                            md.DisplayNextSentence();
+                        }
 
                         if (ID == 0)
                         {
