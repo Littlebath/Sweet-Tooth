@@ -40,6 +40,8 @@ public class MainMenu : MonoBehaviour
 
     private IEnumerator TrueStart ()
     {
+        Player_ScriptableObject pso = Resources.Load<Player_ScriptableObject>("Scriptable Objects/Player/Player Values");
+        pso.ResetValues();
         FindObjectOfType<Fading>().FadeOut();
         yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene(StartGameScene);

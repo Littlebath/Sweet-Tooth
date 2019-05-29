@@ -56,8 +56,16 @@ public class QuestTrigger : MonoBehaviour
 
                     else
                     {
-                        md.DisplayNextSentence();
 
+                        if (md.isSpeaking)
+                        {
+                            md.SkipDialogue();
+                        }
+
+                        else
+                        {
+                            md.DisplayNextSentence();
+                        }
 
                         if (md.anim.GetBool("isOpen") == false)
                         {

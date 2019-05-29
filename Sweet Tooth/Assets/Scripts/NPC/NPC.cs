@@ -59,7 +59,15 @@ public class NPC : MonoBehaviour
 
                     else
                     {
-                        md.DisplayNextSentence();
+                        if (md.isSpeaking)
+                        {
+                            md.SkipDialogue();
+                        }
+
+                        else
+                        {
+                            md.DisplayNextSentence();
+                        }
                     }
                 }
 
@@ -74,7 +82,7 @@ public class NPC : MonoBehaviour
         dialogueSelector = Random.Range(0, noOfDialogues);
 
         allDialogues.transform.GetChild(dialogueSelector).GetComponent<Dialogue_Trigger>().TriggerDialogue();
-        Debug.Log(dialogueSelector);
+        //Debug.Log(dialogueSelector);
     }
 
     private void FacePlayer()
