@@ -10,6 +10,8 @@ public class Manager_Dialogue : MonoBehaviour
 {
     public static Manager_Dialogue instance;
 
+    public float typingSpeed;
+
     public Text nameText;
     public TextMeshProUGUI dialogueText;
 
@@ -18,6 +20,7 @@ public class Manager_Dialogue : MonoBehaviour
     public Animator anim;
 
     [HideInInspector] public bool isTalking;
+    [HideInInspector] public bool isSpeaking;
 
     private List<DialogueScriptableObject> dialogues;
 
@@ -26,6 +29,8 @@ public class Manager_Dialogue : MonoBehaviour
     private DialogueScriptableObject currentDialogue;
 
     private int dialogueCounter = 0;
+
+    private string sentence;
 
     //Bools
     private static bool isDialogueManagerExisting;
@@ -51,6 +56,17 @@ public class Manager_Dialogue : MonoBehaviour
         pc = FindObjectOfType<PlayerController>();
         pi = FindObjectOfType<PlayerInput>();
 	}
+
+    private void Update()
+    {
+        if (dialogueText.text == sentence)
+        {
+            Debug.Log("Dialogue done");
+            isSpeaking = false;
+            Debug.Log(isSpeaking);
+            SkipDialogue();
+        }
+    }
 
     private void Destroy_Duplicates()
     {
@@ -103,10 +119,11 @@ public class Manager_Dialogue : MonoBehaviour
     IEnumerator TypeSentence(string sentence)
     {
         dialogueText.text = "";
+
         foreach (char letter in sentence.ToCharArray())
         {
             dialogueText.text += letter;
-            yield return null;
+            yield return new WaitForSeconds (typingSpeed);
         }
     }
 
@@ -126,7 +143,7 @@ public class Manager_Dialogue : MonoBehaviour
             if (currentDialogue.followDialogue)
             {
                 dialogueCounter++;
-                Debug.Log("Spoken dialogue" + dialogueCounter);
+                //Debug.Log("Spoken dialogue" + dialogueCounter);
                 StartDialogue(dialogues);
             }
 
@@ -135,21 +152,40 @@ public class Manager_Dialogue : MonoBehaviour
                 EndDialogue();
                 return;
             }
-
         }
 
         else
         {
-            string sentence = sentences.Dequeue();
-            pc.isMoving = false;
-            nameText.text = currentDialogue.name;
-            //dialogueText.text = sentence;
-            portrait.sprite = currentDialogue.portrait;
+            if (!isSpeaking)
+            {
+                isSpeaking = true;
+                sentence = sentences.Dequeue();
 
-            StopAllCoroutines();
-            StartCoroutine(TypeSentence(sentence));
+                pc.isMoving = false;
+                nameText.text = currentDialogue.name;
+                portrait.sprite = currentDialogue.portrait;
+
+                StopAllCoroutines();
+                StartCoroutine(TypeSentence(sentence));
+            }
+
+            else
+            {
+                if (dialogueText.text == sentence)
+                {
+                    Debug.Log("Dialogue done");
+                    isSpeaking = false;
+                    DisplayNextSentence();
+                }
+            }
         }
+    }
 
+    public void SkipDialogue ()
+    {
+        StopAllCoroutines();
+        dialogueText.text = sentence;
+        isSpeaking = false;
     }
 
     public void EndDialogue ()

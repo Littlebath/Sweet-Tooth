@@ -9,8 +9,14 @@ public class SaveStateObj : ScriptableObject
 
     public void ForceSerialization()
     {
+
 #if UNITY_EDITOR
         UnityEditor.EditorUtility.SetDirty(this);
 #endif
+    }
+
+    public void ResetValues ()
+    {
+        saveState = 0;
     }
 }

@@ -61,6 +61,8 @@ public class PlayerController : MonoBehaviour
     {
         DestroyDuplicates();
 
+        StartCoroutine(Make_Normal());
+
         //Cursor.visible = false;
         //Cursor.lockState = CursorLockMode.Locked;
 
@@ -137,13 +139,13 @@ public class PlayerController : MonoBehaviour
     public IEnumerator Make_Slow ()
     {
         gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
-        designerValues.moveSpeed -= 2;
+        designerValues.moveSpeed = 2;
         yield return null;
     }
 
     public IEnumerator Make_Normal ()
     {
-        designerValues.moveSpeed += 2;
+        designerValues.moveSpeed = 5;
         gameObject.GetComponent<SpriteRenderer>().color = Color.white;
         yield return null;
     }
@@ -240,7 +242,7 @@ public class PlayerController : MonoBehaviour
         FindObjectOfType<Player_Knockback>().thrust += designerValues.increaseKnockBack;
         gameObject.GetComponent<SpriteRenderer>().color = Color.white;
         yield return new WaitForSeconds(0.1f);
-        Instantiate(designerValues.groundStompParticles, transform.position, Quaternion.identity);
+        //Instantiate(designerValues.groundStompParticles, transform.position, Quaternion.identity);
         FindObjectOfType<CameraController>().Screen_Kick();
         isGroundPoundReady = false;
         //Instantiate(designerValues.sparkle, attackPos.transform.position, Quaternion.identity);
@@ -764,9 +766,9 @@ public class PlayerController : MonoBehaviour
 
         for (int i = 0; i < 1 * 2; i++)
         {
-            gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+            gameObject.GetComponent<SpriteRenderer>().color = new Color (1f, 1f, 1f, 0f);
             yield return new WaitForSeconds(0.1f);
-            gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+            gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
             yield return new WaitForSeconds(0.1f);
         }
 

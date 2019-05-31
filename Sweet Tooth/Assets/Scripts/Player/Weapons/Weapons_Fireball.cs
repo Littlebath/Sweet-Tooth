@@ -47,14 +47,14 @@ public class Weapons_Fireball : MonoBehaviour
             {
                 Debug.Log("Face up");
                 rb2d.velocity = Vector2.up * currentSpeed;
-                transform.rotation = new Quaternion(0f, 0f, 45f, 0f);
+                transform.rotation = new Quaternion(0f, 0f, -90f, 0f);
             }
 
             else if (pc.lastMove.y < 0)
             {
                 Debug.Log("Face down");
                 rb2d.velocity = Vector2.down * currentSpeed;
-                transform.rotation = new Quaternion(0f, 0f, 0f, 0f);
+                transform.rotation = new Quaternion(0f, 0f, 90f, 0f);
             }
         }
 
@@ -64,7 +64,7 @@ public class Weapons_Fireball : MonoBehaviour
             {
                 Debug.Log("Face right");
                 rb2d.velocity = Vector2.right * currentSpeed;
-                transform.rotation = new Quaternion(0f, 0f, 0f, 0f);
+                transform.rotation = new Quaternion(0f, 0f, 180f, 0f);
             }
 
             else if (pc.lastMove.x < 0)

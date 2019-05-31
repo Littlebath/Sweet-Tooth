@@ -41,15 +41,20 @@ public class Enemy_Ranged : Enemy
         {
             if (Vector3.Distance(FindObjectOfType<PlayerController>().transform.position, transform.position) <= radius)
             {
-                if (shootDir != ShootDir.turret)
+                if (shootDir == ShootDir.turret)
                 {
-                    Shooting_AI();
+                    Turret_AI();
                 }
 
                 else
                 {
-                    Turret_AI();
+                   //Nothing happens
                 }
+            }
+
+            if (shootDir != ShootDir.turret)
+            {
+                Shooting_AI();
             }
         }
     }
