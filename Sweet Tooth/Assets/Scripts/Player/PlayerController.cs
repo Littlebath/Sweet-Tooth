@@ -145,7 +145,7 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator Make_Normal ()
     {
-        designerValues.moveSpeed = 4;
+        designerValues.moveSpeed = 5;
         gameObject.GetComponent<SpriteRenderer>().color = Color.white;
         yield return null;
     }
