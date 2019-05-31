@@ -63,21 +63,7 @@ public class Environment_Gum : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (pc != null)
-            {
-                if (pc.isDashing)
-                {
-                    Debug.Log("Dash Past");
-                }
-
-                else
-                {
-                    Debug.Log("Get stuck");
-                    //StartCoroutine(Stick_Player());
-                    StartCoroutine(FindObjectOfType<PlayerController>().Make_Normal());
-                }
-
-            }
+            StartCoroutine(FindObjectOfType<PlayerController>().Make_Normal());
         }
 
         else if (collision.gameObject.CompareTag("Enemy"))

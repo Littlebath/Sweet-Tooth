@@ -145,7 +145,7 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator Make_Normal ()
     {
-        designerValues.moveSpeed = 4;
+        designerValues.moveSpeed = 5;
         gameObject.GetComponent<SpriteRenderer>().color = Color.white;
         yield return null;
     }
@@ -242,7 +242,7 @@ public class PlayerController : MonoBehaviour
         FindObjectOfType<Player_Knockback>().thrust += designerValues.increaseKnockBack;
         gameObject.GetComponent<SpriteRenderer>().color = Color.white;
         yield return new WaitForSeconds(0.1f);
-        Instantiate(designerValues.groundStompParticles, transform.position, Quaternion.identity);
+        //Instantiate(designerValues.groundStompParticles, transform.position, Quaternion.identity);
         FindObjectOfType<CameraController>().Screen_Kick();
         isGroundPoundReady = false;
         //Instantiate(designerValues.sparkle, attackPos.transform.position, Quaternion.identity);
