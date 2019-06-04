@@ -274,7 +274,7 @@ public class Player_Inventory : Inventory
                     if (slots[selection] != null)
                     {
                         item = Resources.Load<GameObject>("Prefabs/Designer/Level/PickUps/Items/Player Bomb");
-                        Instantiate(item, pc.spawnPoint.transform.position, Quaternion.identity);
+                        Instantiate(item, pc.transform.position, Quaternion.identity);
                         item.name = slots[selection].GetComponent<Item>().gameObject.name;
 
                         if (numerOfItems[selection] > 1)

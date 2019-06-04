@@ -25,16 +25,6 @@ public class Manager_GameMaster : MonoBehaviour
         {
             PlayerRespawn();
         }
-
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            Save_ObjState[] saveStates = FindObjectsOfType<Save_ObjState>();
-            //Reset World
-            for (int i = 0; i < saveStates.Length; i++)
-            {
-                saveStates[i].Reset_World();
-            }
-        }
     }
 
     void DontDestroy ()

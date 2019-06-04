@@ -134,6 +134,7 @@ public class Environment_ExplosiveNut : MonoBehaviour
         {
             Vector2 direction = breakablesToDestroy[i].transform.position - transform.position;
             float distance = Vector2.Distance(transform.position, breakablesToDestroy[i].transform.position);
+            Debug.Log("Has exploded");
 
             RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distance);
 
