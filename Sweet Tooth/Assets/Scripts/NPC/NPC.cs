@@ -6,6 +6,7 @@ public class NPC : MonoBehaviour
 {
     //Scriptable Objects
     [SerializeField] private NPCFaceScriptableObject direction;
+    [SerializeField] private NPCFaceScriptableObject grassDirection;
 
     [SerializeField] private Vector2 size;
     [SerializeField] private float distance;
@@ -18,6 +19,7 @@ public class NPC : MonoBehaviour
     //Bools
     [HideInInspector]public bool isInRange;
     [HideInInspector] public static bool canMelee;
+    public bool isInGrass;
 
     //Scripts
     private PlayerInput pi;
@@ -26,6 +28,8 @@ public class NPC : MonoBehaviour
     private int dialogueSelector;
 
     private Vector3 targetPos;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +52,7 @@ public class NPC : MonoBehaviour
                 {
                     if (!md.isTalking)
                     {
+                        StopCoroutine(Hide_In_Grass());
                         FindObjectOfType<PlayerController>().isMelee = false;
                         Debug.Log("Start dialogue");
                         GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>().velocity = Vector2.zero;
@@ -67,6 +72,11 @@ public class NPC : MonoBehaviour
                         else
                         {
                             md.DisplayNextSentence();
+
+                            if (md.anim.GetBool("isOpen") == false)
+                            {
+                                StartCoroutine(Hide_In_Grass());
+                            }
                         }
                     }
                 }
@@ -74,6 +84,15 @@ public class NPC : MonoBehaviour
             }
  
         }
+    }
+    IEnumerator Hide_In_Grass ()
+    {
+        if (isInGrass)
+        {
+            DuckDown(targetPos);
+            yield return null;
+        }
+
     }
 
     void Say_Dialogue ()
@@ -162,25 +181,58 @@ public class NPC : MonoBehaviour
         }
     }
 
-   /* private void OnCollisionEnter2D(Collision2D collision)
+    void DuckDown (Vector3 target)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (Mathf.Abs(target.x) > Mathf.Abs(target.y))
         {
-            Debug.Log("Player is in");
-            isInRange = true;
-            canMelee = true;
+            if (target.x > 0)
+            {
+                gameObject.GetComponent<SpriteRenderer>().sprite = grassDirection.facingRight;
+                //timeBtwChangeDirectionCounter = timeBtwChangeDirection;
+            }
+
+            else if (target.x < 0)
+            {
+                gameObject.GetComponent<SpriteRenderer>().sprite = grassDirection.facingLeft;
+                //timeBtwChangeDirectionCounter = timeBtwChangeDirection;
+            }
+        }
+
+        else if (Mathf.Abs(targetPos.x) < Mathf.Abs(targetPos.y))
+        {
+            if (target.y > 0)
+            {
+                gameObject.GetComponent<SpriteRenderer>().sprite = grassDirection.facingUp;
+                //timeBtwChangeDirectionCounter = timeBtwChangeDirection;
+            }
+
+            else if (target.y < 0)
+            {
+                gameObject.GetComponent<SpriteRenderer>().sprite = grassDirection.facingDown;
+                //timeBtwChangeDirectionCounter = timeBtwChangeDirection;
+            }
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            //Debug.Log("Player is out");
-            isInRange = false;
-            canMelee = false;
-        }
-    }*/
+    /* private void OnCollisionEnter2D(Collision2D collision)
+     {
+         if (collision.gameObject.CompareTag("Player"))
+         {
+             Debug.Log("Player is in");
+             isInRange = true;
+             canMelee = true;
+         }
+     }
+
+     private void OnCollisionExit2D(Collision2D collision)
+     {
+         if (collision.gameObject.CompareTag("Player"))
+         {
+             //Debug.Log("Player is out");
+             isInRange = false;
+             canMelee = false;
+         }
+     }*/
 
     private void OnTriggerEnter2D (Collider2D collision)
     {
