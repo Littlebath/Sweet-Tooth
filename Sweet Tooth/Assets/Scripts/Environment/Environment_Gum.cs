@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class Environment_Gum : MonoBehaviour
 {
-    [SerializeField] private GameObject meltedGum;
-
-    private PlayerController pc;
-
-    private bool isStuck;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,78 +13,30 @@ public class Environment_Gum : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (pc == null)
-        {
-            pc = FindObjectOfType<PlayerController>();
-        }
 
-        if (pc.isSpinning)
-        {
-            pc = FindObjectOfType<PlayerController>();
-            pc.currentMoveSpeed = 0f;
-            Debug.Log("Stick");
-        }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (pc != null)
+            if (FindObjectOfType<PlayerController>().isDashing)
             {
-                if (pc.isDashing)
-                {
-                    Debug.Log("Dash Past");
-                }
+                Debug.Log("Break jelly");
+                Destroy(gameObject);
+            }
 
-                else
-                {
-                    Debug.Log("Get stuck");
-                    //StartCoroutine(Stick_Player());
-                    StartCoroutine(FindObjectOfType<PlayerController>().Make_Slow());
-                }
-
+            else
+            {
+                StartCoroutine(Disable_Input());
             }
         }
-
-        else if (collision.gameObject.CompareTag("Enemy"))
-        {
-            //Sticky enemy
-            StartCoroutine(collision.gameObject.GetComponent<Enemy>().Make_Slow());
-        }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    IEnumerator Disable_Input ()
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            StartCoroutine(FindObjectOfType<PlayerController>().Make_Normal());
-        }
-
-        else if (collision.gameObject.CompareTag("Enemy"))
-        {
-            //Sticky enemy
-            StartCoroutine(collision.gameObject.GetComponent<Enemy>().Make_Normal());
-        }
-    }
-
-    public void Spawn_Sticky ()
-    {
-        //Instantiate(meltedGum, transform.position, Quaternion.identity);
-        //Destroy(gameObject);
-    }
-
-    private IEnumerator Stick_Player ()
-    {
-        yield return new WaitForSeconds (3f);
-        pc.isSpinning = false;
-    }
-
-    private IEnumerator Stick_Enemy (Collider2D other)
-    {
-        float currentSpeed = other.gameObject.GetComponent<Enemy>().moveSpeed;
-        other.gameObject.GetComponent<Enemy>().moveSpeed = 0f;
-        yield return new WaitForSeconds(3f);
-        other.gameObject.GetComponent<Enemy>().moveSpeed = currentSpeed;
+        FindObjectOfType<PlayerController>().enabled = false;
+        yield return new WaitForSeconds (0.1f);
+        FindObjectOfType<PlayerController>().enabled = true;
     }
 }
