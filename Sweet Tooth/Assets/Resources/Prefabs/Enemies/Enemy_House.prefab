@@ -143,10 +143,12 @@ MonoBehaviour:
   houseType: 0
   enemiesToSpawn:
   - {fileID: 5805217729096086236, guid: 35a893d1d1b78ef45b9b0c4419008cfe, type: 3}
-  - {fileID: 1852355980, guid: eace8942b4a4621498ac2b305b9d52df, type: 3}
+  - {fileID: 5805217729096086236, guid: 35a893d1d1b78ef45b9b0c4419008cfe, type: 3}
   spawnPoint: {fileID: 6204988226853858165}
   healthDrop: 3
   speedDrop: 1
+  isBurning: 0
+  isEmpty: 0
 --- !u!114 &1541875982459453407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,7 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15c64963cfe73ab479255f7d8e914371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 1, g: 0, b: 0, a: 0}
+  color: {r: 1, g: 0, b: 0, a: 1}
   radius: 7
   outlineSize: 1
 --- !u!1 &6204988226720596762
