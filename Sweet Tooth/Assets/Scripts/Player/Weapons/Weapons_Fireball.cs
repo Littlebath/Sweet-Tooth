@@ -106,11 +106,6 @@ public class Weapons_Fireball : MonoBehaviour
             //pk.Knock_Back(collision);
         }
 
-        if (collision.gameObject.CompareTag("Gum"))
-        {
-            collision.gameObject.GetComponent<Environment_Gum>().Spawn_Sticky();
-        }
-
         if (collision.gameObject.CompareTag("Boss"))
         {
             collision.gameObject.GetComponent<Boss_OreoChocolateBoss>().Take_Damage(designerValues.fireballDamage);

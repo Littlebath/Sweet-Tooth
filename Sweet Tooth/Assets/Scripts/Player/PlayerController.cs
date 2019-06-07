@@ -524,7 +524,6 @@ public class PlayerController : MonoBehaviour
 
             for (int i = 0; i < gumToMelt.Length; i++)
             {
-                gumToMelt[i].GetComponent<Environment_Gum>().Spawn_Sticky();
                 Debug.Log("Got one");
             }
 
