@@ -10,15 +10,18 @@ public class Quest1ScriptableObject : ScriptableObject
     public bool[] pathB;
     public bool[] pathC;
     public bool questCompleted;
+    public int quest1Reward;
 
     [Header("Quest 2 values")]
     public bool [] objectives2;
     public bool quest2Completed;
+    public int quest2Reward;
 
     [Header("Quest 3 values")]
     public bool[] objectives3A;
     public bool[] objectives3B;
     public bool quest3Completed;
+    public int quest3Reward;
 
 
     public void ForceSerialization()
@@ -48,4 +51,5 @@ public class Quest1ScriptableObject : ScriptableObject
 
         questCompleted = false;
     }
+
 }

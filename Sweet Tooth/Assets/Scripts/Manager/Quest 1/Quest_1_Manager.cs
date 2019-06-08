@@ -30,19 +30,25 @@ public class Quest_1_Manager : MonoBehaviour
 
     private void Awake()
     {
-        Hide_Objects();
+        
     }
 
     void Start()
     {
-        Destroy_Duplicates();
+        //Destroy_Duplicates();
+    }
+
+    private void OnEnable()
+    {
+        StartCoroutine(Hide_Objects());
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.U))
         {
             questValues.ResetQuest();
+            questValues.ForceSerialization();
         }
     }
 
@@ -62,7 +68,7 @@ public class Quest_1_Manager : MonoBehaviour
         }
     }
 
-    void Hide_Objects ()
+    IEnumerator Hide_Objects ()
     {
         //All variables to disable
         shopkeeperNPC.SetActive(false);
@@ -81,6 +87,11 @@ public class Quest_1_Manager : MonoBehaviour
         SavingFatherTrigger.SetActive(false);
         FatherLangoSaved.SetActive(false);
 
+
+        Debug.Log("Hide");
+
+        yield return new WaitForEndOfFrame ();
+
         //Conditions
         if (SceneManager.GetActiveScene().name == "Shop")
         {
@@ -92,6 +103,7 @@ public class Quest_1_Manager : MonoBehaviour
         {
             jillNPC.SetActive(true);
             eddieNPC.SetActive(true);
+            Debug.Log("Hid once");
         }
 
         else if (SceneManager.GetActiveScene().name == "Underground Part A")
@@ -100,6 +112,7 @@ public class Quest_1_Manager : MonoBehaviour
             saveJackTrigger.SetActive(true);
             caveEntrance.SetActive(true);
             trapDoorEntrance.SetActive(true);
+            Debug.Log("Hid twice");
         }
 
         else if (SceneManager.GetActiveScene().name == "Area 1 Zone 2")
