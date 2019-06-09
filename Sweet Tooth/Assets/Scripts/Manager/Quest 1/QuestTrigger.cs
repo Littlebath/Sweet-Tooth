@@ -22,19 +22,19 @@ public class QuestTrigger : MonoBehaviour
     private PlayerInput pi;
     private Manager_Dialogue md;
 
-    private LoadNewArea [] exitPoints;
+    public LoadNewArea  exitPointFalcon;
+    public LoadNewArea exitPointBlack;
 
     // Start is called before the first frame update
     void Start()
     {
         SaveFeature();
-
-        exitPoints = FindObjectsOfType<LoadNewArea>();
     }
 
     // Update is called once per frame
     void Update()
     {
+
         Find_Objects();
 
         if (activateTrigger)
@@ -88,6 +88,17 @@ public class QuestTrigger : MonoBehaviour
         {
             if (gameObject.GetComponent<Save_ObjState>().obj.saveState == 1)
             {
+                if (ID == 0)
+                {
+                    exitPointFalcon.gameObject.SetActive(false);
+                }
+
+                else if (ID == 1)
+                {
+                    exitPointBlack.gameObject.SetActive(false);
+                }
+                FindObjectOfType<Quest_1_Manager>().caveEntrance.SetActive(false);
+                FindObjectOfType<Quest_1_Manager>().trapDoorEntrance.SetActive(false);
                 gameObject.SetActive(false);
             }
         }
@@ -114,6 +125,7 @@ public class QuestTrigger : MonoBehaviour
     {
         //Underground Part A Cave entrance
         player.GetComponent<Animator>().SetBool("isMoving", false);
+
         if (ID == 0)
         {
             if (questValues.pathC[0] == false)
@@ -126,13 +138,9 @@ public class QuestTrigger : MonoBehaviour
                 dialogueSelector = 1;
             }
             //Block Cave entrance
-            for (int i = 0; i < exitPoints.Length; i++)
-            {
-                if (exitPoints[i].exitPoint == "Falcon")
-                {
-                    exitPoints[i].gameObject.SetActive(false);
-                }
-            }
+            exitPointFalcon.gameObject.SetActive(false);
+            FindObjectOfType<Quest_1_Manager>().trapDoorEntrance.SetActive(false);
+
         }
 
         //Underground Part A Trapdoor entrance
@@ -148,13 +156,8 @@ public class QuestTrigger : MonoBehaviour
                 dialogueSelector = 1;
             }
             //Block Trap door entrance
-            for (int i = 0; i < exitPoints.Length; i++)
-            {
-                if (exitPoints[i].exitPoint == "Black")
-                {
-                    exitPoints[i].gameObject.SetActive(false);
-                }
-            }
+            exitPointBlack.gameObject.SetActive(false);
+            FindObjectOfType<Quest_1_Manager>().caveEntrance.SetActive(false);
         }
 
         //Saving jack trigger

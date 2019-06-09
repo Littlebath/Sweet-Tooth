@@ -35,7 +35,7 @@ public class QuestNPC : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(gameObject.name + " has " + allDialogues.transform.childCount + " dialogues to be said");
+        //Debug.Log(gameObject.name + " has " + allDialogues.transform.childCount + " dialogues to be said");
     }
 
     // Update is called once per frame
@@ -143,7 +143,10 @@ public class QuestNPC : MonoBehaviour
                         else if (questValues.pathA[3] == true || questValues.pathB[2] == true || questValues.pathC[1] == true)
                         {
                             dialogueSelector = 2;
+
                             //Place reward code here
+                            FindObjectOfType<Player_Inventory>().currency += questValues.quest1Reward;
+
                             questValues.questCompleted = true;
                             questValues.objectives2[0] = true;
                             questValues.ForceSerialization();
@@ -233,6 +236,7 @@ public class QuestNPC : MonoBehaviour
                     else
                     {
                         dialogueSelector = 2;
+                        FindObjectOfType<Player_Inventory>().currency += questValues.quest2Reward;
                         questValues.quest2Completed = true;
                     }
                 }
@@ -245,7 +249,7 @@ public class QuestNPC : MonoBehaviour
             }
         }
 
-        //Talking to perry after deafeating the boss
+        //Talking to perry after defeating the boss
         else if (ID == 5)
         {
             //Talking to perry the first time
@@ -287,6 +291,7 @@ public class QuestNPC : MonoBehaviour
             else
             {
                 dialogueSelector = 2;
+                FindObjectOfType<Player_Inventory>().currency += questValues.quest3Reward;
             }
         }
 
@@ -327,6 +332,7 @@ public class QuestNPC : MonoBehaviour
                 }
             }
         }
+
         allDialogues.transform.GetChild(dialogueSelector).GetComponent<Dialogue_Trigger>().TriggerDialogue();
     }
 

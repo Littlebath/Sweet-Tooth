@@ -252,15 +252,24 @@ public class PlayerController : MonoBehaviour
 
         for (int i = 0; i < enemyInPound.Length; i++)
         {
+            //Enemies
             if (enemyInPound[i].GetComponent<Enemy>() != null)
             {
                 enemyInPound[i].GetComponent<Enemy>().Take_Damage(designerValues.groundPoundDamage);
                 FindObjectOfType<Player_Knockback>().Knock_Back(enemyInPound[i]);
             }
 
+            //Boss
             if (enemyInPound[i].GetComponent<Boss_OreoChocolateBoss>() != null)
             {
                 enemyInPound[i].GetComponent<Boss_OreoChocolateBoss>().Take_Damage(designerValues.groundPoundDamage);
+            }
+
+            //Breakable grounds
+            if (enemyInPound[i].GetComponent<Environment_BreakableGround>() != null)
+            {
+                Debug.Log("Hit ground");
+                enemyInPound[i].GetComponent<Environment_BreakableGround>().BreakGround();
             }
         }
 

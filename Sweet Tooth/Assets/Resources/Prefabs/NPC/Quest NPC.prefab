@@ -1,5 +1,104 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &809854074
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 809854075}
+  - component: {fileID: 809854076}
+  m_Layer: 2
+  m_Name: Dialogue 1 (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &809854075
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 809854074}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6286452469780670778}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &809854076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 809854074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c25cbb7da6c93344c834101c5a25f15c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue:
+  - {fileID: 11400000, guid: 4f632db845caf914eb403ec51051dae6, type: 2}
+  - {fileID: 11400000, guid: 760cb2ec61893d6448740cf983686101, type: 2}
+  - {fileID: 11400000, guid: d50b04c0b5eb82b42a4d1d74c91e5f04, type: 2}
+  cutsceneDialogue: 0
+--- !u!1 &1003898075
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1003898076}
+  - component: {fileID: 1003898077}
+  m_Layer: 2
+  m_Name: Dialogue 1 (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1003898076
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1003898075}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6286452469780670778}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1003898077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1003898075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c25cbb7da6c93344c834101c5a25f15c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue:
+  - {fileID: 11400000, guid: 4dfff5a2a3a8a7c449bd9fc05ab9c1e8, type: 2}
+  - {fileID: 11400000, guid: 1d54b8b883f995a43bd6feb7f33c493a, type: 2}
+  - {fileID: 11400000, guid: 2c8a40da314afab45b7f5b857e044285, type: 2}
+  - {fileID: 11400000, guid: 2a5a1868ba9a7784bb65f1717312b433, type: 2}
+  - {fileID: 11400000, guid: 2633710b4d6da8a44b37b137b2541350, type: 2}
+  - {fileID: 11400000, guid: 678650f5f4851cf44b27d2d4c4f2ab22, type: 2}
+  cutsceneDialogue: 0
 --- !u!1 &1302921446285251631
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,6 +252,7 @@ MonoBehaviour:
   size: {x: 0.4, y: 0.4}
   distance: 0.6
   allDialogues: {fileID: 4448300527428524964}
+  ID: 3
   isInRange: 0
 --- !u!1 &4013586558294438044
 GameObject:
@@ -198,7 +298,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-  - {fileID: 11400000, guid: f1d4ddad3a64c1d4aa0c7b2ac73d8b67, type: 2}
+  - {fileID: 11400000, guid: feb28cf7cf8d81e438085096ea0487b5, type: 2}
+  - {fileID: 11400000, guid: e84f9c8a89530134e9a9751babbdd3a7, type: 2}
+  - {fileID: 11400000, guid: 0ff6969ba4e69bf4fa8266accefad971, type: 2}
+  - {fileID: 11400000, guid: 2f592b60ce151864385f20a6ef3d4dbb, type: 2}
+  - {fileID: 11400000, guid: fe2f19baf09393a41905595445fd036f, type: 2}
   cutsceneDialogue: 0
 --- !u!1 &4448300527428524964
 GameObject:
@@ -228,6 +332,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 166884566073848681}
+  - {fileID: 1003898076}
+  - {fileID: 809854075}
   m_Father: {fileID: 6706789486801275818}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
