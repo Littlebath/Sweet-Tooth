@@ -19,7 +19,7 @@ public class Environment_Metal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -28,6 +28,12 @@ public class Environment_Metal : MonoBehaviour
         {
             StartCoroutine(Metal_Process());
         }
+
+        if (collision.gameObject.GetComponent<pot>() != null)
+        {
+            collision.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(10000F, 0F));
+        }
+
     }
 
     public IEnumerator Metal_Process ()
