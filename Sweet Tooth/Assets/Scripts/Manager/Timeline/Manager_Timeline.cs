@@ -28,4 +28,16 @@ public class Manager_Timeline : MonoBehaviour
             player.runtimeAnimatorController = playerAnim;
         }
     }
+
+    public void ReverState ()
+    {
+        playerAnim = player.runtimeAnimatorController;
+        player.runtimeAnimatorController = null;
+    }
+
+    public void FixAnim ()
+    {
+        fix = true;
+        player.runtimeAnimatorController = playerAnim;
+    }
 }

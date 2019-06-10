@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5691285537375319301
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5691285537375319299}
+  - component: {fileID: 5691285537375319298}
+  m_Layer: 0
+  m_Name: 'Cutscene Dialogue '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &5691285537375319299
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5691285537375319301}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 28.520119, y: -23.54152, z: 30.663307}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5691285537375319298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5691285537375319301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c25cbb7da6c93344c834101c5a25f15c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue:
+  - {fileID: 11400000, guid: 098ab583f38996144908ee2a9904bf4e, type: 2}
+  - {fileID: 11400000, guid: 30d93a05da498824981a4b0d30068b0d, type: 2}
+  - {fileID: 11400000, guid: 25039ea33e9925449b70add444ae4356, type: 2}
+  - {fileID: 11400000, guid: f2b1a32e09e277c4ebb4d3c32d5f370e, type: 2}
+  - {fileID: 11400000, guid: 9aa559cdb60a8884d822f89ff6448894, type: 2}
+  - {fileID: 11400000, guid: d9b863ccefb1a594b9552392ba4a2c41, type: 2}
+  cutsceneDialogue: 1

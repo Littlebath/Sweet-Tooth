@@ -274,6 +274,7 @@ public class NPC : MonoBehaviour
             //Debug.Log("Player is out");
             isInRange = false;
             canMelee = false;
+            md.EndDialogue();
         }
     }
 

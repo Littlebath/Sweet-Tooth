@@ -491,6 +491,18 @@ public class PlayerController : MonoBehaviour
                             StartCoroutine(enemyHouses[i].GetComponent<Environment_EnemyHome>().Spawn_Enemies());
                         }
                     }
+
+                    //Checkpoints
+                    Collider2D [] checkPoints = Physics2D.OverlapCircleAll(attackPos.position, designerValues.meleeRange);
+
+                    for (int i = 0; i < checkPoints.Length; i++)
+                    {
+                        if (enemyHouses[i].GetComponent<Checkpoints>() != null)
+                        {
+                            enemyHouses[i].GetComponent<Checkpoints>().ChangeColor();
+                            FindObjectOfType<CheckPointHandler>().updateCheckPoint(checkPoints[i].gameObject);
+                        }
+                    }
                 }
             }
         }

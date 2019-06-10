@@ -36,7 +36,7 @@ public class Checkpoints : MonoBehaviour
 	}
 	
 	// This function changes the sprite of the Checkpoint. (Has to be modified if animations need to be implemented.)
-	void ChangeColor () 
+	public void ChangeColor () 
 	{
 		if (status == state.Inactive) 
 		{

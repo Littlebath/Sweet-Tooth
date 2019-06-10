@@ -99,8 +99,8 @@ public class Manager_Dialogue : MonoBehaviour
 
         pi.horizontalInput = 0f;
         pi.verticalInput = 0f;
-        pc.isMoving = false;
-        pc.enabled = false;
+        //pc.isMoving = false;
+        //pc.enabled = false;
 
 
         //Debug.Log (currentDialogue.name);
