@@ -209,10 +209,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: {fileID: 11400000, guid: 70ded56ce52017c4b8c0be819a0dcf6f, type: 2}
+  grassDirection: {fileID: 0}
   size: {x: 0.4, y: 0.4}
   distance: 0.6
   allDialogues: {fileID: 764075822}
+  oldColor: {r: 1, g: 1, b: 1, a: 1}
   isInRange: 0
+  isInGrass: 0
 --- !u!212 &4817909488943939518
 SpriteRenderer:
   m_ObjectHideFlags: 0
