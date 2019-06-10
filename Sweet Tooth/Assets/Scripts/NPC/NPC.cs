@@ -16,9 +16,13 @@ public class NPC : MonoBehaviour
     //Gameobjects
     private GameObject player;
 
+    //Colors
+    public Color oldColor;
+
     //Bools
     [HideInInspector]public bool isInRange;
     [HideInInspector] public static bool canMelee;
+    private bool isHurt;
     public bool isInGrass;
 
     //Scripts
@@ -92,7 +96,21 @@ public class NPC : MonoBehaviour
             DuckDown(targetPos);
             yield return null;
         }
+    }
 
+    public IEnumerator Flash ()
+    {
+        isHurt = true;
+
+        for (int i = 0; i < 1 * 2; i++)
+        {
+            gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+            yield return new WaitForSeconds(0.1f);
+            gameObject.GetComponent<SpriteRenderer>().color = oldColor;
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        isHurt = false;
     }
 
     void Say_Dialogue ()
@@ -241,6 +259,11 @@ public class NPC : MonoBehaviour
             Debug.Log("Player is in");
             isInRange = true;
             canMelee = true;
+        }
+
+        else if (collision.gameObject.GetComponent<EnemyRanged_Bullet>() != null)
+        {
+            StartCoroutine(Flash());
         }
     }
 

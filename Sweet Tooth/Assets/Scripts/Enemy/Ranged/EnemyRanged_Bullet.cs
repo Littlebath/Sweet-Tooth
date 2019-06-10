@@ -38,6 +38,11 @@ public class EnemyRanged_Bullet : MonoBehaviour
                 collision.gameObject.GetComponent<Enemy>().Take_Damage(damage);
             }
 
+            if (collision.gameObject.GetComponent<NPC>() != null)
+            {
+                //StartCoroutine(collision.gameObject.GetComponent<NPC>().Flash());
+            }
+
             if (collision.gameObject.name != "Full Level" || collision.gameObject.tag != "Boss")
             {
                 Destroy(gameObject);
