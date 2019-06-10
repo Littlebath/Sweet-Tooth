@@ -568,6 +568,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private IEnumerator Slow_Motion_Effect ()
+    {
+        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(0.1f);
+        Time.timeScale = 1f;
+    }
+
 
     private IEnumerator Throw_Boomerang()
     {
@@ -739,6 +746,7 @@ public class PlayerController : MonoBehaviour
         {
             FindObjectOfType<UI_HeartDisplay>().Update_Hearts();
             FindObjectOfType<CameraController>().Screen_Kick();
+            StartCoroutine(Slow_Motion_Effect());
             StartCoroutine(Flash());
             //Handheld.Vibrate();
 

@@ -56,6 +56,13 @@ public class Enemy : MonoBehaviour
         
     }
 
+    private IEnumerator Slow_Motion_Effect()
+    {
+        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(0.1f);
+        Time.timeScale = 1f;
+    }
+
     public IEnumerator Make_Slow ()
     {
         moveSpeed -= 1;
@@ -110,6 +117,7 @@ public class Enemy : MonoBehaviour
             else
             {
                 StartCoroutine(KnockCo(GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>()));
+                StartCoroutine(Slow_Motion_Effect());
             }
 
             if (gameObject.GetComponent<Enemy_Dormant>() != null)
