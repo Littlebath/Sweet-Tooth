@@ -27,7 +27,7 @@ public class NPC : MonoBehaviour
 
     //Scripts
     private PlayerInput pi;
-    private Manager_Dialogue md;
+    [SerializeField] private Manager_Dialogue md;
 
     private int dialogueSelector;
 
@@ -285,12 +285,17 @@ public class NPC : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            //Debug.Log("Player is out");
-            isInRange = false;
-            canMelee = false;
-            md.EndDialogue();
+            if (md.isSpeaking)
+            {
+                //Debug.Log("Player is out");
+                isInRange = false;
+                canMelee = false;
+                md.EndDialogue();
+            }
         }
+
     }
+
 
 
     void Find_Objects ()

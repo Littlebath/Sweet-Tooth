@@ -56,11 +56,13 @@ public class Environment_DialogueTrigger : MonoBehaviour
                         if (md.isSpeaking)
                         {
                             md.SkipDialogue();
+                            FindObjectOfType<PlayerController>().enabled = false;
                         }
 
                         else
                         {
                             md.DisplayNextSentence();
+                            FindObjectOfType<PlayerController>().enabled = false;
                         }
 
                         if (md.anim.GetBool("isOpen") == false)

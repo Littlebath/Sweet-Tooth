@@ -145,6 +145,7 @@ public class Manager_Dialogue : MonoBehaviour
                 dialogueCounter++;
                 //Debug.Log("Spoken dialogue" + dialogueCounter);
                 StartDialogue(dialogues);
+                FindObjectOfType<PlayerController>().enabled = false;
             }
 
             else
