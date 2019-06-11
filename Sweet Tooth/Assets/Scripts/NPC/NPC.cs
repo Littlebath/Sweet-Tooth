@@ -27,7 +27,7 @@ public class NPC : MonoBehaviour
 
     //Scripts
     private PlayerInput pi;
-    private Manager_Dialogue md;
+    [SerializeField] private Manager_Dialogue md;
 
     private int dialogueSelector;
 
@@ -117,6 +117,20 @@ public class NPC : MonoBehaviour
     {
         int noOfDialogues = allDialogues.transform.childCount;
         dialogueSelector = Random.Range(0, noOfDialogues);
+
+        if (gameObject.GetComponent<HealthPotion_Quest>() != null)
+        {
+            if (gameObject.GetComponent<HealthPotion_Quest>().hasPotion)
+            {
+                dialogueSelector = 1;
+
+                if (gameObject.GetComponent<Save_ObjState>().obj.saveState != 1)
+                {
+                    gameObject.GetComponent<Save_ObjState>().obj.saveState = 1;
+                    //Give reward
+                }
+            }
+        }
 
         allDialogues.transform.GetChild(dialogueSelector).GetComponent<Dialogue_Trigger>().TriggerDialogue();
         //Debug.Log(dialogueSelector);
@@ -271,12 +285,17 @@ public class NPC : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            //Debug.Log("Player is out");
-            isInRange = false;
-            canMelee = false;
-            md.EndDialogue();
+            if (md.isSpeaking)
+            {
+                //Debug.Log("Player is out");
+                isInRange = false;
+                canMelee = false;
+                md.EndDialogue();
+            }
         }
+
     }
+
 
 
     void Find_Objects ()

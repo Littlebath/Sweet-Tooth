@@ -60,10 +60,11 @@ public class Dialogue_Trigger : MonoBehaviour
                 {
                     if (!md.isTalking)
                     {
+                        FindObjectOfType<PlayerController>().enabled = false;
                         FindObjectOfType<PlayerController>().isMelee = false;
                         Debug.Log("Start dialogue");
                         GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-                        gameObject.GetComponent<Dialogue_Trigger>().TriggerDialogue();                       
+                        gameObject.GetComponent<Dialogue_Trigger>().TriggerDialogue();
                         //Debug.Log("Talk");
                     }
 
@@ -72,6 +73,7 @@ public class Dialogue_Trigger : MonoBehaviour
                         if (md.isSpeaking)
                         {
                             md.SkipDialogue();
+                            //FindObjectOfType<PlayerController>().enabled = false;
                         }
 
                         else
@@ -82,6 +84,7 @@ public class Dialogue_Trigger : MonoBehaviour
                             {
                                 FindObjectOfType<Manager_Timeline>().ReverState();
                                 FindObjectOfType<Manager_Timeline>().FixAnim();
+                                FindObjectOfType<PlayerController>().enabled = true;
                                 gameObject.SetActive(false);
                             }
                         }

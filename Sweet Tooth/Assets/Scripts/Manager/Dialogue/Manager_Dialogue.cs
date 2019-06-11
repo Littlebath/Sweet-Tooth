@@ -99,7 +99,7 @@ public class Manager_Dialogue : MonoBehaviour
 
         pi.horizontalInput = 0f;
         pi.verticalInput = 0f;
-        //pc.isMoving = false;
+        pc.isMoving = false;
         //pc.enabled = false;
 
 
@@ -145,6 +145,7 @@ public class Manager_Dialogue : MonoBehaviour
                 dialogueCounter++;
                 //Debug.Log("Spoken dialogue" + dialogueCounter);
                 StartDialogue(dialogues);
+                FindObjectOfType<PlayerController>().enabled = false;
             }
 
             else
