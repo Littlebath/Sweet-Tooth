@@ -85,6 +85,14 @@ public class NPC : MonoBehaviour
                     }
                 }
 
+                else if (pi.attackButton)
+                {
+                    if (md.isTalking)
+                    {
+                        md.EndDialogue();
+                    }
+                }
+
             }
  
         }
@@ -280,23 +288,6 @@ public class NPC : MonoBehaviour
             StartCoroutine(Flash());
         }
     }
-
-    private void OnTriggerExit2D (Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            if (md.isSpeaking)
-            {
-                //Debug.Log("Player is out");
-                isInRange = false;
-                canMelee = false;
-                md.EndDialogue();
-            }
-        }
-
-    }
-
-
 
     void Find_Objects ()
     {

@@ -84,11 +84,18 @@ public class Dialogue_Trigger : MonoBehaviour
                             {
                                 FindObjectOfType<Manager_Timeline>().ReverState();
                                 FindObjectOfType<Manager_Timeline>().FixAnim();
-                                FindObjectOfType<PlayerController>().enabled = true;
                                 gameObject.SetActive(false);
                             }
                         }
                     }
+                }
+            }
+
+            else if (pi.attackButton)
+            {
+                if (md.isTalking)
+                {
+                    md.EndDialogue();
                 }
             }
         }

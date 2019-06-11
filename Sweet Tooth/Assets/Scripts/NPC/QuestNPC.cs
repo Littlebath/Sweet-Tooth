@@ -82,6 +82,14 @@ public class QuestNPC : MonoBehaviour
                                 gameObject.GetComponent<ShopController>().OpenShop();
                             }
                         }
+
+                        else if (ID == 8)
+                        {
+                            if (md.anim.GetBool("isOpen") == false)
+                            {
+                                gameObject.GetComponent<ShopController>().OpenShop();
+                            }
+                        }
                     }
                 }
 
@@ -94,7 +102,7 @@ public class QuestNPC : MonoBehaviour
     {
         FindObjectOfType<PlayerController>().enabled = false;
 
-        //Shop Keeper
+        //Quest Shop Keeper
         if (ID == 0)
         {
             if (questValues.pathA[0] == false)
@@ -333,6 +341,12 @@ public class QuestNPC : MonoBehaviour
                     dialogueSelector = 3;
                 }
             }
+        }
+
+        //Slave shopkeeper
+        else if (ID == 8)
+        {
+            dialogueSelector = 0;
         }
 
         allDialogues.transform.GetChild(dialogueSelector).GetComponent<Dialogue_Trigger>().TriggerDialogue();
