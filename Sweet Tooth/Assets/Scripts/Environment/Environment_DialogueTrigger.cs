@@ -45,6 +45,7 @@ public class Environment_DialogueTrigger : MonoBehaviour
                         FindObjectOfType<PlayerController>().isMelee = false;
                         Debug.Log("Start dialogue");
                         GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                        FindObjectOfType<PlayerController>().enabled = false;
                         //gameObject.GetComponent<Dialogue_Trigger>().TriggerDialogue();
                         //Debug.Log("Talk");
                     }

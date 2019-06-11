@@ -63,7 +63,8 @@ public class Dialogue_Trigger : MonoBehaviour
                         FindObjectOfType<PlayerController>().isMelee = false;
                         Debug.Log("Start dialogue");
                         GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-                        gameObject.GetComponent<Dialogue_Trigger>().TriggerDialogue();                       
+                        gameObject.GetComponent<Dialogue_Trigger>().TriggerDialogue();
+                        FindObjectOfType<PlayerController>().enabled = false;
                         //Debug.Log("Talk");
                     }
 
@@ -72,6 +73,7 @@ public class Dialogue_Trigger : MonoBehaviour
                         if (md.isSpeaking)
                         {
                             md.SkipDialogue();
+                            FindObjectOfType<PlayerController>().enabled = false;
                         }
 
                         else

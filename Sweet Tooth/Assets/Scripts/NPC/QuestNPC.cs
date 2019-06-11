@@ -92,6 +92,8 @@ public class QuestNPC : MonoBehaviour
 
     void Say_Dialogue()
     {
+        FindObjectOfType<PlayerController>().enabled = false;
+
         //Shop Keeper
         if (ID == 0)
         {

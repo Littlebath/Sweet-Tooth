@@ -118,6 +118,20 @@ public class NPC : MonoBehaviour
         int noOfDialogues = allDialogues.transform.childCount;
         dialogueSelector = Random.Range(0, noOfDialogues);
 
+        if (gameObject.GetComponent<HealthPotion_Quest>() != null)
+        {
+            if (gameObject.GetComponent<HealthPotion_Quest>().hasPotion)
+            {
+                dialogueSelector = 1;
+
+                if (gameObject.GetComponent<Save_ObjState>().obj.saveState != 1)
+                {
+                    gameObject.GetComponent<Save_ObjState>().obj.saveState = 1;
+                    //Give reward
+                }
+            }
+        }
+
         allDialogues.transform.GetChild(dialogueSelector).GetComponent<Dialogue_Trigger>().TriggerDialogue();
         //Debug.Log(dialogueSelector);
     }
