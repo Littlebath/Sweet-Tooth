@@ -27,7 +27,7 @@ public class NPC : MonoBehaviour
 
     //Scripts
     private PlayerInput pi;
-    [SerializeField] private Manager_Dialogue md;
+    private Manager_Dialogue md;
 
     private int dialogueSelector;
 
@@ -84,17 +84,16 @@ public class NPC : MonoBehaviour
                         }
                     }
                 }
-
-                else if (pi.attackButton)
-                {
-                    if (md.isTalking)
-                    {
-                        md.EndDialogue();
-                    }
-                }
-
             }
- 
+
+            else if (pi.attackButton)
+            {
+                if (md.isTalking)
+                {
+                    md.EndDialogue();
+                }
+            }
+
         }
     }
     IEnumerator Hide_In_Grass ()
@@ -287,6 +286,13 @@ public class NPC : MonoBehaviour
         {
             StartCoroutine(Flash());
         }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Debug.Log("Player is out");
+        isInRange = false;
+        canMelee = false;
     }
 
     void Find_Objects ()

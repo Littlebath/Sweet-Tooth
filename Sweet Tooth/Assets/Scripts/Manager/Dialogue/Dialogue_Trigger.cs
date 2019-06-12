@@ -96,6 +96,10 @@ public class Dialogue_Trigger : MonoBehaviour
                 if (md.isTalking)
                 {
                     md.EndDialogue();
+                    FindObjectOfType<Manager_Timeline>().ReverState();
+                    FindObjectOfType<Manager_Timeline>().FixAnim();
+                    gameObject.SetActive(false);
+
                 }
             }
         }
