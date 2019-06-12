@@ -11,9 +11,15 @@ public class TimelineController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            FindObjectOfType<Manager_Timeline>().GetComponent<PlayableDirector>().playableAsset = scene;
-            FindObjectOfType<Manager_Timeline>().GetComponent<PlayableDirector>().Play();
-            gameObject.SetActive(false);
+            if (gameObject.GetComponent<Save_ObjState>().obj.saveState == 0)
+            {
+                FindObjectOfType<Manager_Timeline>().GetComponent<PlayableDirector>().playableAsset = scene;
+                FindObjectOfType<Manager_Timeline>().GetComponent<PlayableDirector>().Play();
+                gameObject.GetComponent<Save_ObjState>().obj.saveState = 1;
+                gameObject.GetComponent<Save_ObjState>().obj.ForceSerialization();
+                gameObject.SetActive(false);
+            }
+
         }
     }
 }
