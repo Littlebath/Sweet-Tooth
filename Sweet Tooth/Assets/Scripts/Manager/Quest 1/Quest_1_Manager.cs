@@ -23,15 +23,10 @@ public class Quest_1_Manager : MonoBehaviour
     public GameObject percyNPC;
     public GameObject percySave;
     public GameObject smallLango;
+    public GameObject smallLango2;
     public GameObject fatherLango;
     public GameObject SavingFatherTrigger;
     public GameObject FatherLangoSaved;
-
-
-    private void Awake()
-    {
-        
-    }
 
     void Start()
     {
@@ -51,8 +46,6 @@ public class Quest_1_Manager : MonoBehaviour
             questValues.ForceSerialization();
         }
     }
-
-
 
     void Destroy_Duplicates ()
     {
@@ -83,6 +76,7 @@ public class Quest_1_Manager : MonoBehaviour
         percyNPC.SetActive(false);
         percySave.SetActive(false);
         smallLango.SetActive(false);
+        smallLango2.SetActive(false);
         fatherLango.SetActive(false);
         SavingFatherTrigger.SetActive(false);
         FatherLangoSaved.SetActive(false);
@@ -129,11 +123,23 @@ public class Quest_1_Manager : MonoBehaviour
             {
                 percySave.SetActive(true);
             }
+
+            if (questValues.objectives3A[2] == true)
+            {
+                FatherLangoSaved.SetActive(true);
+            }
         }
 
         else if (SceneManager.GetActiveScene().name == "Area 1 Zone 3")
         {
-
+            //Has not saved father Langos
+            if (questValues.objectives3A[2] == false)
+            {
+                smallLango.SetActive(true);
+                smallLango2.SetActive(true);
+                fatherLango.SetActive(true);
+                SavingFatherTrigger.SetActive(true);
+            }
         }
     }
 }

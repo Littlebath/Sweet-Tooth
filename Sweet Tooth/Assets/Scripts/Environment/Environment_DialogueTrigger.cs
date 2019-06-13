@@ -69,6 +69,7 @@ public class Environment_DialogueTrigger : MonoBehaviour
                         {
                             gameObject.GetComponent<Save_ObjState>().obj.saveState = 1;
                             gameObject.GetComponent<Save_ObjState>().obj.ForceSerialization();
+                            FindObjectOfType<PlayerController>().enabled = true;
                             gameObject.SetActive(false);
                         }
                     }

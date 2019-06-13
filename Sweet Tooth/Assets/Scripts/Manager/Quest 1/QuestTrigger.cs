@@ -189,8 +189,10 @@ public class QuestTrigger : MonoBehaviour
             else
             {
                 dialogueSelector = 1;
+                questValues.objectives3A[2] = true;
             }
 
+            FindObjectOfType<Player_Inventory>().currency += questValues.quest3Reward;
             //Play cutscene of father lagos leaving
         }
 

@@ -22,6 +22,11 @@ public class Manager_Timeline : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
+        }
+
         if (director.state != PlayState.Playing && !fix)
         {
             fix = true;

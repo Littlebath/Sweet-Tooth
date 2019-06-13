@@ -301,7 +301,6 @@ public class QuestNPC : MonoBehaviour
             else
             {
                 dialogueSelector = 2;
-                FindObjectOfType<Player_Inventory>().currency += questValues.quest3Reward;
             }
         }
 
