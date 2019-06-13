@@ -24,12 +24,13 @@ public class NPC : MonoBehaviour
     [HideInInspector] public static bool canMelee;
     private bool isHurt;
     public bool isInGrass;
+    public bool isOneLiner;
 
     //Scripts
     private PlayerInput pi;
     private Manager_Dialogue md;
 
-    private int dialogueSelector;
+    private int dialogueSelector = 0;
 
     private Vector3 targetPos;
 
@@ -123,7 +124,6 @@ public class NPC : MonoBehaviour
     void Say_Dialogue ()
     {
         int noOfDialogues = allDialogues.transform.childCount;
-        dialogueSelector = Random.Range(0, noOfDialogues);
 
         if (gameObject.GetComponent<HealthPotion_Quest>() != null)
         {
@@ -140,6 +140,15 @@ public class NPC : MonoBehaviour
         }
 
         allDialogues.transform.GetChild(dialogueSelector).GetComponent<Dialogue_Trigger>().TriggerDialogue();
+
+        //One liner NPCs
+        if (isOneLiner)
+        {
+            if (dialogueSelector == 0)
+            {
+                dialogueSelector = 1;
+            }
+        }
         //Debug.Log(dialogueSelector);
     }
 
