@@ -499,8 +499,7 @@ public class PlayerController : MonoBehaviour
                     {
                         if (enemyHouses[i].GetComponent<Checkpoints>() != null)
                         {
-                            enemyHouses[i].GetComponent<Checkpoints>().ChangeColor();
-                            FindObjectOfType<CheckPointHandler>().updateCheckPoint(checkPoints[i].gameObject);
+                            FindObjectOfType<Checkpoints>().ActivateCheckpoint();
                         }
                     }
                 }

@@ -66,14 +66,18 @@ public class Checkpoints : MonoBehaviour
 	{
 		if (other.tag == "Player")
 		{
-			ChangeColor (); 
-			ch.updateCheckPoint (this.gameObject);
+            ActivateCheckpoint();
+        }
+    }
 
-            if (pc != null)
-            {
-                pc.startPoint = exitPoint;
-            }
+    public void ActivateCheckpoint ()
+    {
+        ChangeColor();
+        ch.updateCheckPoint(this.gameObject);
 
+        if (pc != null)
+        {
+            pc.startPoint = exitPoint;
         }
     }
 
