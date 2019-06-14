@@ -123,7 +123,6 @@ public class NPC : MonoBehaviour
     void Say_Dialogue ()
     {
         int noOfDialogues = allDialogues.transform.childCount;
-        dialogueSelector = Random.Range(0, noOfDialogues);
 
         if (gameObject.GetComponent<HealthPotion_Quest>() != null)
         {

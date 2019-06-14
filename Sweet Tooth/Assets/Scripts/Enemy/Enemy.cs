@@ -96,10 +96,13 @@ public class Enemy : MonoBehaviour
                         gameObject.GetComponent<Save_ObjState>().obj.saveState = 1;
                         gameObject.GetComponent<Save_ObjState>().obj.ForceSerialization();
 
-                        if (GetComponent<Enemy_TeleportingExplosives>().enemyName == "Larry")
+                        if (GetComponent<Enemy_TeleportingExplosives>() != null)
                         {
-                            Debug.Log("ResetArea");
-                            FindObjectOfType<QuestTrigger>().SaveFeature();
+                            if (GetComponent<Enemy_TeleportingExplosives>().enemyName == "Larry")
+                            {
+                                Debug.Log("ResetArea");
+                                FindObjectOfType<QuestTrigger>().SaveFeature();
+                            }
                         }
                     }
                 }
