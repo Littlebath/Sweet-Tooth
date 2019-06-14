@@ -17,6 +17,7 @@ public class QuestTrigger : MonoBehaviour
 
     //Gameobjects
     private GameObject player;
+    public GameObject boss;
 
     //Scripts
     private PlayerInput pi;
@@ -28,13 +29,17 @@ public class QuestTrigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (boss == null)
+        {
+            boss = FindObjectOfType<Enemy_TeleportingExplosives>().gameObject;
+        }
+
         SaveFeature();
     }
 
     // Update is called once per frame
     void Update()
     {
-
         Find_Objects();
 
         if (activateTrigger)
@@ -82,7 +87,7 @@ public class QuestTrigger : MonoBehaviour
     }
 
 
-    private void SaveFeature()
+    public void SaveFeature()
     {
         if (gameObject.GetComponent<Save_ObjState>() != null)
         {
@@ -97,6 +102,18 @@ public class QuestTrigger : MonoBehaviour
                 {
                     exitPointBlack.gameObject.SetActive(false);
                 }
+
+                if (boss != null)
+                {
+                    if (boss.GetComponent<Save_ObjState>().obj.saveState == 1)
+                    {
+                        Debug.Log("COME ON");
+                        exitPointFalcon.gameObject.SetActive(true);
+                        exitPointBlack.gameObject.SetActive(true);
+                        boss.SetActive(false);
+                    }
+                }
+
                 FindObjectOfType<Quest_1_Manager>().caveEntrance.SetActive(false);
                 FindObjectOfType<Quest_1_Manager>().trapDoorEntrance.SetActive(false);
                 gameObject.SetActive(false);
