@@ -37,7 +37,6 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         if (gameObject.GetComponent<Save_ObjState>() != null)
         {
             if (gameObject.GetComponent<Save_ObjState>().obj != null)
@@ -93,8 +92,15 @@ public class Enemy : MonoBehaviour
                 {
                     if (gameObject.GetComponent<Save_ObjState>().obj != null)
                     {
+                        Debug.Log("Plz save");
                         gameObject.GetComponent<Save_ObjState>().obj.saveState = 1;
                         gameObject.GetComponent<Save_ObjState>().obj.ForceSerialization();
+
+                        if (GetComponent<Enemy_TeleportingExplosives>().enemyName == "Larry")
+                        {
+                            Debug.Log("ResetArea");
+                            FindObjectOfType<QuestTrigger>().SaveFeature();
+                        }
                     }
                 }
 
