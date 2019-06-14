@@ -8,6 +8,8 @@ public class Environment_DialogueTrigger : MonoBehaviour
     //Trigger ID
     public GameObject allDialogues;
 
+    public GameObject Pom;
+
 
     //Boolean for dialogue
     private bool activateTrigger;
@@ -20,6 +22,9 @@ public class Environment_DialogueTrigger : MonoBehaviour
     //Scripts
     private PlayerInput pi;
     private Manager_Dialogue md;
+
+    //bools
+    public bool pomTrigger;
 
     // Start is called before the first frame update
     void Start()
@@ -123,6 +128,11 @@ public class Environment_DialogueTrigger : MonoBehaviour
                 Debug.Log("Start dialogue");
                 GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                 Say_Dialogue();
+
+                if (pomTrigger)
+                {
+                    gameObject.GetComponent<NPC>().enabled = false;
+                }
                 //Debug.Log("Talk");
             }
         }
