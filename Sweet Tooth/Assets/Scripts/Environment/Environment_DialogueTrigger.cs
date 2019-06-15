@@ -9,6 +9,7 @@ public class Environment_DialogueTrigger : MonoBehaviour
     public GameObject allDialogues;
 
 
+
     //Boolean for dialogue
     private bool activateTrigger;
 
@@ -20,6 +21,10 @@ public class Environment_DialogueTrigger : MonoBehaviour
     //Scripts
     private PlayerInput pi;
     private Manager_Dialogue md;
+
+    public bool pomOne;
+    public bool guardEnemy;
+    public GameObject pom;
 
     // Start is called before the first frame update
     void Start()
@@ -71,6 +76,22 @@ public class Environment_DialogueTrigger : MonoBehaviour
                             gameObject.GetComponent<Save_ObjState>().obj.ForceSerialization();
                             FindObjectOfType<PlayerController>().enabled = true;
                             gameObject.SetActive(false);
+
+                            if (pomOne)
+                            {
+                                for (int i = 0; i < FindObjectsOfType<Environment_Cinnamon>().Length; i++)
+                                {
+                                    FindObjectsOfType<Environment_Cinnamon>()[i].gameObject.GetComponent<SpriteOutline>().radius = 1;
+                                }
+                            }
+
+                            else if (guardEnemy)
+                            {
+                                for (int i = 0; i < FindObjectsOfType<Enemy_Log>().Length; i++)
+                                {
+                                    FindObjectsOfType<Enemy_Log>()[i].gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+                                }
+                            }
                         }
                     }
                 }
@@ -123,6 +144,20 @@ public class Environment_DialogueTrigger : MonoBehaviour
                 Debug.Log("Start dialogue");
                 GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                 Say_Dialogue();
+
+                if (pomOne)
+                {
+                    FindObjectOfType<CameraController>().Screen_Kick();
+                    pom.GetComponent<NPC>().FacePlayer();
+                }
+
+                else if (guardEnemy)
+                {
+                    for (int i = 0; i < FindObjectsOfType<Enemy_Log>().Length; i++)
+                    {
+                        FindObjectsOfType<Enemy_Log>()[i].gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+                    }
+                }
                 //Debug.Log("Talk");
             }
         }
