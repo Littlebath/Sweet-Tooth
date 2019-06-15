@@ -88,6 +88,8 @@ public class Enemy_QuickCharge : Enemy
         //indicator.transform.rotation = Quaternion.Euler (0f, 0f, moreTurn);
 
         Vector3 direction = indicator.transform.position - FindObjectOfType<PlayerController>().transform.position;
+        Vector2 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
+        Vector2 animation = playerPos - origin;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Quaternion lookRotation = Quaternion.AngleAxis(angle, Vector3.forward);
         indicator.transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, 10f);
@@ -105,11 +107,23 @@ public class Enemy_QuickCharge : Enemy
             timeBtwChargeCounter = timeBtwCharge;
             //gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
             indicator.SetActive(false);
+
+            if (gameObject.GetComponent<Rigidbody2D>().velocity == Vector2.zero)
+            {
+                Set_Anim_Float(direction);
+            }
         }
 
         else
         {
+            Vector2 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
+            Vector2 direction = playerPos - origin;
             timeBtwChargeCounter -= Time.deltaTime;
+
+            if (gameObject.GetComponent<Rigidbody2D>().velocity == Vector2.zero)
+            {
+                Set_Anim_Float(direction);
+            }
         }
     }
 
