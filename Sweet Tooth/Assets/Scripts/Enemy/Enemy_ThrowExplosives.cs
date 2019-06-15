@@ -11,6 +11,7 @@ public class Enemy_ThrowExplosives : Enemy
     [SerializeField] private GameObject bomb;
 
     private float TimeBtwBombThrowCounter;
+    private Vector3 origin;
 
     // Start is called before the first frame update
     void Start()
@@ -26,10 +27,13 @@ public class Enemy_ThrowExplosives : Enemy
         if (FindObjectOfType<PlayerController>() != null)
         {
             target = FindObjectOfType<PlayerController>().gameObject.transform;
+            origin = transform.position;
+            
 
             if (target != null)
             {
                 Check_Distance();
+                Set_Anim_Float(target.position - origin);
             }
         }
     }
@@ -77,6 +81,46 @@ public class Enemy_ThrowExplosives : Enemy
             currentState = newState;
         }
     }
+
+    private void Set_Anim_Float(Vector2 setVector)
+    {
+        anim.SetFloat("moveX", setVector.x);
+        anim.SetFloat("moveY", setVector.y);
+    }
+
+    private void ChangeAnim(Vector3 dir)
+    {
+        if (Mathf.Abs(dir.x) > Mathf.Abs(dir.y))
+        {
+            if (dir.x > 0)
+            {
+                Set_Anim_Float(Vector2.right);
+                //timeBtwChangeDirectionCounter = timeBtwChangeDirection;
+            }
+
+            else if (dir.x < 0)
+            {
+                Set_Anim_Float(Vector2.left);
+                //timeBtwChangeDirectionCounter = timeBtwChangeDirection;
+            }
+        }
+
+        else if (Mathf.Abs(dir.x) < Mathf.Abs(dir.y))
+        {
+            if (dir.y > 0)
+            {
+                Set_Anim_Float(Vector2.up);
+                //timeBtwChangeDirectionCounter = timeBtwChangeDirection;
+            }
+
+            else if (dir.y < 0)
+            {
+                Set_Anim_Float(Vector2.down);
+                //timeBtwChangeDirectionCounter = timeBtwChangeDirection;
+            }
+        }
+    }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

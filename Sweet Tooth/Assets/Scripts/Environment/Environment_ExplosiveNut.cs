@@ -122,6 +122,7 @@ public class Environment_ExplosiveNut : MonoBehaviour
 
     public IEnumerator Explode ()
     {
+        FindObjectOfType<CameraController>().Screen_Kick();
         isExploding = true;
         gameObject.GetComponent<Animator>().SetBool("explode", true);
         gameObject.GetComponent<Rigidbody2D>().isKinematic = true;

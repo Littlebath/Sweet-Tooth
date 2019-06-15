@@ -497,9 +497,9 @@ public class PlayerController : MonoBehaviour
 
                     for (int i = 0; i < checkPoints.Length; i++)
                     {
-                        if (enemyHouses[i].GetComponent<Checkpoints>() != null)
+                        if (checkPoints[i].GetComponent<Checkpoints>() != null)
                         {
-                            FindObjectOfType<Checkpoints>().ActivateCheckpoint();
+                            checkPoints[i].GetComponent<Checkpoints>().ActivateCheckpoint();
                         }
                     }
                 }
