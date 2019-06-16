@@ -35,6 +35,11 @@ public class Dungeon_Room : MonoBehaviour
         //mapMarker.SetActive(false);
     }
 
+    private void OnEnable()
+    {
+        FindObjectOfType<CameraController>().Update_Dungeon_Camera();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -47,6 +52,7 @@ public class Dungeon_Room : MonoBehaviour
         {
             FindObjectOfType<CameraController>().Update_Cameras();
             virtualCamera.SetActive(true);
+            FindObjectOfType<CameraController>().Update_Dungeon_Camera();
 
             if (enemiesInRoom != null)
             {

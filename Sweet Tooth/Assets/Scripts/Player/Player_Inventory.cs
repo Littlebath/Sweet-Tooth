@@ -78,13 +78,16 @@ public class Player_Inventory : Inventory
 
     IEnumerator Open_Inventory()
     {
-        //Debug.Log("Open Inventory");
-        selector = inventorySystem.transform.GetChild(2).gameObject;
-        inventorySystem.SetActive(true);
-        StartCoroutine(FindObjectOfType<Inventory_System>().Update_Inventory());
-        StartCoroutine(Stop_Player_Movement());
-        //Time.timeScale = 0;
-        yield return null;
+        if (!FindObjectOfType<Manager_Dialogue>().isTalking)
+        {
+            //Debug.Log("Open Inventory");
+            selector = inventorySystem.transform.GetChild(2).gameObject;
+            inventorySystem.SetActive(true);
+            StartCoroutine(FindObjectOfType<Inventory_System>().Update_Inventory());
+            StartCoroutine(Stop_Player_Movement());
+            //Time.timeScale = 0;
+            yield return null;
+        }
     }
 
     IEnumerator Close_Inventory()

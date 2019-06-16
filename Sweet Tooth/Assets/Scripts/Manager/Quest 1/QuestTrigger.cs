@@ -32,8 +32,16 @@ public class QuestTrigger : MonoBehaviour
         if (boss == null)
         {
             boss = FindObjectOfType<Enemy_TeleportingExplosives>().gameObject;
-        }
 
+            if (boss.GetComponent<Save_ObjState>().obj.saveState == 1)
+            {
+                boss = null;
+            }
+        }
+    }
+
+    private void OnEnable()
+    {
         SaveFeature();
     }
 
@@ -86,11 +94,18 @@ public class QuestTrigger : MonoBehaviour
         }
     }
 
+    public void Re_ActivateStuff ()
+    {
+        exitPointFalcon.gameObject.SetActive(true);
+        exitPointBlack.gameObject.SetActive(true);
+    }
+
+
 
     public void SaveFeature()
     {
         if (gameObject.GetComponent<Save_ObjState>() != null)
-        {
+        {        
             if (gameObject.GetComponent<Save_ObjState>().obj.saveState == 1)
             {
                 if (ID == 0)
@@ -103,15 +118,12 @@ public class QuestTrigger : MonoBehaviour
                     exitPointBlack.gameObject.SetActive(false);
                 }
 
-                if (boss != null)
+                if (boss == null)
                 {
-                    if (boss.GetComponent<Save_ObjState>().obj.saveState == 1)
-                    {
-                        Debug.Log("COME ON");
-                        exitPointFalcon.gameObject.SetActive(true);
-                        exitPointBlack.gameObject.SetActive(true);
-                        boss.SetActive(false);
-                    }
+                    Debug.Log("COME OFF");
+                    Debug.Log("HELP");
+                    exitPointFalcon.gameObject.SetActive(true);
+                    exitPointBlack.gameObject.SetActive(true);
                 }
 
                 FindObjectOfType<Quest_1_Manager>().caveEntrance.SetActive(false);

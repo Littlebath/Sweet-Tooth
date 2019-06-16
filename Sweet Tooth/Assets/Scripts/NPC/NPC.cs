@@ -19,6 +19,8 @@ public class NPC : MonoBehaviour
     //Colors
     public Color oldColor;
 
+    public int ID;
+
     //Bools
     [HideInInspector]public bool isInRange;
     [HideInInspector] public static bool canMelee;
@@ -63,6 +65,15 @@ public class NPC : MonoBehaviour
                         //gameObject.GetComponent<Dialogue_Trigger>().TriggerDialogue();
                         Say_Dialogue();
                         FacePlayer();
+
+                        //Checkpoint NPC
+                        if (ID == 1)
+                        {
+                            for (int i = 0; i < FindObjectsOfType<Checkpoints>().Length; i++)
+                            {
+                                FindObjectsOfType<Checkpoints>()[i].gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+                            }
+                        }
                         //Debug.Log("Talk");
                     }
 
@@ -80,6 +91,12 @@ public class NPC : MonoBehaviour
                             if (md.anim.GetBool("isOpen") == false)
                             {
                                 StartCoroutine(Hide_In_Grass());
+
+                                //Checkpoint NPC
+                                for (int i = 0; i < FindObjectsOfType<Checkpoints>().Length; i++)
+                                {
+                                    FindObjectsOfType<Checkpoints>()[i].gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+                                }
                             }
                         }
                     }
@@ -123,7 +140,6 @@ public class NPC : MonoBehaviour
     void Say_Dialogue ()
     {
         int noOfDialogues = allDialogues.transform.childCount;
-        dialogueSelector = Random.Range(0, noOfDialogues);
 
         if (gameObject.GetComponent<HealthPotion_Quest>() != null)
         {
@@ -143,7 +159,7 @@ public class NPC : MonoBehaviour
         //Debug.Log(dialogueSelector);
     }
 
-    private void FacePlayer()
+    public void FacePlayer()
     {
         /*RaycastHit2D hitLeft = Physics2D.Raycast(transform.position, Vector2.left, 1.5f);
         RaycastHit2D hitDown = Physics2D.Raycast(transform.position, Vector2.down, 1.5f);

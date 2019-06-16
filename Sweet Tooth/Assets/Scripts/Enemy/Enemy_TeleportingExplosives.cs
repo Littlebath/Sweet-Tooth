@@ -17,6 +17,19 @@ public class Enemy_TeleportingExplosives : Enemy
     // Start is called before the first frame update
     void Start()
     {
+        if (gameObject.GetComponent<Save_ObjState>() != null)
+        {
+            Debug.Log("Delete me");
+
+            if (gameObject.GetComponent<Save_ObjState>().obj != null)
+            {
+                if (gameObject.GetComponent<Save_ObjState>().obj.saveState == 1)
+                {
+                    Destroy(gameObject);
+                }
+            }
+        }
+
         TimeBtwBombThrowCounter = timeBtwBombThrow;
         anim = gameObject.GetComponent<Animator>();
         oldColor = gameObject.GetComponent<SpriteRenderer>().color;

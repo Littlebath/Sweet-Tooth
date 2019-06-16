@@ -9,22 +9,37 @@ public class Enemy_Log : Enemy
     public float chaseRadius;
     public float attackRadius;
     public Transform homePosition;
+    public float timerJump;
+
+    private Vector2 origin;
+    private Vector2 playerPos;
 
     public float timeBtwChangeDirection;
     [HideInInspector] public float timeBtwChangeDirectionCounter;
 
     [HideInInspector] public Vector3 SuperPos;
+
+    private float timer;
+
+    bool isInAir;
+    private float animation;
     // Start is called before the first frame update
     void Start()
     {
         timeBtwChangeDirectionCounter = timeBtwChangeDirection;
+        timer = timerJump;
         anim = gameObject.GetComponent<Animator>();
         oldColor = gameObject.GetComponent<SpriteRenderer>().color;
+
+        origin = transform.position;
+        playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
+
+
         if (FindObjectOfType<PlayerController>() != null)
         {
             target = FindObjectOfType<PlayerController>().gameObject.transform;
@@ -41,6 +56,7 @@ public class Enemy_Log : Enemy
     {
         if (Vector3.Distance(target.position, transform.position) <= chaseRadius && Vector3.Distance(target.position, transform.position) > attackRadius)
         {
+            //Debug.Log(timer);
             Vector2 direction = target.transform.position - transform.position;
             float distance = Vector2.Distance(transform.position, target.transform.position);
 
@@ -48,29 +64,61 @@ public class Enemy_Log : Enemy
             Debug.DrawRay(transform.position, direction, Color.red);
             //Debug.Log(hit.collider.name);
 
-            if (hit == true)
+            if (currentState == EnemyState.idle || currentState == EnemyState.walk && currentState != EnemyState.stagger)
             {
-                if (hit.collider.name == target.gameObject.name)
+                //Jumping in 
+                if (isInAir)
                 {
-                    if (currentState == EnemyState.idle || currentState == EnemyState.walk && currentState != EnemyState.stagger)
+                    if (Vector2.Distance(transform.position, playerPos) <= 0.1f)
                     {
-                        Vector3 tempPos = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
-                        SuperPos = tempPos - transform.position;
-                        StartCoroutine(ChangeAnim(SuperPos));
-                        gameObject.GetComponent<Rigidbody2D>().MovePosition(tempPos);
-                        Change_State(EnemyState.walk);
-                        anim.SetBool("isAwake", true);
+                        isInAir = false;
+                        Debug.Log("Landed");
+                    }
 
-                        if (shield != null)
-                        {
-                            shield.SetActive(true);
-                        }
+                    else
+                    {
+                        animation += Time.deltaTime;
+
+                        animation = animation % 5;
+
+                        Vector3 truePos = MathParabola.Parabola(origin, playerPos, 1f, animation / 1f);
+                        gameObject.GetComponent<Rigidbody2D>().MovePosition(truePos);
+                        //Debug.Log(truePos);
+                        Debug.Log("In the air");
                     }
                 }
 
+                //Waiting on ground
                 else
                 {
-                    Debug.Log("Player missing");
+                    if (timer <= 0)
+                    {
+                        origin = gameObject.transform.position;
+                        timer = timerJump;
+                        playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
+                        //Debug.Log(playerPos);
+                        Debug.Log("Lift off");
+                        isInAir = true;
+                    }
+
+                    else
+                    {
+                        animation = 0;
+                        timer -= Time.deltaTime;
+                        Debug.Log("Waiting");
+                    }
+                }
+
+                Vector3 tempPos = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
+                SuperPos = tempPos - transform.position;
+                StartCoroutine(ChangeAnim(SuperPos));
+                //gameObject.GetComponent<Rigidbody2D>().MovePosition(tempPos);
+                Change_State(EnemyState.walk);
+                anim.SetBool("isAwake", true);
+
+                if (shield != null)
+                {
+                    shield.SetActive(true);
                 }
             }
 
@@ -87,6 +135,7 @@ public class Enemy_Log : Enemy
             }
         }
     }
+          
 
     private void Change_State(EnemyState newState)
     {
@@ -154,6 +203,7 @@ public class Enemy_Log : Enemy
             if (collision.gameObject.GetComponent<PlayerController>().states == playerStates.None)
             {
                 FindObjectOfType<PlayerController>().Hurt_Player(baseAttack);
+                isInAir = false;
                 Knock_Back_Player(collision);
                 Knock_Back_Me(gameObject);
             }

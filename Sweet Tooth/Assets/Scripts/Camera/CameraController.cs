@@ -79,4 +79,9 @@ public class CameraController : MonoBehaviour
             camera = FindObjectOfType<CinemachineVirtualCamera>().gameObject;
         }
     }
+
+    public void Update_Dungeon_Camera ()
+    {
+        camera = FindObjectOfType<CinemachineVirtualCamera>().gameObject;
+    }
 }
