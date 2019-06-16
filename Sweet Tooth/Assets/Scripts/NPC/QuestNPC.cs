@@ -225,7 +225,7 @@ public class QuestNPC : MonoBehaviour
         {
             if (questValues.quest2Completed == false)
             {
-                if (questValues.objectives2[0] == true)
+                if (questValues.objectives2[0] == false)
                 {
                     if (questValues.objectives2[2] == false)
                     {

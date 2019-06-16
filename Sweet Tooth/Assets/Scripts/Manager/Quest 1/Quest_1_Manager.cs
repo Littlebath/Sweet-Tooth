@@ -96,17 +96,26 @@ public class Quest_1_Manager : MonoBehaviour
         else if (SceneManager.GetActiveScene().name == "Area 1 Zone 1")
         {
             jillNPC.SetActive(true);
-            eddieNPC.SetActive(true);
+
+            if (questValues.pathA[3] == false)
+            {
+                eddieNPC.SetActive(true);
+            }
+
             Debug.Log("Hid once");
         }
 
         else if (SceneManager.GetActiveScene().name == "Underground Part A")
         {
-            jackNPC.SetActive(true);
             saveJackTrigger.SetActive(true);
             caveEntrance.SetActive(true);
             trapDoorEntrance.SetActive(true);
             Debug.Log("Hid twice");
+
+            if (questValues.pathC[1] == false)
+            {
+                jackNPC.SetActive(true);
+            }
         }
 
         else if (SceneManager.GetActiveScene().name == "Area 1 Zone 2")

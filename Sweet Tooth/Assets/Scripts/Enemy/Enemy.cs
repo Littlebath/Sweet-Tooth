@@ -39,10 +39,12 @@ public class Enemy : MonoBehaviour
     {
         if (gameObject.GetComponent<Save_ObjState>() != null)
         {
+            Debug.Log("Delete me");
+
             if (gameObject.GetComponent<Save_ObjState>().obj != null)
             {
                 if (gameObject.GetComponent<Save_ObjState>().obj.saveState == 1)
-                {
+                { 
                     Destroy(gameObject);
                 }
             }
@@ -85,6 +87,11 @@ public class Enemy : MonoBehaviour
 
             if (health <= 0)
             {
+                if (gameObject.GetComponent<Enemy_Dormant>() != null)
+                {
+                    gameObject.GetComponent<Enemy_Dormant>().Detonate();
+                }
+
                 gameObject.SetActive(false);
                 effect = Instantiate(enemyDeathEffect, transform.position, Quaternion.identity);
 
@@ -102,6 +109,7 @@ public class Enemy : MonoBehaviour
                             {
                                 Debug.Log("ResetArea");
                                 FindObjectOfType<QuestTrigger>().SaveFeature();
+                                FindObjectOfType<QuestTrigger>().Re_ActivateStuff();
                             }
                         }
                     }
