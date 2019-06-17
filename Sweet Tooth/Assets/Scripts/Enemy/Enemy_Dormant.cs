@@ -11,6 +11,8 @@ public class Enemy_Dormant : Enemy
     public float explodeTime;
     public GameObject bigBomb;
 
+    public bool isStandingBomb;
+
     [HideInInspector] public bool isAggressive;
     private float bombHealth;
     private float explodeTimeCounter;
@@ -22,7 +24,6 @@ public class Enemy_Dormant : Enemy
         explodeTimeCounter = explodeTime;
         anim = gameObject.GetComponent<Animator>();
         oldColor = gameObject.GetComponent<SpriteRenderer>().color;
-
         bombHealth = health - 2;
     }
 
@@ -60,14 +61,21 @@ public class Enemy_Dormant : Enemy
         {
             explodeTimeCounter -= Time.deltaTime;
             StartCoroutine(Flash());
+
+            if (isStandingBomb)
+            {
+                moveSpeed = 0;
+            }
         }
     }
 
     public void Detonate ()
     {
         Debug.Log("Kaboom");
+        explodeTimeCounter = explodeTime;
         GameObject bomb = Instantiate(bigBomb, transform.position, Quaternion.identity);
         StartCoroutine(bomb.GetComponent<Environment_ExplosiveNut>().Explode());
+        Destroy(bomb, 0.5f);
         gameObject.SetActive(false);
     }
 

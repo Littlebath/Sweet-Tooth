@@ -172,6 +172,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void SpawnSmoke ()
+    {
+        Instantiate(designerValues.smokeEffect, transform.position, Quaternion.identity);
+    }
+
     private void FixedUpdate()
     {
         //GridMovement();
