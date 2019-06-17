@@ -31,7 +31,10 @@ public class QuestTrigger : MonoBehaviour
     {
         if (boss == null)
         {
-            boss = FindObjectOfType<Enemy_TeleportingExplosives>().gameObject;
+            if (FindObjectOfType<Enemy_TeleportingExplosives>().gameObject != null)
+            {
+                boss = FindObjectOfType<Enemy_TeleportingExplosives>().gameObject;
+            }
 
             if (boss.GetComponent<Save_ObjState>().obj.saveState == 1)
             {

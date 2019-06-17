@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
 {
     //Scriptable Objects
     public Player_ScriptableObject designerValues;
+    public GameObject smokePosition;
 
     //Gameobjects
     [HideInInspector] public GameObject spawnPoint;
@@ -170,6 +171,11 @@ public class PlayerController : MonoBehaviour
         {
             designerValues.energyCounter = designerValues.maxEnergy;
         }
+    }
+
+    public void SpawnSmoke ()
+    {
+        Instantiate(designerValues.smokeEffect, smokePosition.transform.position, Quaternion.identity);
     }
 
     private void FixedUpdate()

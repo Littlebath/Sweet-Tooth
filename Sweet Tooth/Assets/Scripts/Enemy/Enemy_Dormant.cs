@@ -11,6 +11,8 @@ public class Enemy_Dormant : Enemy
     public float explodeTime;
     public GameObject bigBomb;
 
+    public bool isStandingBomb;
+
     [HideInInspector] public bool isAggressive;
     private float bombHealth;
     private float explodeTimeCounter;
@@ -22,7 +24,6 @@ public class Enemy_Dormant : Enemy
         explodeTimeCounter = explodeTime;
         anim = gameObject.GetComponent<Animator>();
         oldColor = gameObject.GetComponent<SpriteRenderer>().color;
-
         bombHealth = health - 2;
     }
 
@@ -60,14 +61,21 @@ public class Enemy_Dormant : Enemy
         {
             explodeTimeCounter -= Time.deltaTime;
             StartCoroutine(Flash());
+
+            if (isStandingBomb)
+            {
+                moveSpeed = 0;
+            }
         }
     }
 
     public void Detonate ()
     {
         Debug.Log("Kaboom");
+        explodeTimeCounter = explodeTime;
         GameObject bomb = Instantiate(bigBomb, transform.position, Quaternion.identity);
         StartCoroutine(bomb.GetComponent<Environment_ExplosiveNut>().Explode());
+        Destroy(bomb, 0.5f);
         gameObject.SetActive(false);
     }
 
@@ -81,11 +89,11 @@ public class Enemy_Dormant : Enemy
             for (int i = 0; i < 5; i++)
             {
                 Debug.Log("Tick one");
-                gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
+                gameObject.GetComponent<SpriteRenderer>().color = Color.red;
                 transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
                 yield return new WaitForSeconds(0.2f);
                 transform.localScale = new Vector3(1f, 1f, 1f);
-                gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+                gameObject.GetComponent<SpriteRenderer>().color = Color.red;
                 yield return new WaitForSeconds(0.2f);
             }
 
@@ -94,10 +102,10 @@ public class Enemy_Dormant : Enemy
             {
                 Debug.Log("Tick two");
                 transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
-                gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
+                gameObject.GetComponent<SpriteRenderer>().color = Color.red;
                 yield return new WaitForSeconds(0.1f);
                 transform.localScale = new Vector3(1f, 1f, 1f);
-                gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+                gameObject.GetComponent<SpriteRenderer>().color = Color.red;
                 yield return new WaitForSeconds(0.1f);
             }
         }

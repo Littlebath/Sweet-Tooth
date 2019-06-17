@@ -100,6 +100,7 @@ public class Player_ScriptableObject : ScriptableObject
     public GameObject dust;
     public GameObject sparkle;
     public GameObject groundStompParticles;
+    public GameObject smokeEffect;
 
     public void ResetValues ()
     {
