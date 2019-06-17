@@ -78,5 +78,23 @@ public class MainMenu_Controller : MonoBehaviour
             }
         }
 
+        //Joystick
+        if (Input.GetAxis("VerticalUI") < 0)
+        {
+            if (selector < 0)
+            {
+                selector += 2;
+            }
+        }
+
+        else if (Input.GetAxis("VerticalUI") > 0)
+        {
+            if (selector > -2)
+            {
+                selector -= 2;
+            }
+        }
+
+
     }
 }

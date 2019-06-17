@@ -21,6 +21,7 @@ public class Enemy_Patrolling : Enemy
     void Start()
     {
         anim = gameObject.GetComponent<Animator>();
+        oldColor = gameObject.GetComponent<SpriteRenderer>().color;
     }
 
     // Update is called once per frame
@@ -169,6 +170,7 @@ public class Enemy_Patrolling : Enemy
             {
                 FindObjectOfType<PlayerController>().Hurt_Player(baseAttack);
                 Knock_Back_Player(collision);
+                Knock_Back_Me(gameObject);
             }
 
             else if (collision.gameObject.GetComponent<PlayerController>().states == playerStates.Charging)

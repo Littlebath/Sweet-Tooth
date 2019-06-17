@@ -5,22 +5,21 @@ using UnityEngine.Playables;
 
 public class TimelineController : MonoBehaviour
 {
-    public List<PlayableDirector> playableDirectors;
+    public PlayableAsset scene;
 
-    public void Play ()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        foreach (PlayableDirector playabledirector in playableDirectors)
+        if (collision.gameObject.CompareTag("Player"))
         {
-            playabledirector.Play();
+            if (gameObject.GetComponent<Save_ObjState>().obj.saveState == 0)
+            {
+                FindObjectOfType<Manager_Timeline>().GetComponent<PlayableDirector>().playableAsset = scene;
+                FindObjectOfType<Manager_Timeline>().GetComponent<PlayableDirector>().Play();
+                gameObject.GetComponent<Save_ObjState>().obj.saveState = 1;
+                gameObject.GetComponent<Save_ObjState>().obj.ForceSerialization();
+                gameObject.SetActive(false);
+            }
+
         }
     }
-
-    public void OnEnd ()
-    {
-        foreach (PlayableDirector playabledirector in playableDirectors)
-        {
-           
-        }
-    }
-
 }

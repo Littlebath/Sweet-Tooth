@@ -162,6 +162,7 @@ GameObject:
   - component: {fileID: 5008378514034454003}
   - component: {fileID: 5008378514034454002}
   - component: {fileID: 291343367425421842}
+  - component: {fileID: 2077243239083574822}
   m_Layer: 0
   m_Name: Torch Controller
   m_TagString: Big Torch
@@ -202,7 +203,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a07a4d6b0c8c27647abe3c478d38126d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -307,6 +308,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obj: {fileID: 0}
+--- !u!114 &2077243239083574822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5008378514034453999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15c64963cfe73ab479255f7d8e914371, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 0.7924528, g: 0.5515552, b: 0.17568529, a: 0}
+  radius: 3
+  outlineSize: 1
 --- !u!1 &5008378514155277098
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 463470227}
   - component: {fileID: 463470226}
   - component: {fileID: 463470230}
+  - component: {fileID: 7223728612493424871}
   m_Layer: 0
   m_Name: Player Boulder
   m_TagString: Untagged
@@ -112,6 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boulderType: 1
   values: {fileID: 11400000, guid: a0b29fb364333fc40870140218c6096f, type: 2}
+  marker: {fileID: 4974490123666292135, guid: df77ebe6c14ead64a96caa7a41b8b45b, type: 3}
 --- !u!50 &463470230
 Rigidbody2D:
   serializedVersion: 4
@@ -133,3 +135,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &7223728612493424871
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463470225}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b0b2ddf9f2717c14ab00c0e448f0c378, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

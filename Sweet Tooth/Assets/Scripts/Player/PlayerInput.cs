@@ -24,6 +24,8 @@ public class PlayerInput : MonoBehaviour
     public bool dashToBoomerangButton;
     [HideInInspector]
     public bool spinAttackButton;
+    [HideInInspector]
+    public bool groundPound;
 
 	// Use this for initialization
 	void Start ()
@@ -60,5 +62,6 @@ public class PlayerInput : MonoBehaviour
         meleeButton = Input.GetButtonDown("Melee");
         dashToBoomerangButton = Input.GetButtonDown("DashToBoomerang");
         spinAttackButton = Input.GetButton("SpinAttack");
+        groundPound = Input.GetButton("Melee");
     }
 }

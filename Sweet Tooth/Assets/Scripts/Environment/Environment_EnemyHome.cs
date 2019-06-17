@@ -19,8 +19,8 @@ public class Environment_EnemyHome : MonoBehaviour
     [SerializeField] private int healthDrop;
     [SerializeField] private int speedDrop;
     private GameObject fire;
-    private bool isBurning;
-    private bool isEmpty;
+    [HideInInspector] public bool isBurning;
+    [HideInInspector] public bool isEmpty;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +34,7 @@ public class Environment_EnemyHome : MonoBehaviour
         
     }
 
-    private IEnumerator Spawn_Enemies ()
+    public IEnumerator Spawn_Enemies ()
     {
         for (int i = 0; i < enemiesToSpawn.Length; i++)
         {
@@ -63,6 +63,7 @@ public class Environment_EnemyHome : MonoBehaviour
         if (collision.gameObject.CompareTag("Boomerang"))
         {
             fire.SetActive(true);
+            Destroy(gameObject, 5f);
 
             if (!isEmpty)
             {
@@ -70,7 +71,6 @@ public class Environment_EnemyHome : MonoBehaviour
                 isEmpty = true;
                 isBurning = true;
                 StartCoroutine(Spawn_Enemies());
-                Destroy(gameObject, 6f);
             }
         }
     }

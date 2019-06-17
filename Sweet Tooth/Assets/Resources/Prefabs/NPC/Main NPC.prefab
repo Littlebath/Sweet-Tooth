@@ -46,52 +46,6 @@ MonoBehaviour:
   dialogue:
   - {fileID: 11400000, guid: f1d4ddad3a64c1d4aa0c7b2ac73d8b67, type: 2}
   cutsceneDialogue: 0
---- !u!1 &532923876
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 532923877}
-  - component: {fileID: 532923878}
-  m_Layer: 2
-  m_Name: Dialogue 1 (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &532923877
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 532923876}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 764075823}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &532923878
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 532923876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c25cbb7da6c93344c834101c5a25f15c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogue:
-  - {fileID: 11400000, guid: 39a30610baf1d1748b81a9b0c3d0790c, type: 2}
-  cutsceneDialogue: 0
 --- !u!1 &764075822
 GameObject:
   m_ObjectHideFlags: 0
@@ -120,7 +74,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 105367177}
-  - {fileID: 532923877}
   m_Father: {fileID: 4817909488943939516}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -193,6 +146,7 @@ GameObject:
   - component: {fileID: 4817909488943939517}
   - component: {fileID: 4817909488943939519}
   - component: {fileID: 4817909488943939518}
+  - component: {fileID: 2804172927140599689}
   m_Layer: 2
   m_Name: Main NPC
   m_TagString: Untagged
@@ -240,7 +194,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.55, y: 0.5}
+  m_Size: {x: 0.65, y: 0.5}
   m_EdgeRadius: 0
 --- !u!114 &4817909488943939519
 MonoBehaviour:
@@ -255,10 +209,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: {fileID: 11400000, guid: 70ded56ce52017c4b8c0be819a0dcf6f, type: 2}
+  grassDirection: {fileID: 0}
   size: {x: 0.4, y: 0.4}
   distance: 0.6
   allDialogues: {fileID: 764075822}
+  oldColor: {r: 1, g: 1, b: 1, a: 1}
   isInRange: 0
+  isInGrass: 0
 --- !u!212 &4817909488943939518
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -307,3 +264,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!61 &2804172927140599689
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4817909488943939515}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.24}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.1082251, y: 1.4545455}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.8, y: 0.8}
+  m_EdgeRadius: 0

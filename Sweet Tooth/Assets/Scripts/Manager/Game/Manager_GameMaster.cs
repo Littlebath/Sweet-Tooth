@@ -51,6 +51,7 @@ public class Manager_GameMaster : MonoBehaviour
     public IEnumerator TrueRespawn()
     {
         player = FindObjectOfType<PlayerController>().gameObject;
+        FindObjectOfType<Manager_Dialogue>().EndDialogue();
         player.GetComponent<BoxCollider2D>().enabled = false;
         player.GetComponent<PlayerController>().enabled = false;
         player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;

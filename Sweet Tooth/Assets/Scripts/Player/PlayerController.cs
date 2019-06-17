@@ -24,8 +24,10 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool isMelee;
     private bool isDashingToBoomerang;
     private bool thrownBoomerang;
+    private bool isGroundPoundReady;
     [HideInInspector] public bool isSpinning;
     [HideInInspector] public bool isSlow;
+    private bool isCharingGroundpound;
 
     private static bool isPlayerExisting;
     public static bool isPlayerHurt;
@@ -37,6 +39,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public float currentMoveSpeed;
     private float timeBtwAttack;
     private float energyTimeCounter;
+    private float groundPoundCounter;
 
     //strings
     public string startPoint;
@@ -58,6 +61,11 @@ public class PlayerController : MonoBehaviour
     {
         DestroyDuplicates();
 
+        StartCoroutine(Make_Normal());
+
+        //Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
+
         anim = GetComponent<Animator>();
         pi = FindObjectOfType<PlayerInput>();
 
@@ -68,9 +76,11 @@ public class PlayerController : MonoBehaviour
 
         rb2d = gameObject.GetComponent<Rigidbody2D>();
 
-        designerValues.ResetValues();
+        //designerValues.ResetValues();
 
         energyTimeCounter = designerValues.energyRegenerateTime;
+
+        groundPoundCounter = designerValues.chargeUpTime;
     }
 	
 	// Update is called once per frame
@@ -94,14 +104,26 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(Slow_Effect());
         }
 
-        SetAnimations();
-
         if (designerValues.health > designerValues.maxHealth)
         {
             designerValues.health = designerValues.maxHealth;
         }
 
+        if (!isPlayerHurt)
+        {
+            if (!isMelee)
+            {
+                if (!pi.groundPound && !isCharingGroundpound)
+                {
+                    EightDirectionalMovement();
+                    Debug.Log("is running");
+                }
+            }
+        }
+
         Regenerate_Energy();
+        SetAnimations();
+
     }
 
     public IEnumerator Slow_Effect ()
@@ -112,6 +134,20 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(2.5f);
         designerValues.moveSpeed += 2;
         gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+    }
+
+    public IEnumerator Make_Slow ()
+    {
+        gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+        designerValues.moveSpeed = 2;
+        yield return null;
+    }
+
+    public IEnumerator Make_Normal ()
+    {
+        designerValues.moveSpeed = 5;
+        gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        yield return null;
     }
 
     private void Regenerate_Energy()
@@ -139,13 +175,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         //GridMovement();
-        if (!isPlayerHurt)
-        {
-            if (!isMelee)
-            {
-                EightDirectionalMovement();
-            }
-        }
+
     }
 
 
@@ -155,8 +185,102 @@ public class PlayerController : MonoBehaviour
         {
             Melee();
             FireBallCombat();
+            Ground_Pound();
         }
         //BoomerangCombat();
+    }
+
+    private void Ground_Pound ()
+    {
+        if (pi.groundPound)
+        {
+            groundPoundCounter -= Time.deltaTime;
+
+            if (groundPoundCounter <= designerValues.chargeUpTime - designerValues.meleeTime.averageDuration)
+            {
+                //Debug.Log("Begin charging");
+                isCharingGroundpound = true;
+                currentMoveSpeed = 0f;
+            }
+
+            if (groundPoundCounter <= 0)
+            {
+                //Debug.Log("Charge is done");
+                isGroundPoundReady = true;
+                isMoving = false;
+                anim.SetBool("isMoving", false);
+                gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+            }
+        }
+
+        else
+        {
+            groundPoundCounter = designerValues.chargeUpTime;
+        }
+
+
+        if (Input.GetButtonUp("Melee") && isGroundPoundReady)
+        {
+            anim.SetTrigger("hammerAttack");
+            StartCoroutine(Ground_Pound_Attack());
+        }
+
+        else if (Input.GetButtonUp("Melee") && groundPoundCounter > 0)
+        {
+            isCharingGroundpound = false;
+        }
+    }
+
+    public void Pound_The_Ground ()
+    {
+        //StartCoroutine(Ground_Pound_Attack());
+    }
+
+    private IEnumerator Ground_Pound_Attack ()
+    {
+        //Activate ground pound animation attack
+        FindObjectOfType<Player_Knockback>().thrust += designerValues.increaseKnockBack;
+        gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        yield return new WaitForSeconds(0.1f);
+        Instantiate(designerValues.groundStompParticles, transform.position, Quaternion.identity);
+        FindObjectOfType<CameraController>().Screen_Kick();
+        isGroundPoundReady = false;
+        Instantiate(designerValues.sparkle, attackPos.transform.position, Quaternion.identity);
+        Debug.Log(designerValues.groundPoundTime.averageDuration);
+        currentMoveSpeed = 0f;
+        Collider2D[] enemyInPound = Physics2D.OverlapCircleAll(attackPos.position, designerValues.areaOfEffectRange);
+
+        for (int i = 0; i < enemyInPound.Length; i++)
+        {
+            //Enemies
+            if (enemyInPound[i].GetComponent<Enemy>() != null)
+            {
+                enemyInPound[i].GetComponent<Enemy>().Take_Damage(designerValues.groundPoundDamage);
+                FindObjectOfType<Player_Knockback>().Knock_Back(enemyInPound[i]);
+            }
+
+            //Boss
+            if (enemyInPound[i].GetComponent<Boss_OreoChocolateBoss>() != null)
+            {
+                enemyInPound[i].GetComponent<Boss_OreoChocolateBoss>().Take_Damage(designerValues.groundPoundDamage);
+            }
+
+            //Breakable grounds
+            if (enemyInPound[i].GetComponent<Environment_BreakableGround>() != null)
+            {
+                Debug.Log("Hit ground");
+                enemyInPound[i].GetComponent<Environment_BreakableGround>().BreakGround();
+            }
+        }
+
+        yield return new WaitForSeconds(designerValues.groundPoundTime.averageDuration);
+
+        isCharingGroundpound = false;
+        //isGroundPoundReady = false;
+        currentMoveSpeed = designerValues.moveSpeed;
+        FindObjectOfType<Player_Knockback>().thrust -= designerValues.increaseKnockBack;
+        //anim.SetTrigger("returnAnimation");
+        yield return null;
     }
 
     private void FireBallCombat()
@@ -355,14 +479,38 @@ public class PlayerController : MonoBehaviour
                             torches[i].GetComponent<Save_ObjState>().obj.ForceSerialization();
                         }
                     }
+
+                    //Enemy houses
+                    Collider2D[] enemyHouses = Physics2D.OverlapCircleAll(attackPos.position, designerValues.meleeRange);
+
+                    for (int i = 0; i < enemyHouses.Length; i++)
+                    {
+                        if (enemyHouses[i].GetComponent<Environment_EnemyHome>() != null)
+                        {
+                            enemyHouses[i].GetComponent<Environment_EnemyHome>().isBurning = true;
+                            StartCoroutine(enemyHouses[i].GetComponent<Environment_EnemyHome>().Spawn_Enemies());
+                        }
+                    }
+
+                    //Checkpoints
+                    Collider2D [] checkPoints = Physics2D.OverlapCircleAll(attackPos.position, designerValues.meleeRange);
+
+                    for (int i = 0; i < checkPoints.Length; i++)
+                    {
+                        if (checkPoints[i].GetComponent<Checkpoints>() != null)
+                        {
+                            checkPoints[i].GetComponent<Checkpoints>().ActivateCheckpoint();
+                        }
+                    }
                 }
             }
         }
 
         else
         {
-            timeBtwAttack -= Time.deltaTime;
             isMelee = true;
+            anim.SetBool("isMelee", true);
+            timeBtwAttack -= Time.deltaTime;
         }
 
 
@@ -396,7 +544,6 @@ public class PlayerController : MonoBehaviour
 
             for (int i = 0; i < gumToMelt.Length; i++)
             {
-                gumToMelt[i].GetComponent<Environment_Gum>().Spawn_Sticky();
                 Debug.Log("Got one");
             }
 
@@ -430,6 +577,13 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+    }
+
+    private IEnumerator Slow_Motion_Effect ()
+    {
+        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(0.1f);
+        Time.timeScale = 1f;
     }
 
 
@@ -593,39 +747,62 @@ public class PlayerController : MonoBehaviour
         anim.SetFloat("LastMoveX", lastMove.x);
         anim.SetFloat("LastMoveY", lastMove.y);
         anim.SetBool("holdingDash", Input.GetButton("Dash"));
+        anim.SetBool("isChargingGroundPound", isCharingGroundpound);
     }
 
 
     public void Hurt_Player(int damage)
     {
-        anim.SetTrigger("isHurt");
-        FindObjectOfType<UI_HeartDisplay>().Update_Hearts();
-        FindObjectOfType<CameraController>().Screen_Kick();
-        Handheld.Vibrate();
-
-        if (FindObjectOfType<Manager_Dialogue>().isTalking)
+        if (!isPlayerHurt)
         {
-            FindObjectOfType<Manager_Dialogue>().EndDialogue();
+            FindObjectOfType<UI_HeartDisplay>().Update_Hearts();
+            FindObjectOfType<CameraController>().Screen_Kick();
+            StartCoroutine(Slow_Motion_Effect());
+            StartCoroutine(Flash());
+            //Handheld.Vibrate();
+
+            if (FindObjectOfType<Manager_Dialogue>().isTalking)
+            {
+                FindObjectOfType<Manager_Dialogue>().EndDialogue();
+            }
+
+            if (designerValues.armor <= 0)
+            {
+                designerValues.health -= damage;
+                designerValues.armor = 0;
+            }
+
+            else
+            {
+                float percentage = (100 - designerValues.armorMultiplier) / 100;
+                designerValues.armor -= Mathf.Round(damage * percentage);
+            }
+
+            if (designerValues.health <= 0)
+            {
+                FindObjectOfType<Manager_GameMaster>().PlayerRespawn();
+                gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            }
         }
 
-        if (designerValues.armor <= 0)
-        {
-            designerValues.health -= damage;
-            designerValues.armor = 0;
-        }
-
-        else
-        {
-            float percentage = (100 - designerValues.armorMultiplier) / 100;
-            designerValues.armor -= Mathf.Round(damage * percentage);
-        }
-
-        if (designerValues.health <= 0)
-        {
-            FindObjectOfType<Manager_GameMaster>().PlayerRespawn();
-            gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        }
     }
+
+    private IEnumerator Flash()
+    {
+        isPlayerHurt = true;
+
+        for (int i = 0; i < 1 * 2; i++)
+        {
+            gameObject.GetComponent<SpriteRenderer>().color = new Color (1f, 1f, 1f, 0f);
+            yield return new WaitForSeconds(0.1f);
+            gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        isPlayerHurt = false;
+    }
+
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -656,5 +833,8 @@ public class PlayerController : MonoBehaviour
 
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, designerValues.knockUpRange);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, designerValues.areaOfEffectRange);
     }
 }

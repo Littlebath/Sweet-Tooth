@@ -9,21 +9,37 @@ public class Environment_ExplosiveNut : MonoBehaviour
     [SerializeField] private float explosionRange;
     [SerializeField] private LayerMask whatToHit;
     [SerializeField] private bool isEnemyBomb;
+    public bool isPlayerBomb; 
     private bool isExploding;
 
+    public AnimationClip timerDuration;
 
     private Vector2 origin;
     private Vector2 playerPos;
     private float animation;
+
+    private float counter;
     // Start is called before the first frame update
     void Start()
     {
+        counter = timerDuration.averageDuration;
+
         if (isEnemyBomb)
         {
             Destroy(gameObject.GetComponent<Item>());
             origin = gameObject.transform.position;
             playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
             //gameObject.GetComponent<Collider2D>().enabled = false;
+        }
+
+        else if (isPlayerBomb)
+        {
+            gameObject.GetComponent<Item>().enabled = false;
+        }
+
+        else if (!isPlayerBomb && !isEnemyBomb)
+        {
+            gameObject.GetComponent<Item>().enabled = true;
         }
     }
 
@@ -56,6 +72,26 @@ public class Environment_ExplosiveNut : MonoBehaviour
                 }
             }
         }
+
+        else if (isPlayerBomb)
+        {
+            gameObject.GetComponent<Animator>().SetBool("isPlayerBomb", true);
+
+            Debug.Log(counter);
+
+            if (counter <= 0)
+            {
+                if (!isExploding)
+                {
+                    StartCoroutine(Explode());
+                }
+            }
+
+            else
+            {
+                counter -= Time.deltaTime;
+            }
+        }
     }
 
     private void OnCollisionEnter2D (Collision2D collision)
@@ -86,6 +122,7 @@ public class Environment_ExplosiveNut : MonoBehaviour
 
     public IEnumerator Explode ()
     {
+        FindObjectOfType<CameraController>().Screen_Kick();
         isExploding = true;
         gameObject.GetComponent<Animator>().SetBool("explode", true);
         gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
@@ -98,6 +135,7 @@ public class Environment_ExplosiveNut : MonoBehaviour
         {
             Vector2 direction = breakablesToDestroy[i].transform.position - transform.position;
             float distance = Vector2.Distance(transform.position, breakablesToDestroy[i].transform.position);
+            Debug.Log("Has exploded");
 
             RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distance);
 

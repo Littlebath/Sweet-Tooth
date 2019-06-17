@@ -13,6 +13,17 @@ public class Item_FireballUpgrade : MonoBehaviour
     void Start()
     {
         originalSprite = gameObject.GetComponent<SpriteRenderer>().sprite;
+
+        if (gameObject.GetComponent<Save_ObjState>() != null)
+        {
+            if (gameObject.GetComponent<Save_ObjState>().obj != null)
+            {
+                if (gameObject.GetComponent<Save_ObjState>().obj.saveState == 1)
+                {
+                    Destroy(gameObject);
+                }
+            }
+        }
     }
 
     // Update is called once per frame
@@ -33,6 +44,17 @@ public class Item_FireballUpgrade : MonoBehaviour
         {
             values.hasFireball = true;
             StartCoroutine(PickUp_Animation());
+
+
+            if (gameObject.GetComponent<Save_ObjState>() != null)
+            {
+                if (gameObject.GetComponent<Save_ObjState>().obj != null)
+                {
+                    gameObject.GetComponent<Save_ObjState>().obj.saveState = 1;
+                    gameObject.GetComponent<Save_ObjState>().obj.ForceSerialization();
+                }
+            }
+
         }
     }
 
@@ -44,11 +66,11 @@ public class Item_FireballUpgrade : MonoBehaviour
         FindObjectOfType<PlayerController>().GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         FindObjectOfType<PlayerController>().enabled = false;
         FindObjectOfType<PlayerInput>().GetComponent<Animator>().SetBool("hasItem", true);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSecondsRealtime(2f);
         FindObjectOfType<PlayerController>().GetComponent<Animator>().SetBool("isMoving", false);
         FindObjectOfType<PlayerInput>().GetComponent<Animator>().SetBool("hasItem", false);
         FindObjectOfType<PlayerInput>().transform.GetChild(4).GetComponent<SpriteRenderer>().sprite = null;
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSecondsRealtime(0.2f);
         gameObject.GetComponent<Dialogue_Trigger>().TriggerDialogue();
         pickedUp = true;
     }

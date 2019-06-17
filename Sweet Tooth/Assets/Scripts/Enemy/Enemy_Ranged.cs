@@ -18,6 +18,7 @@ public class Enemy_Ranged : Enemy
     public ShootDir shootDir;
     [SerializeField] float bulletSpeed;
     [SerializeField] float timeBtwShot;
+    [SerializeField] float radius;
     Vector3 spawnPoint;
     Vector3 origin;
     float timeBtwShotCounter; 
@@ -30,6 +31,7 @@ public class Enemy_Ranged : Enemy
         anim = gameObject.GetComponent<Animator>();
         Face_Direction(new Vector2(0F, 0F));
         timeBtwShotCounter = timeBtwShot;
+        oldColor = gameObject.GetComponent<SpriteRenderer>().color;
     }
 
     // Update is called once per frame
@@ -37,14 +39,22 @@ public class Enemy_Ranged : Enemy
     {
         if (currentState == EnemyState.idle)
         {
+            if (Vector3.Distance(FindObjectOfType<PlayerController>().transform.position, transform.position) <= radius)
+            {
+                if (shootDir == ShootDir.turret)
+                {
+                    Turret_AI();
+                }
+
+                else
+                {
+                   //Nothing happens
+                }
+            }
+
             if (shootDir != ShootDir.turret)
             {
                 Shooting_AI();
-            }
-
-            else
-            {
-                Turret_AI();
             }
         }
     }
@@ -190,6 +200,12 @@ public class Enemy_Ranged : Enemy
                 FindObjectOfType<Player_Knockback>().Knock_Back(gameObject.GetComponent<Collider2D>());
             }
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, radius);
     }
 
 }

@@ -6,6 +6,8 @@ public class Boss_OreoChocolateBoss : MonoBehaviour
 {
     [SerializeField] private OreoBossScriptableObject values;
 
+    public GameObject Doors;
+
     private bool isHurt;
 
     private Vector3 origin;
@@ -53,6 +55,11 @@ public class Boss_OreoChocolateBoss : MonoBehaviour
     void Update()
     {
         Charging_Indicator();
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Boulders_Fall();
+        }
     }
 
     private void FixedUpdate()
@@ -63,8 +70,8 @@ public class Boss_OreoChocolateBoss : MonoBehaviour
     void Boss_Behaviors ()
     {
         AnimatorStateInfo info = anim.GetCurrentAnimatorStateInfo(0);
-        Debug.Log("Run boss");
-        Debug.Log(info);
+        //Debug.Log("Run boss");
+        //Debug.Log(info);
 
         if (info.IsName("chasePlayer1"))
         {
@@ -252,12 +259,13 @@ public class Boss_OreoChocolateBoss : MonoBehaviour
         float x = deathOrigin.x + Random.Range(0f, 1f);
         float y = deathOrigin.y + Random.Range(0f, 1f);
         transform.position = new Vector2(x, y);
+        Instantiate(values.introParticles, transform.position, Quaternion.identity);
     }
 
 
     private IEnumerator Flash()
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < values.hurtAnimationDuration * 2; i++)
         {
             gameObject.GetComponent<SpriteRenderer>().color = Color.red;
             yield return new WaitForSeconds(0.1f);
@@ -274,7 +282,8 @@ public class Boss_OreoChocolateBoss : MonoBehaviour
         deathOrigin = transform.position;
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
         gameObject.GetComponent<Animator>().SetTrigger("death");
-        Destroy(gameObject, 3f);
+        Destroy(Doors);
+        Destroy(gameObject.transform.gameObject.transform.gameObject, 3f);
     }
 
     public void Knock_Back_Me(GameObject me)

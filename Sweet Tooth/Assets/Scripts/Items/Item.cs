@@ -11,11 +11,13 @@ public class Item : MonoBehaviour
 
     [SerializeField] private Inventory_System system;
 
+    private bool canBePickedUp;
+
 
     [SerializeField] private GameObject[] slots;
 
     [Header("Don't touch the ID number. It's used for identification")]
-    [SerializeField] private int itemID;
+    public int itemID;
 
     // Start is called before the first frame update
     private void Awake()
@@ -26,11 +28,18 @@ public class Item : MonoBehaviour
     void Start()
     {        
         piso = FindObjectOfType<Player_Inventory>();
-    }
+        StartCoroutine(EnablePickup());
 
-    private void OnEnable()
-    {
-        
+        if (gameObject.GetComponent<Save_ObjState>() != null)
+        {
+            if (gameObject.GetComponent<Save_ObjState>().obj != null)
+            {
+                if (gameObject.GetComponent<Save_ObjState>().obj.saveState == 1)
+                {
+                    Destroy(gameObject);
+                }
+            }
+        }
     }
 
     // Update is called once per frame
@@ -53,6 +62,12 @@ public class Item : MonoBehaviour
             StartCoroutine(FindObjects());
         }
          
+    }
+
+    IEnumerator EnablePickup ()
+    {
+        yield return new WaitForSeconds(0.5f);
+        canBePickedUp = true;
     }
 
     public void Use_Item ()
@@ -81,6 +96,15 @@ public class Item : MonoBehaviour
             if (system != null)
             {
                 Add_Item();
+
+                if (gameObject.GetComponent<Save_ObjState>() != null)
+                {
+                    if (gameObject.GetComponent<Save_ObjState>().obj != null)
+                    {
+                        gameObject.GetComponent<Save_ObjState>().obj.saveState = 1;
+                        gameObject.GetComponent<Save_ObjState>().obj.ForceSerialization();
+                    }
+                }
             }
         }
     }
@@ -92,6 +116,15 @@ public class Item : MonoBehaviour
             if (system != null)
             {
                 Add_Item();
+
+                if (gameObject.GetComponent<Save_ObjState>() != null)
+                {
+                    if (gameObject.GetComponent<Save_ObjState>().obj != null)
+                    {
+                        gameObject.GetComponent<Save_ObjState>().obj.saveState = 1;
+                        gameObject.GetComponent<Save_ObjState>().obj.ForceSerialization();
+                    }
+                }
             }
         }
 
@@ -99,46 +132,49 @@ public class Item : MonoBehaviour
 
     private void Add_Item()
     {
-        string pathName = "Prefabs/Designer/Level/PickUps/Items/" + gameObject.name;
-        string nameOfGameObject = gameObject.name.Split('(')[0];
-
-        GameObject referItem = Resources.Load<GameObject>("Prefabs/Designer/Level/PickUps/Items/" + nameOfGameObject);
-        Debug.Log(referItem.name);
-
-        for (int i = 0; i < piso.slots.Length; i++)
+        if (canBePickedUp)
         {
-            if (referItem != piso.slots[i])
+            string pathName = "Prefabs/Designer/Level/PickUps/Items/" + gameObject.name;
+            string nameOfGameObject = gameObject.name.Split('(')[0];
+
+            GameObject referItem = Resources.Load<GameObject>("Prefabs/Designer/Level/PickUps/Items/" + nameOfGameObject);
+            Debug.Log(referItem.name);
+
+            for (int i = 0; i < piso.slots.Length; i++)
             {
-                if (piso.slots[i] == null)
+                if (referItem != piso.slots[i])
                 {
-                    piso.slots[i] = referItem;
-                    Debug.Log("Add one" + Time.time);
-                    GameObject sprite = Instantiate(itemSprite, slots[i].transform, false);
-                    sprite.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                    piso.numerOfItems[i]++;
-                    Destroy(gameObject);
-                    return;
+                    if (piso.slots[i] == null)
+                    {
+                        piso.slots[i] = referItem;
+                        Debug.Log("Add one" + Time.time);
+                        GameObject sprite = Instantiate(itemSprite, slots[i].transform, false);
+                        sprite.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                        piso.numerOfItems[i]++;
+                        Destroy(gameObject);
+                        return;
+                    }
+
+                    else
+                    {
+                        Debug.Log("Don't pick up item");
+                    }
                 }
 
                 else
                 {
-                    Debug.Log("Don't pick up item");
-                }
-            }
+                    if (piso.numerOfItems[i] < piso.maxItemsPerSlot)
+                    {
+                        Debug.Log("Add another" + Time.time);
+                        piso.numerOfItems[i]++;
+                        Destroy(gameObject);
+                        return;
+                    }
 
-            else
-            {
-                if (piso.numerOfItems[i] < piso.maxItemsPerSlot)
-                {
-                    Debug.Log("Add another" + Time.time);
-                    piso.numerOfItems[i]++;
-                    Destroy(gameObject);
-                    return;
-                }
-
-                else
-                {
-                    Debug.Log("Don't pick up item");
+                    else
+                    {
+                        Debug.Log("Don't pick up item");
+                    }
                 }
             }
         }

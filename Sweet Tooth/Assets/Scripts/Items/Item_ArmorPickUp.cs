@@ -9,7 +9,16 @@ public class Item_ArmorPickUp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (gameObject.GetComponent<Save_ObjState>() != null)
+        {
+            if (gameObject.GetComponent<Save_ObjState>().obj != null)
+            {
+                if (gameObject.GetComponent<Save_ObjState>().obj.saveState == 1)
+                {
+                    Destroy(gameObject);
+                }
+            }
+        }
     }
 
     // Update is called once per frame
@@ -25,6 +34,16 @@ public class Item_ArmorPickUp : MonoBehaviour
             pso.armor++;
             //FindObjectOfType<UI_ArmorDisplay>().Init_Hearts();
             Destroy(gameObject);
+
+
+            if (gameObject.GetComponent<Save_ObjState>() != null)
+            {
+                if (gameObject.GetComponent<Save_ObjState>().obj != null)
+                {
+                    gameObject.GetComponent<Save_ObjState>().obj.saveState = 1;
+                    gameObject.GetComponent<Save_ObjState>().obj.ForceSerialization();
+                }
+            }
         }
     }
 }

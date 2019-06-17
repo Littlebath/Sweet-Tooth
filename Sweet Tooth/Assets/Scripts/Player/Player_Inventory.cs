@@ -19,6 +19,10 @@ public class Player_Inventory : Inventory
     private PlayerInput pi;
     private PlayerController pc;
 
+    private bool isStickPressed;
+
+    private GameObject item;
+
     private void Awake()
     {
         inventorySystem = FindObjectOfType<Inventory_System>().gameObject.transform.GetChild(0).gameObject;
@@ -74,13 +78,16 @@ public class Player_Inventory : Inventory
 
     IEnumerator Open_Inventory()
     {
-        //Debug.Log("Open Inventory");
-        selector = inventorySystem.transform.GetChild(2).gameObject;
-        inventorySystem.SetActive(true);
-        StartCoroutine(FindObjectOfType<Inventory_System>().Update_Inventory());
-        StartCoroutine(Stop_Player_Movement());
-        //Time.timeScale = 0;
-        yield return null;
+        if (!FindObjectOfType<Manager_Dialogue>().isTalking)
+        {
+            //Debug.Log("Open Inventory");
+            selector = inventorySystem.transform.GetChild(2).gameObject;
+            inventorySystem.SetActive(true);
+            StartCoroutine(FindObjectOfType<Inventory_System>().Update_Inventory());
+            StartCoroutine(Stop_Player_Movement());
+            //Time.timeScale = 0;
+            yield return null;
+        }
     }
 
     IEnumerator Close_Inventory()
@@ -111,7 +118,7 @@ public class Player_Inventory : Inventory
 
     void Selection_Procecss ()
     {
-        if (Input.GetButtonDown("Horizontal") && Input.GetAxisRaw("Horizontal") > 0)
+        if (Input.GetButtonDown("Horizontal") && Input.GetAxis("Horizontal") > 0)
         {
             if (selection < numerOfItems.Length - 1)
             {
@@ -119,13 +126,61 @@ public class Player_Inventory : Inventory
             }
         }
 
-        else if (Input.GetButtonDown("Horizontal") && Input.GetAxisRaw("Horizontal") < 0)
+        else if (Input.GetButtonDown("Horizontal") && Input.GetAxis("Horizontal") < 0)
         {
             if (selection > 0)
             {
                 selection--;
             }
         }
+
+        //Joystick
+
+        if (Input.GetAxisRaw("HorizontalUI") < 0)
+        {
+            if (!isStickPressed)
+            {
+                if (selection > 0)
+                {
+                    isStickPressed = true;
+                    Debug.Log("Go Left");
+                    selection--;
+                }
+            }
+        }
+
+        else if (Input.GetAxisRaw("HorizontalUI") > 0)
+        {   
+            if (!isStickPressed)
+            {
+                if (selection < numerOfItems.Length - 1)
+                {
+                    isStickPressed = true;
+                    selection++;
+                    Debug.Log("Go Right");
+                }
+            }
+        }
+
+        else if (Input.GetAxisRaw("HorizontalUI") == 0)
+        {
+            isStickPressed = false;
+        }
+
+
+        /* if (Input.GetButtonDown("HorizontalUI"))
+         {
+             Debug.Log(Input.GetAxisRaw("HorizontalUI"));
+
+             if (Input.GetAxisRaw("HorizontalUI") == 1)
+             {
+                 selection++;
+             }
+             if (Input.GetAxisRaw("HorizontalUI") == -1)
+             {
+                 selection--;
+             }
+         }*/
 
         selector.transform.position = inventorySystem.transform.GetChild(1).GetChild(selection).transform.position;
 
@@ -146,46 +201,47 @@ public class Player_Inventory : Inventory
 
         Use_Item();
 
-        Drop_Item();
-    }
-
-    private void Drop_Item()
-    {
         if (pi.dashButton)
         {
-            if (slots[selection] != null)
+            Drop_Item();
+        }
+    }
+
+    public void Drop_Item()
+    {
+        if (slots[selection] != null)
+        {
+            //Drop Item here!!
+            Collider2D areaDrop = Physics2D.OverlapCircle(spawnPoint.position, 0.5f);
+
+            if (areaDrop == null)
             {
-                //Drop Item here!!
-                Collider2D areaDrop = Physics2D.OverlapCircle(spawnPoint.position, 0.5f);
+                item = Resources.Load<GameObject>("Prefabs/Designer/Level/PickUps/Items/" + slots[selection].GetComponent<Item>().gameObject.name);
+                Instantiate(item, pc.spawnPoint.transform.position, Quaternion.identity);
+                Debug.Log(item);
+                item.name = slots[selection].GetComponent<Item>().gameObject.name;
 
-                if (areaDrop == null)
+                if (numerOfItems[selection] > 1)
                 {
-                    GameObject item = Resources.Load<GameObject>("Prefabs/Designer/Level/PickUps/Items/" + slots[selection].GetComponent<Item>().gameObject.name);
-                    Instantiate(item, pc.spawnPoint.transform.position, Quaternion.identity);
-                    item.name = slots[selection].GetComponent<Item>().gameObject.name;
-
-                    if (numerOfItems[selection] > 1)
-                    {
-                        numerOfItems[selection]--;
-                    }
-
-                    else
-                    {
-                        numerOfItems[selection]--;
-                        slots[selection] = null;
-                        Destroy(inventorySystem.transform.GetChild(1).GetChild(selection).GetChild(2).gameObject);
-                    }
-
-                    StartCoroutine(FindObjectOfType<Inventory_System>().Update_Inventory());
+                    numerOfItems[selection]--;
                 }
 
                 else
                 {
-                    Debug.Log("Blocked by object");
-                    Debug.Log(areaDrop);
+                    numerOfItems[selection]--;
+                    slots[selection] = null;
+                    Destroy(inventorySystem.transform.GetChild(1).GetChild(selection).GetChild(4).gameObject);
                 }
 
+                StartCoroutine(FindObjectOfType<Inventory_System>().Update_Inventory());
             }
+
+            else
+            {
+                Debug.Log("Blocked by object");
+                Debug.Log(areaDrop);
+            }
+
         }
     }
 
@@ -210,10 +266,34 @@ public class Player_Inventory : Inventory
                     {
                         numerOfItems[selection]--;
                         slots[selection] = null;
-                        Destroy(inventorySystem.transform.GetChild(1).GetChild(selection).GetChild(2).gameObject);
+                        Destroy(inventorySystem.transform.GetChild(1).GetChild(selection).GetChild(4).gameObject);
                     }
 
                     StartCoroutine(FindObjectOfType<Inventory_System>().Update_Inventory());
+                }
+
+                else
+                {
+                    if (slots[selection] != null)
+                    {
+                        item = Resources.Load<GameObject>("Prefabs/Designer/Level/PickUps/Items/Player Bomb");
+                        Instantiate(item, pc.transform.position, Quaternion.identity);
+                        item.name = slots[selection].GetComponent<Item>().gameObject.name;
+
+                        if (numerOfItems[selection] > 1)
+                        {
+                            numerOfItems[selection]--;
+                        }
+
+                        else
+                        {
+                            numerOfItems[selection]--;
+                            slots[selection] = null;
+                            Destroy(inventorySystem.transform.GetChild(1).GetChild(selection).GetChild(4).gameObject);
+                        }
+
+                        StartCoroutine(FindObjectOfType<Inventory_System>().Update_Inventory());                       
+                    }
                 }
             }
         }

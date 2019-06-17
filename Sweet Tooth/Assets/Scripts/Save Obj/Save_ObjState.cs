@@ -15,14 +15,14 @@ public class Save_ObjState : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.T))
         {
-            //Reset World
             Reset_World();
+            obj.ForceSerialization();
         }
     }
 
-    void Reset_World ()
+    public void Reset_World ()
     {
         obj.saveState = 0;
         Debug.Log("Reset");

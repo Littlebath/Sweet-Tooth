@@ -21,8 +21,6 @@ public class Inventory_System : MonoBehaviour
         {
             slots[i] = gameObject.transform.GetChild(0).GetChild(1).GetChild(i).gameObject;
         }
-
-        piso = FindObjectOfType<Player_Inventory>();
     }
 
     // Update is called once per frame
@@ -33,10 +31,13 @@ public class Inventory_System : MonoBehaviour
 
     public IEnumerator Update_Inventory()
     {
+        piso = FindObjectOfType<Player_Inventory>();
+
         for (int i = 0; i < slots.Length; i++)
         {
             //Debug.Log("Spill it");
             slots[i].transform.GetChild(1).GetComponent<Text>().text = piso.numerOfItems[i].ToString();
+            slots[i].transform.GetChild(3).GetComponent<Text>().text = piso.maxItemsPerSlot.ToString();
         }
         yield return null;
     }

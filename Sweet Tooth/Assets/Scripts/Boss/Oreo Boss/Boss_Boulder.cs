@@ -15,6 +15,10 @@ public class Boss_Boulder : MonoBehaviour
 
     [SerializeField] private OreoBossScriptableObject values;
 
+    public GameObject marker;
+
+    private GameObject target;
+
     private Boss_OreoChocolateBoss boulderProperties;
     float xPosition;
     float yPosition;
@@ -27,7 +31,7 @@ public class Boss_Boulder : MonoBehaviour
     {
         Boulder_Start_Position();
         Boulder_Trajectory();
-
+        target = Instantiate(marker , transform.position, Quaternion.identity);
         transform.localScale = Vector3.zero;
     }
 
@@ -70,17 +74,20 @@ public class Boss_Boulder : MonoBehaviour
     {
         if (Vector3.Distance (transform.position, boulderLandPos) <= 0.3f)
         {
+            Destroy(target);
             Destroy(gameObject);
         }
 
         else
         {
+            if (target != null)
+            {
+                target.transform.position = boulderLandPos;
+            }
             Vector3 tempPos = Vector3.MoveTowards(transform.position, boulderLandPos, values.boulderFallSpeed);
             gameObject.GetComponent<Rigidbody2D>().MovePosition(tempPos);
             Debug.Log("Fall");
         }
-
-        transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1f, 1f, 1f), values.boulderFallSpeed - 0.08f);
     }
 
     // Update is called once per frame
@@ -94,6 +101,7 @@ public class Boss_Boulder : MonoBehaviour
         if (collision.gameObject.CompareTag ("Player"))
         {
             Destroy(gameObject);
+            Destroy(target);
             FindObjectOfType<PlayerController>().Hurt_Player(values.damage);
         }
     }

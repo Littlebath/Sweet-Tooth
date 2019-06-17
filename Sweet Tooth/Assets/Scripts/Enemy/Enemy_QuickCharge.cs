@@ -23,6 +23,7 @@ public class Enemy_QuickCharge : Enemy
     {
         anim = gameObject.GetComponent<Animator>();
         timeBtwChargeCounter = timeBtwCharge;
+        oldColor = gameObject.GetComponent<SpriteRenderer>().color;
     }
 
     // Update is called once per frame
@@ -87,6 +88,8 @@ public class Enemy_QuickCharge : Enemy
         //indicator.transform.rotation = Quaternion.Euler (0f, 0f, moreTurn);
 
         Vector3 direction = indicator.transform.position - FindObjectOfType<PlayerController>().transform.position;
+        Vector2 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
+        Vector2 animation = playerPos - origin;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Quaternion lookRotation = Quaternion.AngleAxis(angle, Vector3.forward);
         indicator.transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, 10f);
@@ -102,13 +105,25 @@ public class Enemy_QuickCharge : Enemy
             gameObject.GetComponent<Rigidbody2D>().velocity = direction.normalized * moveSpeed;
             StartCoroutine(Charge_Duration());
             timeBtwChargeCounter = timeBtwCharge;
-            gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
+            //gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
             indicator.SetActive(false);
+
+            if (gameObject.GetComponent<Rigidbody2D>().velocity == Vector2.zero)
+            {
+                Set_Anim_Float(direction);
+            }
         }
 
         else
         {
+            Vector2 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
+            Vector2 direction = playerPos - origin;
             timeBtwChargeCounter -= Time.deltaTime;
+
+            if (gameObject.GetComponent<Rigidbody2D>().velocity == Vector2.zero)
+            {
+                Set_Anim_Float(direction);
+            }
         }
     }
 
@@ -170,6 +185,10 @@ public class Enemy_QuickCharge : Enemy
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+
+        gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+
         if (collision.gameObject.CompareTag("Player"))
         {
             if (collision.gameObject.GetComponent<PlayerController>().states == playerStates.None)
@@ -185,9 +204,44 @@ public class Enemy_QuickCharge : Enemy
             }
         }
 
-        gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+        else if (collision.gameObject.name != "Full Level")
+        {
+            Knock_Back_Me(gameObject);
+        }
     }
+
+    public void Knock_Away(GameObject me, Collision2D coll)
+    {
+        Rigidbody2D enemy = me.GetComponent<Rigidbody2D>();
+        Debug.Log("Do knockback");
+
+        if (enemy != null)
+        {
+            if (enemy.GetComponent<Enemy>().health > 0)
+            {
+                enemy.GetComponent<Enemy>().currentState = EnemyState.stagger;
+                enemy.isKinematic = false;
+                enemy.velocity = Vector2.zero;
+                Vector2 difference = transform.position - coll.transform.position;
+                difference = difference.normalized * thrust;
+                Debug.Log(difference);
+                enemy.velocity = difference;
+                StartCoroutine(Knock(enemy));
+            }
+        }
+    }
+
+    private IEnumerator Knock(Rigidbody2D enemy)
+    {
+        if (enemy != null)
+        {
+            yield return new WaitForSeconds(knockTime);
+            enemy.velocity = Vector2.zero;
+            enemy.isKinematic = true;
+            enemy.GetComponent<Enemy>().currentState = EnemyState.idle;
+        }
+    }
+
 
     private void OnDrawGizmosSelected()
     {

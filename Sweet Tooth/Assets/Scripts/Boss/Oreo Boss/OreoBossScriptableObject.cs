@@ -9,6 +9,7 @@ public class OreoBossScriptableObject : ScriptableObject
     [Header("Generic Boss Stats")]
     public float maxHealth;
     public float phaseTwoHealth;
+    public float hurtAnimationDuration;
     public int damage;
     public GameObject player;
     public float chaseRadius;

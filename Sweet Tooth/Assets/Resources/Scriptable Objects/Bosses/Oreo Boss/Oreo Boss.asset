@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267e0bd14afdd9b458ac8a2a6ee6497e, type: 3}
   m_Name: Oreo Boss
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  phaseTwoHealth: 5
-  damage: 2
+  maxHealth: 15
+  phaseTwoHealth: 8
+  hurtAnimationDuration: 0.5
+  damage: 0
   player: {fileID: 1269858114674242, guid: 266f7e71afe6845498609c44d3734148, type: 3}
   chaseRadius: 0.7
   bullet: {fileID: 1547210875933261188, guid: f75be3d852a08ce409cb0a4b078b0b60, type: 3}
@@ -36,16 +37,16 @@ MonoBehaviour:
   dashCount2: 2
   jumpBuildupTime2: 1
   jumpCooldownTime2: 4
-  bulletSpeed: 4
-  boulderFallSpeed: 0.1
+  bulletSpeed: 5
+  boulderFallSpeed: 0.35
   boulders:
   - {fileID: 7581875775791348422, guid: 8ee2a2342959c1240879e9e298ed071f, type: 3}
   - {fileID: 463470225, guid: 384a75b33ab78444ab9a7ba45c445693, type: 3}
   - {fileID: 7581875775791348422, guid: 8ee2a2342959c1240879e9e298ed071f, type: 3}
   - {fileID: 7581875775791348422, guid: 8ee2a2342959c1240879e9e298ed071f, type: 3}
-  boulderFallInterval: 0.5
+  boulderFallInterval: 0.7
   introParticles: {fileID: 3189042030727236367, guid: 6d189c6afc3bd4b4084d7a9003f10e5b,
     type: 3}
-  currHealth: 4
+  currHealth: 2
   bossIsActive: 0
   noOfDashes: 0

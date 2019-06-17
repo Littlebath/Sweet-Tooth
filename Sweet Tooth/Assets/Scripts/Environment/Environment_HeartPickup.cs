@@ -21,8 +21,11 @@ public class Environment_HeartPickup : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            pso.health += 2;
-            Destroy(gameObject);
+            if (pso.health < pso.maxHealth)
+            {
+                pso.health += 2;
+                Destroy(gameObject);
+            }
         }
     }
 }

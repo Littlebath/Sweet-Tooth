@@ -18,6 +18,6 @@ public class Camera_Cinemachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

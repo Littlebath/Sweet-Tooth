@@ -111,6 +111,8 @@ GameObject:
   - component: {fileID: 7617600234759421782}
   - component: {fileID: 2158605007744030569}
   - component: {fileID: 1471863716670079013}
+  - component: {fileID: 6022753965004417061}
+  - component: {fileID: 275026280113329842}
   m_Layer: 17
   m_Name: Explosive Nuts
   m_TagString: Untagged
@@ -150,7 +152,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a07a4d6b0c8c27647abe3c478d38126d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -195,11 +197,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyTime: {fileID: 7400000, guid: ebc7542cd9de85641bbf4557b914a930, type: 2}
   damage: 1
-  explosionRange: 2
+  explosionRange: 1.3
   whatToHit:
     serializedVersion: 2
     m_Bits: 263424
   isEnemyBomb: 0
+  isPlayerBomb: 0
+  timerDuration: {fileID: 7400000, guid: 7a4d05c3b9269da438b1ffd59d9a5f8f, type: 2}
 --- !u!61 &7617600234759421783
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -252,7 +256,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7617600234759421776}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 172d1ac3088bcfe4194761b1c45fa334, type: 3}
   m_Name: 
@@ -283,3 +287,31 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &6022753965004417061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7617600234759421776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15c64963cfe73ab479255f7d8e914371, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 0.9716981, g: 0, b: 0.1044048, a: 0}
+  radius: 2
+  outlineSize: 1
+--- !u!114 &275026280113329842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7617600234759421776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc46b086d70412d4a8706d03085d183e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obj: {fileID: 0}

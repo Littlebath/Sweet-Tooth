@@ -26,7 +26,7 @@ public class jumpAttack2 : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
+        animator.GetComponent<Boss_OreoChocolateBoss>().Camera_Shake();
     }
 
     public void Jump_Attack_2 (Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
