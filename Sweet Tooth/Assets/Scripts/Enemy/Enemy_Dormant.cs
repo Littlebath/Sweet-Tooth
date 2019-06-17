@@ -89,11 +89,11 @@ public class Enemy_Dormant : Enemy
             for (int i = 0; i < 5; i++)
             {
                 Debug.Log("Tick one");
-                gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
+                gameObject.GetComponent<SpriteRenderer>().color = Color.red;
                 transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
                 yield return new WaitForSeconds(0.2f);
                 transform.localScale = new Vector3(1f, 1f, 1f);
-                gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+                gameObject.GetComponent<SpriteRenderer>().color = Color.red;
                 yield return new WaitForSeconds(0.2f);
             }
 
@@ -102,10 +102,10 @@ public class Enemy_Dormant : Enemy
             {
                 Debug.Log("Tick two");
                 transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
-                gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
+                gameObject.GetComponent<SpriteRenderer>().color = Color.red;
                 yield return new WaitForSeconds(0.1f);
                 transform.localScale = new Vector3(1f, 1f, 1f);
-                gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+                gameObject.GetComponent<SpriteRenderer>().color = Color.red;
                 yield return new WaitForSeconds(0.1f);
             }
         }
