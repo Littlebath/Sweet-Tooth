@@ -18,6 +18,7 @@ public class Enemy_Dormant : Enemy
     private float explodeTimeCounter;
 
     private bool beginFlash;
+    private bool isFaster;
     // Start is called before the first frame update
     void Start()
     {
@@ -61,11 +62,22 @@ public class Enemy_Dormant : Enemy
         {
             explodeTimeCounter -= Time.deltaTime;
             StartCoroutine(Flash());
+            StartCoroutine(IncreaseSpeed());
 
             if (isStandingBomb)
             {
                 moveSpeed = 0;
             }
+        }
+    }
+
+    private IEnumerator IncreaseSpeed ()
+    {
+        if (!isFaster)
+        {
+            isFaster = true;
+            moveSpeed += 1;
+            yield return null;
         }
     }
 
