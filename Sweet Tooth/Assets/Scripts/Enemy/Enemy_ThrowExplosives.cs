@@ -10,8 +10,14 @@ public class Enemy_ThrowExplosives : Enemy
     [SerializeField] private float timeBtwBombThrow;
     [SerializeField] private GameObject bomb;
 
+    public float timeBtwCycle;
+    public float numberOfBombs;
+
     private float TimeBtwBombThrowCounter;
+    private float timeBtwThrowsCounter;
     private Vector3 origin;
+
+    public bool isBoss;
 
     // Start is called before the first frame update
     void Start()
@@ -61,16 +67,45 @@ public class Enemy_ThrowExplosives : Enemy
 
     void Throw_Bomb_AI ()
     {
-        if (TimeBtwBombThrowCounter <= 0)
+        if (!isBoss)
         {
-            //Throw a bloody bomb
-            Instantiate(bomb, transform.position, Quaternion.identity);
-            TimeBtwBombThrowCounter = timeBtwBombThrow;
+            if (TimeBtwBombThrowCounter <= 0)
+            {
+                //Throw a bloody bomb
+                Instantiate(bomb, transform.position, Quaternion.identity);
+                TimeBtwBombThrowCounter = timeBtwBombThrow;
+            }
+
+            else
+            {
+                TimeBtwBombThrowCounter -= Time.deltaTime;
+            }
         }
 
         else
         {
-            TimeBtwBombThrowCounter -= Time.deltaTime;
+            if (TimeBtwBombThrowCounter <= 0)
+            {
+                StartCoroutine(ThrowManyBombs());
+            }
+
+            else
+            {
+                TimeBtwBombThrowCounter -= Time.deltaTime;
+            }
+        }
+
+    }
+
+    private IEnumerator ThrowManyBombs ()
+    {
+        TimeBtwBombThrowCounter = timeBtwBombThrow + (timeBtwBombThrow * numberOfBombs);
+
+        for (int i = 0; i < numberOfBombs; i++)
+        {
+            Instantiate(bomb, transform.position, Quaternion.identity);
+            Debug.Log("Thrown a bomb");
+            yield return new WaitForSeconds(timeBtwBombThrow);
         }
     }
 
