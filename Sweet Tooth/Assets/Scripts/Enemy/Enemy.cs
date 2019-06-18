@@ -84,16 +84,20 @@ public class Enemy : MonoBehaviour
         {
             StartCoroutine(Flash());
             health -= damage;
+            gameObject.GetComponent<Enemy_BloodImpact>().SpawnEffect();
+            gameObject.GetComponent<Enemy_BloodImpact>().SpawnBlood();
 
             if (health <= 0)
             {
                 if (gameObject.GetComponent<Enemy_Dormant>() != null)
                 {
+                    gameObject.GetComponent<Enemy_BloodImpact>().SpawnBlood();
                     gameObject.GetComponent<Enemy_Dormant>().Detonate();
                 }
 
                 gameObject.SetActive(false);
                 effect = Instantiate(enemyDeathEffect, transform.position, Quaternion.identity);
+
 
                 if (gameObject.GetComponent<Save_ObjState>() != null)
                 {

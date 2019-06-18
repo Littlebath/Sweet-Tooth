@@ -111,6 +111,7 @@ GameObject:
   - component: {fileID: 1637771455}
   - component: {fileID: 1637771454}
   - component: {fileID: 1637771453}
+  - component: {fileID: 2819376251610836323}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Enemy
@@ -296,6 +297,24 @@ MonoBehaviour:
   - {fileID: 6389354763630157469, guid: 04c8312e208c34e3884c7bec958c4221, type: 3}
   - {fileID: 6458927120918848107, guid: 563fe4cc53de4c5478b7a3e32f68d3a6, type: 3}
   - {fileID: 6686337591148734998, guid: 889730ba1bcaab6409fcac9ba4a200da, type: 3}
+--- !u!114 &2819376251610836323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1637771451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e44cbfe13cf5f4344bf821943f93ba25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blood:
+  - {fileID: 2925170700908673285, guid: 8da1ce378445efb4b9842c402cc7a75b, type: 3}
+  - {fileID: 3287508592568614489, guid: dd4a2a48dcf58014ca463763adabf32d, type: 3}
+  - {fileID: 4250664144748554342, guid: 88956a7032f1f7c4789bb1ba5991d9cc, type: 3}
+  effect: {fileID: 2058443094691430572, guid: 7d5b2c54c755dc74ea329eb797e4ce20, type: 3}
+  bloodColor: {r: 0.9568628, g: 0.70980394, b: 0.8941177, a: 1}
 --- !u!1 &1878278115
 GameObject:
   m_ObjectHideFlags: 0

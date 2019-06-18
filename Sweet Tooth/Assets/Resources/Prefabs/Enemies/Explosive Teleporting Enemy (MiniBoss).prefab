@@ -381,6 +381,7 @@ GameObject:
   - component: {fileID: 4576118616162521193}
   - component: {fileID: 2459743773938567472}
   - component: {fileID: 2084825539}
+  - component: {fileID: 7649543903124798329}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Enemy
@@ -509,7 +510,7 @@ Animator:
   m_GameObject: {fileID: 2289440635118826522}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5c332da2c2d87a348801cf68bbf35568, type: 2}
+  m_Controller: {fileID: 9100000, guid: 0cd7efe82ecae4d4893a998ddc2ed219, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -541,6 +542,7 @@ MonoBehaviour:
   knockTime: 0.2
   shield: {fileID: 0}
   anim: {fileID: 0}
+  oldColor: {r: 0, g: 0, b: 0, a: 0}
   target: {fileID: 0}
   chaseRadius: 4.8
   timeBtwBombThrow: 2
@@ -564,6 +566,24 @@ MonoBehaviour:
   percentageOfSpawningItem: 100
   itemsToSpawn:
   - {fileID: 6844156431278092323, guid: 8f60c2ad47fe23c4f999829199fa2e08, type: 3}
+--- !u!114 &7649543903124798329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2289440635118826522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e44cbfe13cf5f4344bf821943f93ba25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blood:
+  - {fileID: 2925170700908673285, guid: 8da1ce378445efb4b9842c402cc7a75b, type: 3}
+  - {fileID: 3287508592568614489, guid: dd4a2a48dcf58014ca463763adabf32d, type: 3}
+  - {fileID: 4250664144748554342, guid: 88956a7032f1f7c4789bb1ba5991d9cc, type: 3}
+  effect: {fileID: 2058443094691430572, guid: 7d5b2c54c755dc74ea329eb797e4ce20, type: 3}
+  bloodColor: {r: 0.6415094, g: 0.099857606, b: 0.42992666, a: 1}
 --- !u!1 &3275725729150777872
 GameObject:
   m_ObjectHideFlags: 0

@@ -71,6 +71,7 @@ public class Enemy_Dormant : Enemy
 
     public void Detonate ()
     {
+        gameObject.GetComponent<Enemy_BloodImpact>().SpawnBlood();
         Debug.Log("Kaboom");
         explodeTimeCounter = explodeTime;
         GameObject bomb = Instantiate(bigBomb, transform.position, Quaternion.identity);
