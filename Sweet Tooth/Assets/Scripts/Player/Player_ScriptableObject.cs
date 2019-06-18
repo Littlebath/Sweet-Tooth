@@ -15,7 +15,7 @@ public class Player_ScriptableObject : ScriptableObject
     //Designer Values
     [Header("Movement speed")]
     [Tooltip("How fast the player moves normally")]
-    public float moveSpeed = 5.0f;
+    public float moveSpeed = 4.0f;
 
     [Header("Player health")]
     [Tooltip("How much health the player has")]
