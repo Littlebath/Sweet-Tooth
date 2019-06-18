@@ -38,8 +38,6 @@ public class Enemy_Log : Enemy
     // Update is called once per frame
     void Update()
     {
-
-
         if (FindObjectOfType<PlayerController>() != null)
         {
             target = FindObjectOfType<PlayerController>().gameObject.transform;

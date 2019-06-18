@@ -28,6 +28,7 @@ public class HealthPotion_Quest : MonoBehaviour
         {
             gameObject.GetComponent<SpriteRenderer>().color = Color.white;
             hasPotion = true;
+            FindObjectOfType<Player_Inventory>().currency += 4;
             Debug.Log("Potion in AOE");
             Destroy(collision.gameObject);
         }

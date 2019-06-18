@@ -121,12 +121,15 @@ public class QuestTrigger : MonoBehaviour
                     exitPointBlack.gameObject.SetActive(false);
                 }
 
-                if (boss == null)
+                else if (ID == 2)
                 {
-                    Debug.Log("COME OFF");
-                    Debug.Log("HELP");
-                    exitPointFalcon.gameObject.SetActive(true);
-                    exitPointBlack.gameObject.SetActive(true);
+                    if (boss == null)
+                    {
+                        Debug.Log("COME OFF");
+                        Debug.Log("HELP");
+                        exitPointFalcon.gameObject.SetActive(true);
+                        exitPointBlack.gameObject.SetActive(true);
+                    }
                 }
 
                 FindObjectOfType<Quest_1_Manager>().caveEntrance.SetActive(false);
