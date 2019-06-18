@@ -466,10 +466,26 @@ public class PlayerController : MonoBehaviour
 
                     for (int i = 0; i < shields.Length; i++)
                     {
-                        if (shields[i].CompareTag("Shield"))
+
+                        Vector2 direction = shields[i].transform.position - transform.position;
+                        float distance = Vector2.Distance(transform.position, shields[i].transform.position);
+                        Debug.Log("Has exploded");
+
+                        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distance);
+
+                        if (hit.collider == shields[i])
                         {
-                            shields[i].GetComponent<ShieldEnemy_Shield>().Damage_Shield(designerValues.meleeDamage);
-                            shields[i].transform.parent.GetChild(0).GetComponent<Enemy>().Knock_Back_Me(shields[i].transform.parent.GetChild(0).gameObject);
+                            if (shields[i].gameObject.CompareTag("Shield"))
+                            {
+                                if (shields[i].gameObject.transform.parent != null)
+                                {
+                                    //Call a shield script
+
+                                    //Knock back player
+                                    Debug.Log("hIT THE SHIELD");
+
+                                }
+                            }
                         }
                     }
 
@@ -523,17 +539,27 @@ public class PlayerController : MonoBehaviour
         if (isMelee)
         {
             gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+
             //Enemies
             Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackPos.position, designerValues.meleeRange, designerValues.whatIsEnemy);
 
             for (int i = 0; i < enemiesToDamage.Length; i++)
             {
-                if (enemiesToDamage[i].GetComponent<Rigidbody2D>() != null && enemiesToDamage[i].GetComponent<Rigidbody2D>().isKinematic)
+                Vector2 direction = enemiesToDamage[i].transform.position - transform.position;
+                float distance = Vector2.Distance(transform.position, enemiesToDamage[i].transform.position);
+                Debug.Log("Has exploded");
+
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distance);
+
+                if (hit.collider == enemiesToDamage[i])
                 {
-                    //Debug.Log(enemiesToDamage[i].gameObject.name);
-                    enemiesToDamage[i].gameObject.GetComponent<Enemy>().Take_Damage(designerValues.meleeDamage);
-                    //enemiesToDamage[i].gameObject.GetComponent<Enemy_KnockUp>().Knock_Up();
-                    FindObjectOfType<Player_Knockback>().Knock_Back(enemiesToDamage[i]);
+                    if (enemiesToDamage[i].GetComponent<Rigidbody2D>() != null && enemiesToDamage[i].GetComponent<Rigidbody2D>().isKinematic)
+                    {
+                        //Debug.Log(enemiesToDamage[i].gameObject.name);
+                        enemiesToDamage[i].gameObject.GetComponent<Enemy>().Take_Damage(designerValues.meleeDamage);
+                        //enemiesToDamage[i].gameObject.GetComponent<Enemy_KnockUp>().Knock_Up();
+                        FindObjectOfType<Player_Knockback>().Knock_Back(enemiesToDamage[i]);
+                    }
                 }
             }
 

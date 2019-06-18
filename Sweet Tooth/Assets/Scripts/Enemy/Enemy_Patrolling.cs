@@ -10,16 +10,23 @@ public enum enemyBehavior
 
 public class Enemy_Patrolling : Enemy
 {
+    public bool isShieldEnemy;
     [Header("Patrolling Enemy Variables")]
     [SerializeField] private Transform[] points;
     [SerializeField] private int indicator;
     public enemyBehavior EnemyBehavior;
 
+    public float waitBtwCharge;
+
+    public bool isDashingEnemy;
+
     private Transform target;
+    private float timer;
 
     // Start is called before the first frame update
     void Start()
     {
+        timer = waitBtwCharge;
         anim = gameObject.GetComponent<Animator>();
         oldColor = gameObject.GetComponent<SpriteRenderer>().color;
     }
@@ -35,7 +42,7 @@ public class Enemy_Patrolling : Enemy
         EnemyAI();
     }
 
-    void EnemyAI ()
+    void EnemyAI()
     {
         if (currentState == EnemyState.idle)
         {
@@ -63,28 +70,48 @@ public class Enemy_Patrolling : Enemy
         Debug.DrawRay(transform.position, direction, Color.red);
         //Debug.Log(hit.collider.name);
 
-        if (hit == true)
+        if (!isShieldEnemy)
         {
-            if (hit.collider.name == target.gameObject.name)
+            if (hit == true)
             {
-                if (currentState == EnemyState.idle || currentState == EnemyState.walk && currentState != EnemyState.stagger)
+                if (hit.collider.name == target.gameObject.name)
                 {
-                    Vector3 currPos = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
-                    ChangeAnim(currPos - transform.position);
-                    gameObject.GetComponent<Rigidbody2D>().MovePosition(currPos);
-                    Change_State(EnemyState.idle);
-                    //Debug.Log(currPos);
-
-                    if (shield != null)
+                    if (currentState == EnemyState.idle || currentState == EnemyState.walk && currentState != EnemyState.stagger)
                     {
-                        shield.SetActive(true);
+                        Vector3 currPos = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
+                        ChangeAnim(currPos - transform.position);
+                        gameObject.GetComponent<Rigidbody2D>().MovePosition(currPos);
+                        Change_State(EnemyState.idle);
+                        //Debug.Log(currPos);
+
+                        if (shield != null)
+                        {
+                            shield.SetActive(true);
+                        }
                     }
                 }
-            }
 
-            else
+                else
+                {
+                    Debug.Log("Player missing");
+                }
+            }
+        }
+
+        else
+        {
+            if (currentState == EnemyState.idle || currentState == EnemyState.walk && currentState != EnemyState.stagger)
             {
-                Debug.Log("Player missing");
+                Vector3 currPos = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
+                ChangeAnim(currPos - transform.position);
+                gameObject.GetComponent<Rigidbody2D>().MovePosition(currPos);
+                Change_State(EnemyState.idle);
+                //Debug.Log(currPos);
+
+                if (shield != null)
+                {
+                    shield.SetActive(true);
+                }
             }
         }
     }
@@ -102,19 +129,30 @@ public class Enemy_Patrolling : Enemy
 
 
 
-    void Switch_Target ()
+    void Switch_Target()
     {
         if (transform.position == points[indicator].position)
         {
-            if (indicator >= points.Length -1)
+            if (timer <= 0)
             {
-                indicator = 0;
+                if (indicator >= points.Length - 1)
+                {
+                    indicator = 0;
+                }
+
+                else
+                {
+                    indicator++;
+                }
+
+                timer = waitBtwCharge;
             }
 
             else
             {
-                indicator++;
+                timer -= Time.deltaTime;
             }
+
         }
     }
 
