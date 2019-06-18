@@ -16,6 +16,7 @@ public class Enemy_ThrowExplosives : Enemy
     private float TimeBtwBombThrowCounter;
     private float timeBtwThrowsCounter;
     private Vector3 origin;
+    private Vector2 StickMe;
 
     public bool isBoss;
 
@@ -25,6 +26,7 @@ public class Enemy_ThrowExplosives : Enemy
         TimeBtwBombThrowCounter = timeBtwBombThrow;
         anim = gameObject.GetComponent<Animator>();
         oldColor = gameObject.GetComponent<SpriteRenderer>().color;
+        StickMe = transform.position;
     }
 
     // Update is called once per frame
@@ -68,7 +70,7 @@ public class Enemy_ThrowExplosives : Enemy
     void Throw_Bomb_AI ()
     {
         if (!isBoss)
-        {
+        {        
             if (TimeBtwBombThrowCounter <= 0)
             {
                 //Throw a bloody bomb
