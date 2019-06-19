@@ -292,7 +292,8 @@ public class Player_Inventory : Inventory
                             Destroy(inventorySystem.transform.GetChild(1).GetChild(selection).GetChild(4).gameObject);
                         }
 
-                        StartCoroutine(FindObjectOfType<Inventory_System>().Update_Inventory());                       
+                        StartCoroutine(FindObjectOfType<Inventory_System>().Update_Inventory());
+                        StartCoroutine(Close_Inventory());
                     }
                 }
             }

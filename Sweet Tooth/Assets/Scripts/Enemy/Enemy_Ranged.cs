@@ -152,7 +152,6 @@ public class Enemy_Ranged : Enemy
         }
 
         ChangeAnim(GameObject.FindGameObjectWithTag("Player").transform.position - transform.position);
-
     }
 
 

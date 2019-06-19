@@ -7,10 +7,23 @@ public class EnemyRanged_Bullet : MonoBehaviour
     [HideInInspector] public int damage;
 
     [SerializeField] bool isBossBullet;
+
+    private Color[] rangeOfColors;
+
+    private Color newColor;
     // Start is called before the first frame update
     void Start()
     {
-        
+
+        rangeOfColors = new Color[4];
+
+        rangeOfColors[0] = Color.red;
+        rangeOfColors[1] = Color.blue;
+        rangeOfColors[2] = Color.yellow;
+        rangeOfColors[3] = Color.green;
+
+        newColor = rangeOfColors[Random.Range(0, 3)];
+        gameObject.GetComponent<SpriteRenderer>().color = newColor;
     }
 
     // Update is called once per frame
