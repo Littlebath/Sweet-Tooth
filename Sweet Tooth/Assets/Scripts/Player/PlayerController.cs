@@ -787,6 +787,8 @@ public class PlayerController : MonoBehaviour
     {
         if (!isPlayerHurt)
         {
+            isCharingGroundpound = false;
+            isGroundPoundReady = false;
             FindObjectOfType<UI_HeartDisplay>().Update_Hearts();
             FindObjectOfType<CameraController>().Screen_Kick();
             StartCoroutine(Slow_Motion_Effect());
