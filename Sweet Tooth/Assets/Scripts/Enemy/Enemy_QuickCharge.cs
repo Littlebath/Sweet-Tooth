@@ -6,6 +6,7 @@ using UnityEngine;
 public class Enemy_QuickCharge : Enemy
 {
     public bool isArmorEnemy;
+    public GameObject chargeEffect;
 
     private Transform target;
 
@@ -40,12 +41,15 @@ public class Enemy_QuickCharge : Enemy
 
         if (isCharging)
         {
+            indicator.transform.localScale = Vector3.zero;
             indicator.SetActive(false);
+            chargeEffect.SetActive(false);
         }
 
         else
         {
             indicator.SetActive(true);
+            chargeEffect.SetActive(true);
         }
 
         if (isArmorEnemy)
@@ -105,7 +109,6 @@ public class Enemy_QuickCharge : Enemy
     void Charging_Indicator()
     {
         //indicator.transform.rotation = Quaternion.Euler (0f, 0f, moreTurn);
-
         Vector3 direction = indicator.transform.position - FindObjectOfType<PlayerController>().transform.position;
         Vector2 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
         Vector2 animation = playerPos - origin;
@@ -139,9 +142,16 @@ public class Enemy_QuickCharge : Enemy
 
         else
         {
+            float value = timeBtwCharge;
             Vector2 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
             Vector2 direction = playerPos - origin;
             timeBtwChargeCounter -= Time.deltaTime;
+
+            float timer = timeBtwChargeCounter / timeBtwCharge;
+
+            gameObject.GetComponent<SpriteRenderer>().color = Color.Lerp(Color.blue, Color.white, timer);
+            indicator.transform.localScale = Vector3.Lerp(new Vector3(4f, 3f), Vector3.zero, timer);
+
 
             if (gameObject.GetComponent<Rigidbody2D>().velocity == Vector2.zero)
             {
@@ -152,6 +162,7 @@ public class Enemy_QuickCharge : Enemy
 
     private IEnumerator Charge_Duration ()
     {
+        gameObject.GetComponent<SpriteRenderer>().color = Color.white;
         isCharging = true;
         yield return new WaitForSeconds(timeBtwCharge/2);
         gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
@@ -161,6 +172,31 @@ public class Enemy_QuickCharge : Enemy
         if (isArmorEnemy)
         {
             gameObject.tag = "enemy";
+        }
+    }
+
+    public IEnumerator Squish()
+    {
+        float t = 0;
+        Vector3 orignalSize = transform.localScale;
+        Vector3 newSize = new Vector3(0.8f, 1.3f, 1f);
+
+        for (int i = 0; i < 1 / 0.3; i++)
+        {
+            transform.localScale = Vector3.Lerp(transform.localScale, newSize, t);
+            yield return new WaitForSeconds(0.05f);
+            t += 0.5f;
+        }
+
+        yield return new WaitForEndOfFrame();
+
+        t = 0;
+
+        for (int i = 0; i < 1 / 0.3f; i++)
+        {
+            transform.localScale = Vector3.Lerp(transform.localScale, orignalSize, t);
+            yield return new WaitForSeconds(0.05f);
+            t += 0.5f;
         }
     }
 
@@ -215,6 +251,7 @@ public class Enemy_QuickCharge : Enemy
     {
         gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
+        StartCoroutine(Squish());
 
         if (collision.gameObject.CompareTag("Player"))
         {
