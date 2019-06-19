@@ -8,6 +8,8 @@ public class NPC : MonoBehaviour
     [SerializeField] private NPCFaceScriptableObject direction;
     [SerializeField] private NPCFaceScriptableObject grassDirection;
 
+    public GameObject exclamationMark;
+
     [SerializeField] private Vector2 size;
     [SerializeField] private float distance;
 
@@ -40,7 +42,7 @@ public class NPC : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        exclamationMark.SetActive(false);
     }
 
     // Update is called once per frame
@@ -296,6 +298,7 @@ public class NPC : MonoBehaviour
             Debug.Log("Player is in");
             isInRange = true;
             canMelee = true;
+            exclamationMark.SetActive(true);
         }
 
         else if (collision.gameObject.GetComponent<EnemyRanged_Bullet>() != null)
@@ -309,6 +312,7 @@ public class NPC : MonoBehaviour
         Debug.Log("Player is out");
         isInRange = false;
         canMelee = false;
+        exclamationMark.SetActive(false);
     }
 
     void Find_Objects ()

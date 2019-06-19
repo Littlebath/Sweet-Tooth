@@ -40,6 +40,7 @@ public class Item_Effect : MonoBehaviour
         energyBoost = consumables[1].GetComponent<Item_EnergyPotion>().energy;
         Debug.Log("Energy Restored");
         psc.energyCounter += energyBoost;
+        StartCoroutine(FindObjectOfType<UI_EnergyDisplay>().Pulse());
 
         if (psc.energyCounter >= psc.maxEnergy)
         {

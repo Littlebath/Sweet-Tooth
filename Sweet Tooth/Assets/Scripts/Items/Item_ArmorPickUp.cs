@@ -33,6 +33,7 @@ public class Item_ArmorPickUp : MonoBehaviour
         {
             pso.armor++;
             //FindObjectOfType<UI_ArmorDisplay>().Init_Hearts();
+            StartCoroutine (FindObjectOfType<UI_ArmorDisplay>().Pulse());
             Destroy(gameObject);
 
 

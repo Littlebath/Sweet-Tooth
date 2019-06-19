@@ -9,6 +9,8 @@ public class QuestNPC : MonoBehaviour
     [SerializeField] private NPCFaceScriptableObject direction;
     [SerializeField] private Quest1ScriptableObject questValues;
 
+    public GameObject indication;
+
     [SerializeField] private Vector2 size;
     [SerializeField] private float distance;
 
@@ -454,6 +456,7 @@ public class QuestNPC : MonoBehaviour
             Debug.Log("Player is in");
             isInRange = true;
             canMelee = true;
+            indication.SetActive(true);
         }
     }
 
@@ -464,6 +467,7 @@ public class QuestNPC : MonoBehaviour
             //Debug.Log("Player is out");
             isInRange = false;
             canMelee = false;
+            indication.SetActive(false);
         }
     }
 
