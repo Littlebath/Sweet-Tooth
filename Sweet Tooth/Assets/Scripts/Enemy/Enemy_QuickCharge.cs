@@ -6,7 +6,6 @@ using UnityEngine;
 public class Enemy_QuickCharge : Enemy
 {
     public bool isArmorEnemy;
-    private bool isInvulnerable;
 
     private Transform target;
 
@@ -24,6 +23,11 @@ public class Enemy_QuickCharge : Enemy
     // Start is called before the first frame update
     void Start()
     {
+        if (isArmorEnemy)
+        {
+            gameObject.tag = "Invulnerable";
+        }
+
         anim = gameObject.GetComponent<Animator>();
         timeBtwChargeCounter = timeBtwCharge;
         oldColor = gameObject.GetComponent<SpriteRenderer>().color;
@@ -32,11 +36,6 @@ public class Enemy_QuickCharge : Enemy
     // Update is called once per frame
     void Update()
     {
-        if (!isArmorEnemy)
-        {
-            isInvulnerable = false;
-        }
-
         origin = transform.position;
 
         if (isCharging)
@@ -49,6 +48,18 @@ public class Enemy_QuickCharge : Enemy
             indicator.SetActive(true);
         }
 
+        if (isArmorEnemy)
+        {
+            if (gameObject.CompareTag("enemy"))
+            {
+                gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+            }
+
+            else if (gameObject.CompareTag("Invulnerable"))
+            {
+                gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+            }
+        }
 
         if (FindObjectOfType<PlayerController>() != null)
         {
@@ -107,7 +118,11 @@ public class Enemy_QuickCharge : Enemy
     {
         if (timeBtwChargeCounter <= 0)
         {
-            //Start to Charge
+            if (isArmorEnemy)
+            {
+                gameObject.tag = "Invulnerable";
+            }
+
             Vector2 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
             Vector2 direction = playerPos - origin;
             gameObject.GetComponent<Rigidbody2D>().velocity = direction.normalized * moveSpeed;
@@ -137,13 +152,16 @@ public class Enemy_QuickCharge : Enemy
 
     private IEnumerator Charge_Duration ()
     {
-                isInvulnerable = true;
         isCharging = true;
         yield return new WaitForSeconds(timeBtwCharge/2);
         gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
         isCharging = false;
-        isInvulnerable = false;
+
+        if (isArmorEnemy)
+        {
+            gameObject.tag = "enemy";
+        }
     }
 
     private void Change_State(EnemyState newState)
@@ -195,33 +213,39 @@ public class Enemy_QuickCharge : Enemy
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
         gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
 
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (!isInvulnerable)
+            if (collision.gameObject.GetComponent<PlayerController>().states == playerStates.None)
             {
-                if (collision.gameObject.GetComponent<PlayerController>().states == playerStates.None)
+                if (isArmorEnemy)
                 {
-                    FindObjectOfType<PlayerController>().Hurt_Player(baseAttack);
-                    Knock_Back_Player(collision);
-                    isInvulnerable = true;
+                    gameObject.tag = "Invulnerable";
                 }
 
-                else if (collision.gameObject.GetComponent<PlayerController>().states == playerStates.Charging)
-                {
-                    Take_Damage(2);
-                    FindObjectOfType<Player_Knockback>().Knock_Back(gameObject.GetComponent<Collider2D>());
-                }
+                FindObjectOfType<PlayerController>().Hurt_Player(baseAttack);
+                Knock_Back_Player(collision);
+                StopCoroutine(Charge_Duration());
             }
 
+            else if (collision.gameObject.GetComponent<PlayerController>().states == playerStates.Charging)
+            {
+                Take_Damage(2);
+                FindObjectOfType<Player_Knockback>().Knock_Back(gameObject.GetComponent<Collider2D>());
+
+            }
         }
 
         else if (collision.gameObject.name != "Full Level")
         {
-            isInvulnerable = false;
+            if (isArmorEnemy)
+            {
+                gameObject.tag = "enemy";
+            }
+
+            StopCoroutine(Charge_Duration());
             Knock_Back_Me(gameObject);
         }
     }
