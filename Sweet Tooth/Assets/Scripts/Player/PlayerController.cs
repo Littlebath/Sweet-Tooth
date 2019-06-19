@@ -198,42 +198,45 @@ public class PlayerController : MonoBehaviour
 
     private void Ground_Pound ()
     {
-        if (pi.groundPound)
+        if (designerValues.energyCounter >= designerValues.energyConsumptionPound)
         {
-            groundPoundCounter -= Time.deltaTime;
-
-            if (groundPoundCounter <= designerValues.chargeUpTime - designerValues.meleeTime.averageDuration)
+            if (pi.groundPound)
             {
-                //Debug.Log("Begin charging");
-                isCharingGroundpound = true;
-                currentMoveSpeed = 0f;
+                groundPoundCounter -= Time.deltaTime;
+
+                if (groundPoundCounter <= designerValues.chargeUpTime - designerValues.meleeTime.averageDuration)
+                {
+                    //Debug.Log("Begin charging");
+                    isCharingGroundpound = true;
+                    currentMoveSpeed = 0f;
+                }
+
+                if (groundPoundCounter <= 0)
+                {
+                    //Debug.Log("Charge is done");
+                    isGroundPoundReady = true;
+                    isMoving = false;
+                    anim.SetBool("isMoving", false);
+                    gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+                }
             }
 
-            if (groundPoundCounter <= 0)
+            else
             {
-                //Debug.Log("Charge is done");
-                isGroundPoundReady = true;
-                isMoving = false;
-                anim.SetBool("isMoving", false);
-                gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+                groundPoundCounter = designerValues.chargeUpTime;
             }
-        }
-
-        else
-        {
-            groundPoundCounter = designerValues.chargeUpTime;
-        }
 
 
-        if (Input.GetButtonUp("Melee") && isGroundPoundReady)
-        {
-            anim.SetTrigger("hammerAttack");
-            StartCoroutine(Ground_Pound_Attack());
-        }
+            if (Input.GetButtonUp("Melee") && isGroundPoundReady)
+            {
+                anim.SetTrigger("hammerAttack");
+                StartCoroutine(Ground_Pound_Attack());
+            }
 
-        else if (Input.GetButtonUp("Melee") && groundPoundCounter > 0)
-        {
-            isCharingGroundpound = false;
+            else if (Input.GetButtonUp("Melee") && groundPoundCounter > 0)
+            {
+                isCharingGroundpound = false;
+            }
         }
     }
 
@@ -245,6 +248,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator Ground_Pound_Attack ()
     {
         //Activate ground pound animation attack
+        designerValues.energyCounter -= designerValues.energyConsumptionPound;
         FindObjectOfType<Player_Knockback>().thrust += designerValues.increaseKnockBack;
         gameObject.GetComponent<SpriteRenderer>().color = Color.white;
         yield return new WaitForSeconds(0.1f);
@@ -787,6 +791,8 @@ public class PlayerController : MonoBehaviour
     {
         if (!isPlayerHurt)
         {
+            isCharingGroundpound = false;
+            isGroundPoundReady = false;
             FindObjectOfType<UI_HeartDisplay>().Update_Hearts();
             FindObjectOfType<CameraController>().Screen_Kick();
             StartCoroutine(Slow_Motion_Effect());

@@ -92,7 +92,11 @@ public class Enemy : MonoBehaviour
                 if (gameObject.GetComponent<Enemy_Dormant>() != null)
                 {
                     gameObject.GetComponent<Enemy_BloodImpact>().SpawnBlood();
-                    gameObject.GetComponent<Enemy_Dormant>().Detonate();
+
+                    if (gameObject.GetComponent<Enemy_Dormant>().explodeOnDeath)
+                    {
+                        gameObject.GetComponent<Enemy_Dormant>().Detonate();
+                    }
                 }
 
                 gameObject.SetActive(false);

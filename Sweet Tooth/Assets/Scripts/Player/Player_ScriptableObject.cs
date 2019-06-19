@@ -81,6 +81,7 @@ public class Player_ScriptableObject : ScriptableObject
     public float areaOfEffectRange;
     public float groundPoundDamage;
     public float increaseKnockBack;
+    public int energyConsumptionPound;
 
     [Header("Layer properties")]
     public LayerMask whatIsEnemy;
