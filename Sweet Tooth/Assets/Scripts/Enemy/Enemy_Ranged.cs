@@ -24,6 +24,8 @@ public class Enemy_Ranged : Enemy
     float timeBtwShotCounter; 
     [SerializeField] private GameObject projectile;
 
+    private Vector3 velocity;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,19 +67,21 @@ public class Enemy_Ranged : Enemy
         {
             //Debug.Log("Shoot bullet");
             GameObject bullet = Instantiate(projectile, spawnPoint, Quaternion.identity);
+            gameObject.GetComponent<Animator>().SetTrigger("squish");
             bullet.GetComponent<EnemyRanged_Bullet>().damage = baseAttack;
             Vector2 speed = new Vector2 (0f, 0f);
             Face_Direction(speed);
             //Debug.Log(speed);
             bullet.GetComponent<Rigidbody2D>().velocity = Face_Direction (speed);
             //Face_Direction(bullet.GetComponent<Rigidbody2D>().velocity);
-
+            gameObject.GetComponent<SpriteRenderer>().color = Color.white;
             timeBtwShotCounter = timeBtwShot;
         }
 
         else
         {
             timeBtwShotCounter -= Time.deltaTime;
+            gameObject.GetComponent<SpriteRenderer>().color = Color.Lerp(Color.yellow, Color.white, timeBtwShotCounter);
         }
 
     }
@@ -116,6 +120,15 @@ public class Enemy_Ranged : Enemy
         return velocity;
     }
 
+    IEnumerator Squash ()
+    {
+        Vector3 originalSize = new Vector3(1f, 1f, 1f);
+        Vector3 smallerSize = new Vector3(1.25f, 0.9f, 1f);
+        transform.localScale = Vector3.SmoothDamp(transform.localScale, smallerSize, ref velocity, 0.2f);
+        yield return new WaitForSeconds(0.2f);
+        transform.localScale = Vector3.SmoothDamp(transform.localScale, originalSize, ref velocity, 0.2f);
+    }
+
     void Turret_AI ()
     {
         if (timeBtwShotCounter <= 0)
@@ -127,6 +140,7 @@ public class Enemy_Ranged : Enemy
             bullet.GetComponent<EnemyRanged_Bullet>().damage = baseAttack;
             bullet.GetComponent<Rigidbody2D>().velocity = bulletSpeed * direction.normalized;
             //Face_Direction(bullet.GetComponent<Rigidbody2D>().velocity);
+            gameObject.GetComponent<SpriteRenderer>().color = Color.white;
 
             timeBtwShotCounter = timeBtwShot;
         }
@@ -134,6 +148,7 @@ public class Enemy_Ranged : Enemy
         else
         {
             timeBtwShotCounter -= Time.deltaTime;
+            gameObject.GetComponent<SpriteRenderer>().color = Color.Lerp(Color.red, Color.white, timeBtwShotCounter);
         }
 
         ChangeAnim(GameObject.FindGameObjectWithTag("Player").transform.position - transform.position);

@@ -114,6 +114,8 @@ public class Enemy_Log : Enemy
                         //Debug.Log(playerPos);
                         Debug.Log("Lift off");
                         isInAir = true;
+                        gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+                        gameObject.GetComponent<Animator>().SetTrigger("squish");
                     }
 
                     else
@@ -121,6 +123,7 @@ public class Enemy_Log : Enemy
                         animation = 0;
                         timer -= Time.deltaTime;
                         Debug.Log("Waiting");
+                        gameObject.GetComponent<SpriteRenderer>().color = Color.Lerp(Color.magenta, Color.white, timer);
                     }
                 }
 
@@ -229,6 +232,29 @@ public class Enemy_Log : Enemy
                 Take_Damage(2);
                 FindObjectOfType<Player_Knockback>().Knock_Back(gameObject.GetComponent<Collider2D>());
             }
+        }
+    }
+
+    public IEnumerator Squish ()
+    {
+        float t = 0;
+        Vector3 orignalSize = transform.localScale;
+        Vector3 newSize = new Vector3(0.6f, 1f, 1f);
+
+        for (int i = 0; i < 1/0.1 ; i++)
+        {
+            transform.localScale = Vector3.Lerp(transform.localScale, newSize, t);
+            yield return new WaitForSeconds(0.1f);
+            t += 0.1f;
+        }
+
+        yield return new WaitForEndOfFrame();
+
+        for (int i = 0; i < 1 / 0.1; i++)
+        {
+            transform.localScale = Vector3.Lerp(transform.localScale, orignalSize, t);
+            yield return new WaitForSeconds(0.1f);
+            t += 0.1f;
         }
     }
 

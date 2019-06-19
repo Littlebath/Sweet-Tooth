@@ -94,6 +94,7 @@ public class Enemy_ThrowExplosives : Enemy
             else
             {
                 TimeBtwBombThrowCounter -= Time.deltaTime;
+                gameObject.GetComponent<SpriteRenderer>().color = Color.Lerp(Color.red, Color.white, TimeBtwBombThrowCounter);
             }
         }
 
@@ -102,12 +103,43 @@ public class Enemy_ThrowExplosives : Enemy
     private IEnumerator ThrowManyBombs ()
     {
         TimeBtwBombThrowCounter = timeBtwBombThrow + (timeBtwBombThrow * numberOfBombs);
+        gameObject.GetComponent<SpriteRenderer>().color = Color.red;
 
         for (int i = 0; i < numberOfBombs; i++)
         {
+            gameObject.GetComponent<SpriteRenderer>().color = Color.red;
             Instantiate(bomb, transform.position, Quaternion.identity);
+            StartCoroutine(Squish());
             Debug.Log("Thrown a bomb");
             yield return new WaitForSeconds(timeBtwBombThrow);
+        }
+
+        yield return new WaitForEndOfFrame();
+        gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+    }
+
+    public IEnumerator Squish()
+    {
+        float t = 0;
+        Vector3 orignalSize = transform.localScale;
+        Vector3 newSize = new Vector3(0.6f, 1f, 1f);
+
+        for (int i = 0; i < 1 / 0.3; i++)
+        {
+            transform.localScale = Vector3.Lerp(transform.localScale, newSize, t);
+            yield return new WaitForSeconds(0.05f);
+            t += 0.3f;
+        }
+
+        yield return new WaitForEndOfFrame();
+
+        t = 0;
+
+        for (int i = 0; i < 1 / 0.3f; i++)
+        {
+            transform.localScale = Vector3.Lerp(transform.localScale, orignalSize, t);
+            yield return new WaitForSeconds(0.05f);
+            t += 0.3f;
         }
     }
 
