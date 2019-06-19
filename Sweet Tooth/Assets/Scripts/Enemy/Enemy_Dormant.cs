@@ -12,6 +12,7 @@ public class Enemy_Dormant : Enemy
     public GameObject bigBomb;
 
     public bool isStandingBomb;
+    public bool explodeOnDeath;
 
     [HideInInspector] public bool isAggressive;
     private float bombHealth;
