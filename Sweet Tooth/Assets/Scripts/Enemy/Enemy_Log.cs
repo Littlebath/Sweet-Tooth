@@ -23,6 +23,7 @@ public class Enemy_Log : Enemy
 
     bool isInAir;
     private float animation;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -67,14 +68,30 @@ public class Enemy_Log : Enemy
                 //Jumping in 
                 if (isInAir)
                 {
-                    if (Vector2.Distance(transform.position, playerPos) <= 0.1f)
+                    if (Vector2.Distance(transform.position, playerPos) <= 0.6f)
                     {
                         isInAir = false;
                         Debug.Log("Landed");
+                        gameObject.GetComponent<BoxCollider2D>().enabled = true;
+
+                        /*//Breakable Objects
+                        Collider2D[] player = Physics2D.OverlapCircleAll(transform.position, 1f);
+
+                        for (int i = 0; i < player.Length; i++)
+                        {                         
+                            if (player[i].CompareTag("Player"))
+                            {
+                                player[i].GetComponent<PlayerController>().Hurt_Player(baseAttack);
+                               // Knock_Back_Player(player[i].GetComponent<Collision2D>());
+                                Knock_Back_Me(gameObject);
+                            }                            
+                        }*/
                     }
 
                     else
                     {
+                        gameObject.GetComponent<BoxCollider2D>().enabled = false;
+
                         animation += Time.deltaTime;
 
                         animation = animation % 5;
@@ -202,6 +219,7 @@ public class Enemy_Log : Enemy
             {
                 FindObjectOfType<PlayerController>().Hurt_Player(baseAttack);
                 isInAir = false;
+                gameObject.GetComponent<BoxCollider2D>().enabled = true;
                 Knock_Back_Player(collision);
                 Knock_Back_Me(gameObject);
             }

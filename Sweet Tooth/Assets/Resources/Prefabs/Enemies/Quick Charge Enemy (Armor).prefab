@@ -375,7 +375,6 @@ GameObject:
   - component: {fileID: 4560065221529286633}
   - component: {fileID: 8061680183319134112}
   - component: {fileID: 8674132040826627896}
-  - component: {fileID: 6736537714375491244}
   - component: {fileID: 8424848419483913538}
   m_Layer: 10
   m_Name: Enemy
@@ -392,7 +391,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7132096279161343116}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 28, y: -22.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6193235443710750387}
@@ -531,7 +530,7 @@ MonoBehaviour:
   health: 4
   enemyName: Larry the Bull
   baseAttack: 2
-  moveSpeed: 4
+  moveSpeed: 5
   currentState: 0
   enemyDeathEffect: {fileID: 1198431140947087119, guid: d6f2eadd9d5d74926a0275f684319914,
     type: 3}
@@ -540,9 +539,10 @@ MonoBehaviour:
   shield: {fileID: 0}
   anim: {fileID: 0}
   oldColor: {r: 0, g: 0, b: 0, a: 0}
+  isArmorEnemy: 1
   chaseRadius: 5
   indicator: {fileID: 3832792441613944212}
-  timeBtwCharge: 3
+  timeBtwCharge: 5
 --- !u!114 &8674132040826627896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -558,19 +558,6 @@ MonoBehaviour:
   percentageOfSpawningItem: 100
   itemsToSpawn:
   - {fileID: 6844156431278092323, guid: 8f60c2ad47fe23c4f999829199fa2e08, type: 3}
---- !u!114 &6736537714375491244
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7132096279161343116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc46b086d70412d4a8706d03085d183e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  obj: {fileID: 11400000, guid: 8e711425f41b461408c8a5ee72bddac1, type: 2}
 --- !u!114 &8424848419483913538
 MonoBehaviour:
   m_ObjectHideFlags: 0
