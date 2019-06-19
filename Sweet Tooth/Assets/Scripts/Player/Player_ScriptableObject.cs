@@ -35,10 +35,10 @@ public class Player_ScriptableObject : ScriptableObject
     [Tooltip("How long the player dashes for")]
     public float dashTime = 0.5f;
     [Tooltip("Energy needed for special attacks")]
-    public int maxEnergy;
-    [HideInInspector] public int energyCounter = 50;
+    public float maxEnergy;
+    public float energyCounter = 50;
     public float energyRegenerateTime;
-    public int energyRegenerateAmount;
+    public float energyRegenerateAmount;
 
     [Header("Melee properties")]
     [Tooltip("How big is the melee collision box. It is a red circle in scene view")]
