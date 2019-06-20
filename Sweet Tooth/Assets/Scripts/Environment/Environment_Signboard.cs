@@ -15,6 +15,7 @@ public class Environment_Signboard : MonoBehaviour
     void Start()
     {
         indicator.SetActive(false);
+        UI.SetActive(false);
     }
 
     // Update is called once per frame
