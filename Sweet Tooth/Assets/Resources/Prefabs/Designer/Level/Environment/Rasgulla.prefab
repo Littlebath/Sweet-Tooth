@@ -129,8 +129,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b463e22f2b25b7744bde4745592303b4, type: 3}
-  m_Color: {r: 0.88246846, g: 0.990566, b: 0.11681201, a: 0.6156863}
+  m_Sprite: {fileID: 21300160, guid: 914ce2987b3937d47be8e29d2216f437, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -180,6 +180,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   newSize: {x: 1.25, y: 1.25, z: 1.25}
   timeToShrink: 3
+  effect: {fileID: 8664926025614660676, guid: 93edb6ac6d5f79f4ba1d836204c464cb, type: 3}
 --- !u!114 &131339144645302446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,6 +193,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15c64963cfe73ab479255f7d8e914371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 1, g: 0.023584902, b: 0.023584902, a: 0}
+  color: {r: 0.115877524, g: 0.7924528, b: 0.7483988, a: 0}
   radius: 1.5
-  outlineSize: 1
+  outlineSize: 2

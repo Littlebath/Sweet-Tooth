@@ -24,6 +24,7 @@ public class Environment_HeartPickup : MonoBehaviour
             if (pso.health < pso.maxHealth)
             {
                 StartCoroutine(FindObjectOfType<UI_HeartDisplay>().Pulse());
+                FindObjectOfType<UI_HeartDisplay>().GetComponent<Animator>().SetTrigger("pulse");
                 pso.health += 2;
                 gameObject.SetActive(false);
             }
