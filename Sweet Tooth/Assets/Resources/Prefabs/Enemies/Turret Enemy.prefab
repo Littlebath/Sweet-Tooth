@@ -85,6 +85,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1899254473}
+  - {fileID: 2194729605552973208}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -124,7 +125,6 @@ Transform:
   m_Children:
   - {fileID: 573065028}
   - {fileID: 8297338982536879994}
-  - {fileID: 2194729605552973208}
   m_Father: {fileID: 1773145909}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -253,7 +253,7 @@ MonoBehaviour:
   radius: 3
   projectile: {fileID: 3890128013227089402, guid: ff5c82779f870c2448a6eaeeae2cdcaa,
     type: 3}
-  direction: {fileID: 1178257086609983855}
+  direction: {fileID: 0}
 --- !u!95 &1899254474
 Animator:
   serializedVersion: 3
@@ -336,8 +336,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1899254473}
-  m_RootOrder: 2
+  m_Father: {fileID: 1773145909}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8469695511063538206
 SpriteRenderer:
