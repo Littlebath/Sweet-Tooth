@@ -24,6 +24,8 @@ public class Enemy_Ranged : Enemy
     float timeBtwShotCounter; 
     [SerializeField] private GameObject projectile;
 
+    public GameObject direction;
+
     private Vector3 velocity;
 
     // Start is called before the first frame update
@@ -134,13 +136,14 @@ public class Enemy_Ranged : Enemy
         if (timeBtwShotCounter <= 0)
         {
             Debug.Log("Shoot bullet");
-            Vector3 direction = GameObject.FindGameObjectWithTag("Player").transform.position - transform.position;
-            spawnPoint = transform.position + direction.normalized;
+            Vector3 aim = GameObject.FindGameObjectWithTag("Player").transform.position - transform.position;
+            spawnPoint = transform.position + aim.normalized;
             GameObject bullet = Instantiate(projectile, spawnPoint, Quaternion.identity);
             bullet.GetComponent<EnemyRanged_Bullet>().damage = baseAttack;
-            bullet.GetComponent<Rigidbody2D>().velocity = bulletSpeed * direction.normalized;
+            bullet.GetComponent<Rigidbody2D>().velocity = bulletSpeed * aim.normalized;
             //Face_Direction(bullet.GetComponent<Rigidbody2D>().velocity);
             gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+            direction.SetActive(false);
 
             timeBtwShotCounter = timeBtwShot;
         }
@@ -149,6 +152,16 @@ public class Enemy_Ranged : Enemy
         {
             timeBtwShotCounter -= Time.deltaTime;
             gameObject.GetComponent<SpriteRenderer>().color = Color.Lerp(Color.red, Color.white, timeBtwShotCounter);
+
+
+            Vector3 aim = direction.transform.position - FindObjectOfType<PlayerController>().transform.position;
+            Vector2 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
+
+            float angle = Mathf.Atan2(aim.y, aim.x) * Mathf.Rad2Deg;
+            Quaternion lookRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            direction.transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, 10f);
+            direction.transform.localScale = Vector3.Lerp(new Vector3(1f, 1f), Vector3.zero, timeBtwShotCounter / timeBtwShot);
+            direction.SetActive(true);
         }
 
         ChangeAnim(GameObject.FindGameObjectWithTag("Player").transform.position - transform.position);

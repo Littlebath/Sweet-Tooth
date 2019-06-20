@@ -7,6 +7,8 @@ public class Environment_Metal : MonoBehaviour
     [SerializeField] private Vector3 newSize;
     [SerializeField] private float timeToShrink;
 
+    public GameObject effect;
+
     private bool canBeHeated = true;
     private Vector3 originalSize; 
 
@@ -40,10 +42,33 @@ public class Environment_Metal : MonoBehaviour
     {
         if (canBeHeated)
         {
+            Instantiate(effect, transform.position, Quaternion.identity);
             canBeHeated = false;
-            gameObject.transform.localScale = newSize;
+            Debug.Log("Pulse");
+            float t = 0;
+            Vector3 orignalSize = transform.localScale;
+            Vector3 newSize = new Vector3(1.3f, 1.3f, 1f);
+
+            for (int i = 0; i < 1 / 0.3; i++)
+            {
+                gameObject.transform.localScale = Vector3.Lerp(transform.localScale, newSize, t);
+                yield return new WaitForSeconds(0.05f);
+                t += 0.5f;
+            }
+
             yield return new WaitForSeconds(timeToShrink);
-            gameObject.transform.localScale = originalSize;
+
+            t = 0;
+
+            for (int i = 0; i < 1 / 0.3f; i++)
+            {
+                gameObject.transform.localScale = Vector3.Lerp(transform.localScale, orignalSize, t);
+                yield return new WaitForSeconds(0.05f);
+                t += 0.5f;
+            }
+            //gameObject.transform.localScale = newSize;
+            //yield return new WaitForSeconds(timeToShrink);
+            //gameObject.transform.localScale = originalSize;
             canBeHeated = true;
         }
     }

@@ -159,6 +159,7 @@ public class PlayerController : MonoBehaviour
             {
                 designerValues.energyCounter += designerValues.energyRegenerateAmount;
                 energyTimeCounter = designerValues.energyRegenerateTime;
+                FindObjectOfType<UI_EnergyDisplay>().GetComponent<Animator>().SetTrigger("pulse");
             }
         }
 
@@ -797,6 +798,7 @@ public class PlayerController : MonoBehaviour
             FindObjectOfType<CameraController>().Screen_Kick();
             StartCoroutine(Slow_Motion_Effect());
             StartCoroutine(Flash());
+            StartCoroutine(FindObjectOfType<UI_HeartDisplay>().Pulse());
             //Handheld.Vibrate();
 
             if (FindObjectOfType<Manager_Dialogue>().isTalking)

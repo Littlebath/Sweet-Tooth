@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class pot : MonoBehaviour
 {
+    public GameObject effect;
 
     private Animator anim;
 
@@ -35,6 +36,7 @@ public class pot : MonoBehaviour
     {
         anim.SetBool("smash", true);
         StartCoroutine(breakCo());
+        Instantiate(effect, transform.position, Quaternion.identity);
     }
 
     IEnumerator breakCo()

@@ -17,12 +17,20 @@ public class UI_HeartDisplay : MonoBehaviour
     {
         Init_Hearts();
         Update_Hearts();
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
         Update_Hearts();
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            Debug.Log("Pulse activate");
+            StartCoroutine(Pulse());
+        }
     }
 
     public void Init_Hearts ()
@@ -33,6 +41,32 @@ public class UI_HeartDisplay : MonoBehaviour
         {
             hearts[i].gameObject.SetActive(true);
             hearts[i].sprite = fullHeart;
+        }
+    }
+
+    public IEnumerator Pulse ()
+    {
+        Debug.Log("Pulse");
+        float t = 0;
+        Vector3 orignalSize = transform.localScale;
+        Vector3 newSize = new Vector3(1.3f, 1.3f, 1f);
+
+        for (int i = 0; i < 1 / 0.3; i++)
+        {
+            gameObject.GetComponent<RectTransform>().localScale = Vector3.Lerp(transform.localScale, newSize, t);
+            yield return new WaitForSeconds(0.05f);
+            t += 0.7f;
+        }
+
+        yield return new WaitForEndOfFrame();
+
+        t = 0;
+
+        for (int i = 0; i < 1 / 0.3f; i++)
+        {
+            gameObject.GetComponent<RectTransform>().localScale = Vector3.Lerp(transform.localScale, orignalSize, t);
+            yield return new WaitForSeconds(0.05f);
+            t += 0.7f;
         }
     }
 

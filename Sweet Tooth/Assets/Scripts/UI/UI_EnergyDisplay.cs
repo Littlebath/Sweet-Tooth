@@ -41,6 +41,32 @@ public class UI_EnergyDisplay : MonoBehaviour
         }
     }
 
+
+    public IEnumerator Pulse()
+    {
+        float t = 0;
+        Vector3 orignalSize = transform.localScale;
+        Vector3 newSize = new Vector3(1.3f, 1.3f, 1f);
+
+        for (int i = 0; i < 1 / 0.3; i++)
+        {
+            gameObject.GetComponent<RectTransform>().localScale = Vector3.Lerp(transform.localScale, newSize, t);
+            yield return new WaitForSeconds(0.05f);
+            t += 0.5f;
+        }
+
+        yield return new WaitForEndOfFrame();
+
+        t = 0;
+
+        for (int i = 0; i < 1 / 0.3f; i++)
+        {
+            gameObject.GetComponent<RectTransform>().localScale = Vector3.Lerp(transform.localScale, orignalSize, t);
+            yield return new WaitForSeconds(0.05f);
+            t += 0.5f;
+        }
+    }
+
     public void Update_Hearts()
     {
         float tempHealth = pso.energyCounter / 2;

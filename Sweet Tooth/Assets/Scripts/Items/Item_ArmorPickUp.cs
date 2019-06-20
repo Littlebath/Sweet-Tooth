@@ -32,7 +32,9 @@ public class Item_ArmorPickUp : MonoBehaviour
         if (collision.gameObject.CompareTag ("Player"))
         {
             pso.armor++;
+            FindObjectOfType<UI_ArmorDisplay>().GetComponent<Animator>().SetTrigger("pulse");
             //FindObjectOfType<UI_ArmorDisplay>().Init_Hearts();
+            StartCoroutine (FindObjectOfType<UI_ArmorDisplay>().Pulse());
             Destroy(gameObject);
 
 

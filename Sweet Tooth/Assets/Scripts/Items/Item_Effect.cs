@@ -28,6 +28,7 @@ public class Item_Effect : MonoBehaviour
         healthBoost = consumables[0].GetComponent<Item_HealthPotion>().health;
         Debug.Log("Health Restored");
         psc.health += healthBoost;
+        FindObjectOfType<UI_HeartDisplay>().GetComponent<Animator>().SetTrigger("pulse");
 
         if (psc.health >= psc.maxHealth)
         {
@@ -40,6 +41,8 @@ public class Item_Effect : MonoBehaviour
         energyBoost = consumables[1].GetComponent<Item_EnergyPotion>().energy;
         Debug.Log("Energy Restored");
         psc.energyCounter += energyBoost;
+        StartCoroutine(FindObjectOfType<UI_EnergyDisplay>().Pulse());
+        FindObjectOfType<UI_EnergyDisplay>().GetComponent<Animator>().SetTrigger("pulse");
 
         if (psc.energyCounter >= psc.maxEnergy)
         {
