@@ -88,6 +88,11 @@ public class QuestTrigger : MonoBehaviour
                             gameObject.GetComponent<Save_ObjState>().obj.saveState = 1;
                             gameObject.GetComponent<Save_ObjState>().obj.ForceSerialization();
                             gameObject.SetActive(false);
+
+                            if (ID == 3)
+                            {
+                                gameObject.transform.GetChild(1).gameObject.SetActive(false);
+                            }
                         }
                     }
                 }
@@ -208,6 +213,7 @@ public class QuestTrigger : MonoBehaviour
         else if (ID == 3)
         {
             dialogueSelector = 0;
+            gameObject.transform.GetChild(1).gameObject.SetActive(true);
             //questValues.objectives2[2] = true;
         }
 
