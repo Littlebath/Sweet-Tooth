@@ -36,6 +36,7 @@ public class Enemy_Ranged : Enemy
         Face_Direction(new Vector2(0F, 0F));
         timeBtwShotCounter = timeBtwShot;
         oldColor = gameObject.GetComponent<SpriteRenderer>().color;
+        direction.SetActive(false);
     }
 
     // Update is called once per frame
@@ -52,7 +53,9 @@ public class Enemy_Ranged : Enemy
 
                 else
                 {
-                   //Nothing happens
+                    //Nothing happens
+                    direction.SetActive(false);
+                    gameObject.GetComponent<SpriteRenderer>().color = Color.white;
                 }
             }
 
@@ -154,7 +157,7 @@ public class Enemy_Ranged : Enemy
             gameObject.GetComponent<SpriteRenderer>().color = Color.Lerp(Color.red, Color.white, timeBtwShotCounter);
 
 
-            Vector3 aim = direction.transform.position - FindObjectOfType<PlayerController>().transform.position;
+            Vector3 aim = FindObjectOfType<PlayerController>().transform.position - direction.transform.position;
             Vector2 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
 
             float angle = Mathf.Atan2(aim.y, aim.x) * Mathf.Rad2Deg;
