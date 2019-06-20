@@ -6,13 +6,15 @@ public class Environment_Signboard : MonoBehaviour
 {
     public GameObject UI;
 
+    public GameObject indicator;
+
     private bool isInRange;
     private bool isInMap;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        indicator.SetActive(false);
     }
 
     // Update is called once per frame
@@ -71,6 +73,7 @@ public class Environment_Signboard : MonoBehaviour
         {
             Debug.Log("In trigger");
             isInRange = true;
+            indicator.SetActive(true);
         }
     }
 
@@ -80,6 +83,7 @@ public class Environment_Signboard : MonoBehaviour
         {
             Debug.Log("Out of trigger");
             isInRange = false;
+            indicator.SetActive(false);
         }
     }
 }

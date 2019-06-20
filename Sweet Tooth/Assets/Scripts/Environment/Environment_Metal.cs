@@ -47,7 +47,7 @@ public class Environment_Metal : MonoBehaviour
             Debug.Log("Pulse");
             float t = 0;
             Vector3 orignalSize = transform.localScale;
-            Vector3 newSize = new Vector3(1.3f, 1.3f, 1f);
+            
 
             for (int i = 0; i < 1 / 0.3; i++)
             {

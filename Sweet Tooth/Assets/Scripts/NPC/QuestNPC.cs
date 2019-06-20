@@ -38,6 +38,7 @@ public class QuestNPC : MonoBehaviour
     void Start()
     {
         //Debug.Log(gameObject.name + " has " + allDialogues.transform.childCount + " dialogues to be said");
+        indication.SetActive(false);
     }
 
     // Update is called once per frame
