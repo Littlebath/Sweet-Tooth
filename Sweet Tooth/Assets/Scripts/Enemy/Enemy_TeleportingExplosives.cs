@@ -45,10 +45,9 @@ public class Enemy_TeleportingExplosives : Enemy
             if (target != null)
             {
                 Check_Distance();
+                Set_Anim_Float(target.position - transform.position);
             }
         }
-
-        transform.position = points[pointer].position;
     }
 
 
@@ -102,6 +101,8 @@ public class Enemy_TeleportingExplosives : Enemy
         {
             pointer++;
         }
+
+        transform.position = points[pointer].position;
         //Teleport
     }
 
