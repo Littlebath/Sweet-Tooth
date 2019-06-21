@@ -39,6 +39,7 @@ public class Player_ScriptableObject : ScriptableObject
     public float energyCounter = 50;
     public float energyRegenerateTime;
     public float energyRegenerateAmount;
+    public float dashEnergyConsumed;
 
     [Header("Melee properties")]
     [Tooltip("How big is the melee collision box. It is a red circle in scene view")]

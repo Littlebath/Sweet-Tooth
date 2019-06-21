@@ -681,7 +681,7 @@ public class PlayerController : MonoBehaviour
             if (designerValues.energyCounter > 0)
             {
                 isDashing = true;
-                designerValues.energyCounter--;
+                designerValues.energyCounter -= designerValues.dashEnergyConsumed;
             }
         }
     }
