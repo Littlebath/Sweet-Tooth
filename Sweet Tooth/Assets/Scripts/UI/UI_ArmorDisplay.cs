@@ -20,7 +20,7 @@ public class UI_ArmorDisplay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //originalColor = hearts[0].color;
+        originalColor = hearts[0].color;
         Init_Hearts();
         Update_Hearts();
     }
