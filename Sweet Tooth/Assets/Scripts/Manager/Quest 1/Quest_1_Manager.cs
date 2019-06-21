@@ -120,7 +120,6 @@ public class Quest_1_Manager : MonoBehaviour
 
         else if (SceneManager.GetActiveScene().name == "Area 1 Zone 2")
         {
-            jackRescue.SetActive(true);
             foundPercyTrigger.SetActive(true);
 
             if (questValues.objectives2[2] == false)
@@ -131,6 +130,11 @@ public class Quest_1_Manager : MonoBehaviour
             else
             {
                 percySave.SetActive(true);
+            }
+
+            if (questValues.pathA[3] == true)
+            {
+                jackRescue.SetActive(true);
             }
 
             if (questValues.objectives3A[2] == true)
