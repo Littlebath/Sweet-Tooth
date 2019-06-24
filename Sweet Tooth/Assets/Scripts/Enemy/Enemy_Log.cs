@@ -10,6 +10,7 @@ public class Enemy_Log : Enemy
     public float attackRadius;
     public Transform homePosition;
     public float timerJump;
+    public GameObject dropShadow;
 
     private Vector2 origin;
     private Vector2 playerPos;
@@ -27,6 +28,7 @@ public class Enemy_Log : Enemy
     // Start is called before the first frame update
     void Start()
     {
+        dropShadow.SetActive(false);
         timeBtwChangeDirectionCounter = timeBtwChangeDirection;
         timer = timerJump;
         anim = gameObject.GetComponent<Animator>();
@@ -73,6 +75,7 @@ public class Enemy_Log : Enemy
                         isInAir = false;
                         Debug.Log("Landed");
                         gameObject.GetComponent<BoxCollider2D>().enabled = true;
+                        dropShadow.SetActive(false);
 
                         /*//Breakable Objects
                         Collider2D[] player = Physics2D.OverlapCircleAll(transform.position, 1f);
@@ -111,6 +114,8 @@ public class Enemy_Log : Enemy
                         origin = gameObject.transform.position;
                         timer = timerJump;
                         playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
+                        dropShadow.transform.position = playerPos;
+                        dropShadow.SetActive(true);
                         //Debug.Log(playerPos);
                         Debug.Log("Lift off");
                         isInAir = true;
@@ -120,6 +125,7 @@ public class Enemy_Log : Enemy
 
                     else
                     {
+                        dropShadow.SetActive(false);
                         animation = 0;
                         timer -= Time.deltaTime;
                         Debug.Log("Waiting");
