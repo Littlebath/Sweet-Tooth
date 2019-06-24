@@ -618,7 +618,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Slow_Motion_Effect ()
     {
-        Time.timeScale = 0f;
+        Time.timeScale = 0.5f;
         yield return new WaitForSecondsRealtime(0.1f);
         Time.timeScale = 1f;
     }
