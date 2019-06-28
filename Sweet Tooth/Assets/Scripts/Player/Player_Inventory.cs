@@ -85,7 +85,7 @@ public class Player_Inventory : Inventory
             inventorySystem.SetActive(true);
             StartCoroutine(FindObjectOfType<Inventory_System>().Update_Inventory());
             StartCoroutine(Stop_Player_Movement());
-            Time.timeScale = 0;
+            Time.timeScale = 0.01f;
             yield return null;
         }
     }

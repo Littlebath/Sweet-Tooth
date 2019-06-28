@@ -16,6 +16,7 @@ public class Environment_Signboard : MonoBehaviour
     {
         indicator.SetActive(false);
         UI.SetActive(false);
+        //Camera.main.cullingMask = 1 << LayerMask.NameToLayer("Enemies");
     }
 
     // Update is called once per frame
@@ -41,6 +42,7 @@ public class Environment_Signboard : MonoBehaviour
     {
         if (!isInMap)
         {
+            Camera.main.cullingMask = 1 << 0;
             UI.SetActive(true);
             Debug.Log("Open");
             FindObjectOfType<PlayerController>().rb2d.velocity = Vector2.zero;
@@ -59,6 +61,7 @@ public class Environment_Signboard : MonoBehaviour
     {
         if (isInMap)
         {
+            Camera.main.cullingMask = 10 << 1;
             UI.SetActive(false);
             FindObjectOfType<PlayerController>().enabled = true;
             FindObjectOfType<PlayerController>().GetComponent<Animator>().SetBool("isMoving", false);

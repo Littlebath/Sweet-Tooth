@@ -25,9 +25,12 @@ public class Enemy_Log : Enemy
     bool isInAir;
     private float animation;
 
+    private Vector3 dropShadowSize;
+
     // Start is called before the first frame update
     void Start()
     {
+        dropShadowSize = dropShadow.transform.localScale;
         dropShadow.SetActive(false);
         timeBtwChangeDirectionCounter = timeBtwChangeDirection;
         timer = timerJump;
@@ -94,7 +97,6 @@ public class Enemy_Log : Enemy
                     else
                     {
                         gameObject.GetComponent<BoxCollider2D>().enabled = false;
-
                         animation += Time.deltaTime;
 
                         animation = animation % 5;
@@ -121,6 +123,7 @@ public class Enemy_Log : Enemy
                         isInAir = true;
                         gameObject.GetComponent<SpriteRenderer>().color = Color.white;
                         gameObject.GetComponent<Animator>().SetTrigger("squish");
+                        StartCoroutine(DropShadowSizeChange());
                     }
 
                     else
@@ -262,6 +265,22 @@ public class Enemy_Log : Enemy
             yield return new WaitForSeconds(0.1f);
             t += 0.1f;
         }
+    }
+
+    public IEnumerator DropShadowSizeChange()
+    {
+        float t = 0;
+        Vector3 orignalSize = dropShadowSize;
+        Vector3 newSize = new Vector3(0f, 0f, 0f);
+
+        for (int i = 0; i < 1 / 0.3; i++)
+        {
+            transform.localScale = Vector3.Lerp(transform.localScale, newSize, t);
+            yield return new WaitForSeconds(0.2f);
+            t += 0.3f;
+        }
+
+        yield return new WaitForEndOfFrame();
     }
 
     private void OnDrawGizmosSelected()
