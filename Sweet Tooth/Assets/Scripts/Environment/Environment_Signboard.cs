@@ -8,6 +8,8 @@ public class Environment_Signboard : MonoBehaviour
 
     public GameObject indicator;
 
+    public GameObject enemies;
+
     private bool isInRange;
     private bool isInMap;
 
@@ -42,7 +44,12 @@ public class Environment_Signboard : MonoBehaviour
     {
         if (!isInMap)
         {
-            Camera.main.cullingMask = 1 << 0;
+            //Camera.main.cullingMask = 1 << 0;
+            if (enemies != null)
+            {
+                enemies.SetActive(false);
+            }
+
             UI.SetActive(true);
             Debug.Log("Open");
             FindObjectOfType<PlayerController>().rb2d.velocity = Vector2.zero;
@@ -61,7 +68,12 @@ public class Environment_Signboard : MonoBehaviour
     {
         if (isInMap)
         {
-            Camera.main.cullingMask = 10 << 1;
+            //Camera.main.cullingMask = 10 << 1;
+            if (enemies != null)
+            {
+                enemies.SetActive(true);
+            }
+
             UI.SetActive(false);
             FindObjectOfType<PlayerController>().enabled = true;
             FindObjectOfType<PlayerController>().GetComponent<Animator>().SetBool("isMoving", false);
