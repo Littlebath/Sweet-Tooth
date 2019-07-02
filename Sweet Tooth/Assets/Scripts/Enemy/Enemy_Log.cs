@@ -160,6 +160,8 @@ public class Enemy_Log : Enemy
             {
                 shield.SetActive(false);
             }
+
+            dropShadow.SetActive(false);
         }
     }
           
