@@ -28,7 +28,7 @@ public class Item : MonoBehaviour
     void Start()
     {        
         piso = FindObjectOfType<Player_Inventory>();
-        //StartCoroutine(EnablePickup());
+        StartCoroutine(EnablePickup());
 
         if (gameObject.GetComponent<Save_ObjState>() != null)
         {
