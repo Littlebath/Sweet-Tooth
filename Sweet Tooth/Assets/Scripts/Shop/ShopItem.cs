@@ -33,7 +33,7 @@ public class ShopItem : MonoBehaviour
         {
             if (mySystem.currentSelectedGameObject == gameObject)
             {
-                itemCost.GetComponent<Text>().text = "$" + itemDetails.itemCost.ToString();
+                itemCost.GetComponent<Text>().text = itemDetails.itemCost.ToString();
                 itemName.GetComponent<Text>().text = itemDetails.itemName;
                 description.GetComponent<Text>().text = itemDetails.description;
                 itemSprite.GetComponent<Image>().sprite = itemDetails.itemSprite;
